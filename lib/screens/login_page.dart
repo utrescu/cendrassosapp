@@ -1,3 +1,4 @@
+import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/models/djau.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +13,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(fontSize: 20, color: Colors.white);
-    const subTextStyle = TextStyle(color: Colors.grey, fontSize: 16);
-
     final titol = Padding(
         padding: EdgeInsets.only(left: 15, bottom: 10),
         child: Text(
@@ -31,6 +29,7 @@ class LoginPage extends StatelessWidget {
           child: CircleAvatar(
             radius: 56.0,
             child: Image.asset('images/logo_cendrassos.png'),
+            backgroundColor: secondaryColor,
           )),
     );
 
@@ -42,8 +41,8 @@ class LoginPage extends StatelessWidget {
         controller: usernameController,
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
-            hintText: 'Nom d\'usuari',
-            contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+          hintText: 'Nom d\'usuari',
+          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         ),
       ),
     );
@@ -56,8 +55,8 @@ class LoginPage extends StatelessWidget {
         keyboardType: TextInputType.text,
         obscureText: true,
         decoration: InputDecoration(
-            hintText: 'Paraula de pas',
-            contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+          hintText: 'Paraula de pas',
+          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         ),
       ),
     );
@@ -65,11 +64,7 @@ class LoginPage extends StatelessWidget {
     final buttonLogin = Padding(
       padding: EdgeInsets.only(bottom: 5),
       child: ElevatedButton(
-        child: Text('Inicia la sessió', style: textStyle),
-        style: ElevatedButton.styleFrom(
-            onPrimary: Colors.white,
-            primary: const Color.fromRGBO(217, 48, 29, 1),
-            onSurface: Colors.grey),
+        child: Text('Inicia la sessió'),
         onPressed: () =>
             login(context) ? null : Navigator.pushNamed(context, '/dashboard'),
       ),
@@ -78,7 +73,6 @@ class LoginPage extends StatelessWidget {
     final buttonForgotPassword = TextButton(
         child: Text(
           'Obtenir o recuperar l\'accés',
-          style: subTextStyle,
         ),
         onPressed: null);
 

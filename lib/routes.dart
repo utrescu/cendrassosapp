@@ -1,3 +1,4 @@
+import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/models/djau.dart';
 import 'package:cendrassos/screens/dashboard.dart';
 import 'package:cendrassos/screens/login_page.dart';
@@ -21,9 +22,7 @@ class Routes {
       ],
       child: new MaterialApp(
           title: "Institut Cendrassos",
-          theme: ThemeData(
-            primarySwatch: Colors.grey,
-          ),
+          theme: cendrassosTheme,
           debugShowCheckedModeBanner: false,
           initialRoute: initialRoute,
           routes: routes),

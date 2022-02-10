@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -48,17 +49,8 @@ class Notificacio {
   }
 
   Color getColor() {
-    switch (this.tipus) {
-      case NotificacioType.falta:
-        return const Color(0xFF00BCD4);
-      case NotificacioType.incidencia:
-        return const Color(0xFFFF9800);
-      case NotificacioType.expulsio:
-        return const Color(0xFFF44336);
-      case NotificacioType.observacio:
-        return const Color(0xFF4CAF50);
-    }
-    // return Color(0x00000000);
+    var color = notificacionsColor[this.tipus.toShortString()];
+    return color == null ? defaultColor : color;
   }
 
   static bool isSameDay(DateTime? dateA, DateTime? dateB) {

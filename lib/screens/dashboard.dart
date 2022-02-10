@@ -70,17 +70,13 @@ class _DashBoardState extends State<Dashboard> {
         automaticallyImplyLeading: false,
         title: Text(
           'Alumne: $username',
-          style: TextStyle(
-            color: Colors.white,
-          ),
         ),
         actions: [
           IconButton(
-              icon: Icon(Icons.account_box),
-              onPressed: () {}, // TODO Afegir alumne o switch
-              color: Colors.white)
+            icon: Icon(Icons.account_box),
+            onPressed: () {}, // TODO Afegir alumne o switch
+          )
         ],
-        backgroundColor: const Color.fromRGBO(217, 48, 29, 1),
       ),
       body: RefreshIndicator(
         onRefresh: () => _bloc.fetchNotificacions(_month),
