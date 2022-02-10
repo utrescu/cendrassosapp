@@ -1,15 +1,11 @@
 class ApiResponse<T> {
   Status status;
+  T data;
+  String message = "";
 
-  T? data;
-
-  String? message;
-
-  ApiResponse.loading(this.message) : status = Status.LOADING;
-
+  ApiResponse.loading(this.message, this.data) : status = Status.LOADING;
   ApiResponse.completed(this.data) : status = Status.COMPLETED;
-
-  ApiResponse.error(this.message) : status = Status.ERROR;
+  ApiResponse.error(this.message, this.data) : status = Status.ERROR;
 
   @override
   String toString() {

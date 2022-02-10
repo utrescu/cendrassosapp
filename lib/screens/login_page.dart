@@ -44,8 +44,7 @@ class LoginPage extends StatelessWidget {
         decoration: InputDecoration(
             hintText: 'Nom d\'usuari',
             contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
+        ),
       ),
     );
 
@@ -59,8 +58,7 @@ class LoginPage extends StatelessWidget {
         decoration: InputDecoration(
             hintText: 'Paraula de pas',
             contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
+        ),
       ),
     );
 
@@ -70,7 +68,7 @@ class LoginPage extends StatelessWidget {
         child: Text('Inicia la sessió', style: textStyle),
         style: ElevatedButton.styleFrom(
             onPrimary: Colors.white,
-            primary: Colors.blue[700],
+            primary: const Color.fromRGBO(217, 48, 29, 1),
             onSurface: Colors.grey),
         onPressed: () =>
             login(context) ? null : Navigator.pushNamed(context, '/dashboard'),

@@ -7,6 +7,8 @@ import 'dart:async';
 class ApiBaseHelper {
   final String _baseUrl = "http://localhost:3000/api";
 
+  static const String NOINTERNET = "Sense connexió a Internet";
+
   Future<dynamic> get(String url) async {
     print('Api Get, url $url');
     var responseJson;
@@ -15,9 +17,8 @@ class ApiBaseHelper {
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
-      throw FetchDataException('No Internet connection');
+      throw FetchDataException(NOINTERNET);
     }
-    print('api get recieved!');
     return responseJson;
   }
 
@@ -29,9 +30,8 @@ class ApiBaseHelper {
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
-      throw FetchDataException('No Internet connection');
+      throw FetchDataException(NOINTERNET);
     }
-    print('api post.');
     return responseJson;
   }
 
@@ -43,9 +43,8 @@ class ApiBaseHelper {
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
-      throw FetchDataException('No Internet connection');
+      throw FetchDataException(NOINTERNET);
     }
-    print('api put.');
     print(responseJson.toString());
     return responseJson;
   }
@@ -58,9 +57,8 @@ class ApiBaseHelper {
       apiResponse = _returnResponse(response);
     } on SocketException {
       print('No net');
-      throw FetchDataException('No Internet connection');
+      throw FetchDataException(NOINTERNET);
     }
-    print('api delete.');
     return apiResponse;
   }
 }
@@ -68,7 +66,7 @@ class ApiBaseHelper {
 dynamic _returnResponse(http.Response response) {
   switch (response.statusCode) {
     case 200:
-      var responseJson = json.decode(response.body.toString());
+      var responseJson = json.decode(response.body);
       print(responseJson);
       return responseJson;
     case 400:
@@ -79,6 +77,6 @@ dynamic _returnResponse(http.Response response) {
     case 500:
     default:
       throw FetchDataException(
-          'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+          'Error en connectar amb el servidor. Proveu-ho més tard : ${response.statusCode}');
   }
 }

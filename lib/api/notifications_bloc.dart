@@ -2,19 +2,18 @@ import 'dart:async';
 
 import 'package:cendrassos/api/api_response.dart';
 import 'package:cendrassos/models/notificacio.dart';
-import 'package:cendrassos/notificacions_repository.dart';
+import 'package:cendrassos/api/notificacions_repository.dart';
 
 
 
 class NotificacioBloc {
   NotificacionsRepository _notificacioRepository = NotificacionsRepository();
+  StreamController<ApiResponse<List<Notificacio>>> _notificacioListController = StreamController<ApiResponse<List<Notificacio>>>();
 
-  StreamController _notificacioListController = StreamController<ApiResponse<List<Notificacio>>>();
-
-  StreamSink get notificationsListSink =>
+  StreamSink<ApiResponse<List<Notificacio>>> get notificationsListSink =>
       _notificacioListController.sink;
 
-  Stream get notificationsListStream =>
+  Stream<ApiResponse<List<Notificacio>>>  get notificationsListStream =>
       _notificacioListController.stream;
 
   NotificacioBloc() {
@@ -24,12 +23,12 @@ class NotificacioBloc {
   }
 
   fetchNotificacions(int mes) async {
-    notificationsListSink.add(ApiResponse.loading('Recuperant notificacions'));
+    notificationsListSink.add(ApiResponse.loading('Recuperant notificacions', []));
     try {
-      List<Notificacio> movies = await _notificacioRepository.getNotifications(mes);
+      var movies = await _notificacioRepository.getNotifications(mes);
       notificationsListSink.add(ApiResponse.completed(movies));
     } catch (e) {
-      notificationsListSink.add(ApiResponse.error(e.toString()));
+      notificationsListSink.add(ApiResponse.error(e.toString(), []));
       print(e);
     }
   }

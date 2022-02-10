@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:cendrassos/api/login_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
-import 'package:http/http.dart' as http;
 
-import 'api/api_base_helper.dart';
-import 'models/notificacio.dart';
+import 'api_base_helper.dart';
+import '../models/notificacio.dart';
 
 class NotificacionsRepository {
   ApiBaseHelper _helper = ApiBaseHelper();
@@ -21,6 +18,8 @@ class NotificacionsRepository {
     var url = "/notificacions/$mes";
 
     final response = await _helper.get(url);
-    return NotificacionsResponse.fromJson(response).results;
+
+    var results = NotificacionsResponse.fromApi(response);
+    return results.results;
   }
 }
