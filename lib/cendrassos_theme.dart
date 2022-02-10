@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 
 var primaryColor = const Color.fromRGBO(217, 48, 29, 1);
 var primaryColorDark = const Color.fromARGB(255, 105, 18, 8);
+var primaryColorLight = Color.fromARGB(255, 238, 144, 134);
+var primaryColorUltraLight = Color.fromARGB(255, 240, 206, 203);
 var secondaryColor = const Color(0xFFFFFFFF);
 var secondaryColorDark = const Color(0xffc0ae75);
+var secondaryColorLight = Color.fromARGB(255, 233, 231, 231);
 
 Map<String, Color> notificacionsColor = {
   "falta": const Color(0xFF00BCD4),
+  "justificada": const Color(0xFF4CAF50),
   "incidencia": const Color(0xFFFF9800),
   "expulsio": const Color(0xFFF44336),
-  "notificacio": const Color(0xFF4CAF50)
+  "observacio": Color.fromARGB(255, 197, 116, 190),
 };
 
 var defaultColor = const Color(0x000000FF);
@@ -58,7 +62,3 @@ var cendrassosTheme = ThemeData.from(colorScheme: colorScheme);
 var buttonFontSize = 15.0;
 var defaultFontSize = 14.0;
 var titleFontSize = 20.0;
-
-// Mes inici de curs
-var startMonth = 9;
-var endMonth = 6;

@@ -1,4 +1,5 @@
 import 'package:cendrassos/cendrassos_theme.dart';
+import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/notificacio.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -87,16 +88,59 @@ class CalendariNotificacions extends StatelessWidget {
           onPageChanged: (focusedDay) {
             onMonthChange(focusedDay);
           },
-          calendarBuilders:
-              CalendarBuilders(singleMarkerBuilder: (context, date, event) {
-            Color c = event.getColor();
-            return Container(
-              decoration: BoxDecoration(shape: BoxShape.circle, color: c),
-              width: 7.0,
-              height: 7.0,
-              margin: const EdgeInsets.symmetric(horizontal: 1.5),
-            );
-          }),
+          calendarBuilders: CalendarBuilders(
+            markerBuilder: (context, day, events) {
+              if (events.isEmpty) return Container();
+
+              if (events.length < 5) return null;
+
+              // Si n'hi ha més de quatre no es veuen
+              return Positioned(
+                bottom: 0,
+                right: 10,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Container(
+                    color: primaryColorLight,
+                    width: 15,
+                    height: 15,
+                    child: Center(
+                      child: Text(
+                        events.length.toString(),
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: secondaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+            singleMarkerBuilder: (context, date, event) {
+              Color c = event.getColor();
+              return Container(
+                decoration: BoxDecoration(shape: BoxShape.circle, color: c),
+                width: 6.0,
+                height: 6.0,
+                margin: const EdgeInsets.symmetric(horizontal: 1),
+              );
+            },
+            selectedBuilder: (context, date, events) {
+              return Container(
+                margin: const EdgeInsets.all(4.0),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: primaryColorUltraLight,
+                    borderRadius: BorderRadius.circular(50.0)),
+                child: Text(
+                  date.day.toString(),
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            },
+            // markerBuilder:
+          ),
           locale: "ca_ES"),
       const SizedBox(height: 8.0),
       Center(
@@ -121,20 +165,24 @@ class CalendariNotificacions extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 itemCount: value.length,
                 itemBuilder: (context, index) {
-                  return Container(
+                  return Card(
                     margin: const EdgeInsets.symmetric(
                       horizontal: 12.0,
                       vertical: 4.0,
                     ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: value[index].getColor(),
-                      ),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     child: ListTile(
+                      // leading: _buildCircleAvatar(value[index].getColor()),
+                      leading: Column(children: [
+                        Text(value[index].tipus.toShortString(),
+                            style: TextStyle(
+                              color: value[index].getColor(),
+                            )),
+                        Text("${value[index].hora} hora"),
+                      ]),
+
                       onTap: () => print('${value[index]}'),
-                      title: Text('${value[index]}'),
+                      title: Text(value[index].professor),
+                      subtitle: Text('${value[index].text}'),
                     ),
                   );
                 },

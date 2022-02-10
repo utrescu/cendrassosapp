@@ -4,7 +4,7 @@ import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-enum NotificacioType { observacio, falta, incidencia, expulsio }
+enum NotificacioType { observacio, falta, justificada, incidencia, expulsio }
 
 extension ParseToString on NotificacioType {
   String toShortString() {

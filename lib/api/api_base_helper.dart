@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:cendrassos/api/exceptions.dart';
+import 'package:cendrassos/config_cendrassos.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
 class ApiBaseHelper {
-  final String _baseUrl = "http://localhost:3000/api";
+  final String _baseUrl = baseUrl;
 
   static const String NOINTERNET = "Sense connexió a Internet";
 
