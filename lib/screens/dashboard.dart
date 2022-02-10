@@ -1,5 +1,4 @@
 import 'package:cendrassos/api/api_response.dart';
-import 'package:cendrassos/api/notificacions_repository.dart';
 import 'package:cendrassos/models/djau.dart';
 import 'package:cendrassos/screens/CalendariNotificacions.dart';
 import 'package:cendrassos/screens/Error.dart';
@@ -12,6 +11,10 @@ import '../models/notificacio.dart';
 class Dashboard extends StatefulWidget {
   static const routeName = '/dashboard';
 
+  const Dashboard({
+    Key? key,
+  }) : super(key: key);
+
   @override
   _DashBoardState createState() => _DashBoardState();
 }
@@ -19,14 +22,9 @@ class Dashboard extends StatefulWidget {
 class _DashBoardState extends State<Dashboard> {
   Alumne? alumne;
   DateTime _focusedDay = DateTime.now();
-  DateTime _selectedDay = DateTime.now();
-  NotificacionsRepository api = NotificacionsRepository();
+  DateTime? _selectedDay = DateTime.now();
   int _month = 0;
-
   List<Notificacio> _notificacions = [];
-
-  /// Notificacions
-  // LinkedHashMap<DateTime, List<Notificacio>> _notificacions = LinkedHashMap();
 
   NotificacioBloc _bloc = NotificacioBloc();
 
@@ -56,6 +54,7 @@ class _DashBoardState extends State<Dashboard> {
     setState(() {
       _month = value.month;
       _focusedDay = value;
+      _selectedDay = null;
       _bloc.fetchNotificacions(_month);
     });
   }

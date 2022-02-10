@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
           "Identificació",
           textAlign: TextAlign.left,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: 30),
+          style: TextStyle(fontSize: titleFontSize),
         ));
 
     final logo = Padding(
@@ -61,10 +61,25 @@ class LoginPage extends StatelessWidget {
       ),
     );
 
-    final buttonLogin = Padding(
-      padding: EdgeInsets.only(bottom: 5),
+    final buttonLogin = Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 15),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: secondaryColor,
+              offset: Offset(2, 4),
+              blurRadius: 5,
+              spreadRadius: 2)
+        ],
+      ),
       child: ElevatedButton(
-        child: Text('Inicia la sessió'),
+        child: Text(
+          'Inicia la sessió',
+          style: TextStyle(fontSize: buttonFontSize),
+        ),
         onPressed: () =>
             login(context) ? null : Navigator.pushNamed(context, '/dashboard'),
       ),

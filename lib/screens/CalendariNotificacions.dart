@@ -1,10 +1,12 @@
+import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/models/notificacio.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 class CalendariNotificacions extends StatelessWidget {
   final List<Notificacio> notificacions;
-  final DateTime selectedDay;
+  final DateTime? selectedDay;
   final DateTime focusedDay;
 
   final MonthChangeCallBack onMonthChange;
@@ -23,16 +25,16 @@ class CalendariNotificacions extends StatelessWidget {
 
   DateTime getFirstCourseDay() {
     int mes = DateTime.now().month;
-    if (mes > 9) {
-      return DateTime.utc(DateTime.now().year, 9, 1);
-    } else {
-      return DateTime.utc(DateTime.now().year - 1, 9, 1);
+    var year = DateTime.now().year;
+    if (mes < startMonth) {
+      year = year - 1;
     }
+    return DateTime.utc(year, startMonth, 1);
   }
 
   DateTime getLastCourseDay() {
     var dia = getFirstCourseDay();
-    return DateTime.utc(dia.year + 1, 7, 31);
+    return DateTime.utc(dia.year + 1, endMonth, 31);
   }
 
   List<Notificacio> _getEventsForDay(DateTime day) {
@@ -43,9 +45,18 @@ class CalendariNotificacions extends StatelessWidget {
     onSelectDay(selected, focused);
   }
 
+  String _getSelectedDay() {
+    if (selectedDay != null) {
+      return "Dia: " + DateFormat('dd/MM/yyyy').format(selectedDay!);
+    }
+    return "";
+  }
+
   @override
   Widget build(BuildContext context) {
-    _selectedEvents.value = _getEventsForDay(selectedDay);
+    if (selectedDay != null) {
+      _selectedEvents.value = _getEventsForDay(selectedDay!);
+    }
 
     return Column(children: [
       TableCalendar<Notificacio>(
@@ -90,11 +101,11 @@ class CalendariNotificacions extends StatelessWidget {
       const SizedBox(height: 8.0),
       Center(
         child: Text(
-          'Dia: ${selectedDay.day}/${selectedDay.month}/${selectedDay.year}',
+          '${_getSelectedDay()}',
           style: TextStyle(
-            fontSize: 20.0,
-            color: Colors.black,
-            decorationColor: Colors.black,
+            fontSize: titleFontSize,
+            color: primaryColor,
+            decorationColor: primaryColorDark,
             fontWeight: FontWeight.bold,
           ),
           maxLines: 4,
@@ -107,6 +118,7 @@ class CalendariNotificacions extends StatelessWidget {
             valueListenable: _selectedEvents,
             builder: (context, value, _) {
               return ListView.builder(
+                padding: EdgeInsets.all(8),
                 itemCount: value.length,
                 itemBuilder: (context, index) {
                   return Container(

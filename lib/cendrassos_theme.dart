@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Colors
+
 var primaryColor = const Color.fromRGBO(217, 48, 29, 1);
 var primaryColorDark = const Color.fromARGB(255, 105, 18, 8);
 var secondaryColor = const Color(0xFFFFFFFF);
@@ -50,3 +52,13 @@ ColorScheme colorScheme = ColorScheme.fromSwatch(
 );
 
 var cendrassosTheme = ThemeData.from(colorScheme: colorScheme);
+
+// Mida dels textos
+
+var buttonFontSize = 15.0;
+var defaultFontSize = 14.0;
+var titleFontSize = 20.0;
+
+// Mes inici de curs
+var startMonth = 9;
+var endMonth = 6;
