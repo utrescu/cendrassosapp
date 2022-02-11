@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class DjauModel with ChangeNotifier {
   NotificacionsRepository _repository = NotificacionsRepository();
 
-  SecureStorage _storage = SecureStorage();
+  DjauStorage _storage = DjauStorage();
 
   bool _isLogged = false;
   String errorMessage = "";
@@ -23,14 +23,7 @@ class DjauModel with ChangeNotifier {
       alumne = Alumne(username, password, response.nom, response.token, "");
       _isLogged = true;
       errorMessage = "";
-
-      var alumnes = _storage.readSecureData('alumnes_count');
-      // Mirar si ja hi és
-      // si no hi és incrementar alumnes
-      _storage.writeSecureStorage('alumne0_token', alumne.token);
-      _storage.writeSecureStorage('alumne0_nom', alumne.nom);
-      _storage.writeSecureStorage('alumne0_username', alumne.username);
-      _storage.writeSecureStorage('alumne0_password', alumne.password);
+      await _storage.saveAlumne(alumne);
     } catch (e) {
       _isLogged = false;
       errorMessage = e.toString();
@@ -39,8 +32,15 @@ class DjauModel with ChangeNotifier {
   }
 
   // Canviar d'alumne
-  void switchAlumne(Alumne nou) {
-    alumne = nou;
+  void switchAlumne(Alumne nou) async {
+    try {
+      var dades = await _storage.getAlumne(nou.username);
+      alumne = dades;
+    } catch (e) {
+      _isLogged = false;
+      errorMessage = "Aquest alumne no existeix";
+    }
+
     // TODO: Fer login amb el nou alumne
     // (primer comprovar si el token val)
     notifyListeners();
