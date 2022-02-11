@@ -3,6 +3,7 @@ import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/notificacio.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import "package:collection/collection.dart";
 import 'package:intl/intl.dart';
 
 class CalendariNotificacions extends StatelessWidget {
@@ -92,29 +93,38 @@ class CalendariNotificacions extends StatelessWidget {
             markerBuilder: (context, day, events) {
               if (events.isEmpty) return Container();
 
-              if (events.length < 5) return null;
+              // if (events.length < 5) return null;
 
               // Si n'hi ha més de quatre no es veuen
-              return Positioned(
-                bottom: 0,
-                right: 10,
-                child: FittedBox(
+
+              final grups = groupBy(events, (Notificacio e) {
+                return e.getColor();
+              });
+
+              var controls = <Widget>[];
+              grups.forEach((key, value) {
+                controls.add(FittedBox(
                   fit: BoxFit.fill,
                   child: Container(
-                    color: primaryColorLight,
-                    width: 15,
-                    height: 15,
+                    color: key,
+                    width: 10,
+                    height: 10,
                     child: Center(
                       child: Text(
-                        events.length.toString(),
+                        value.length.toString(),
                         style: TextStyle(
-                          fontSize: 10,
-                          color: secondaryColor,
+                          fontSize: 8,
+                          color: primaryColorDark,
                         ),
                       ),
                     ),
                   ),
-                ),
+                ));
+              });
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: controls,
               );
             },
             singleMarkerBuilder: (context, date, event) {
