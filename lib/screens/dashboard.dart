@@ -1,5 +1,5 @@
 import 'package:cendrassos/api/api_response.dart';
-import 'package:cendrassos/models/djau.dart';
+import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/CalendariNotificacions.dart';
 import 'package:cendrassos/screens/Error.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +20,11 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<Dashboard> {
-  Alumne? alumne;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
   int _month = 0;
   List<Notificacio> _notificacions = [];
+  String _token = "";
 
   NotificacioBloc _bloc = NotificacioBloc();
 
@@ -42,7 +42,7 @@ class _DashBoardState extends State<Dashboard> {
 
   void _retryComunicacion() {
     setState(() {
-      _bloc.fetchNotificacions(_month);
+      _bloc.fetchNotificacions(_month, _token);
     });
   }
 
@@ -61,20 +61,21 @@ class _DashBoardState extends State<Dashboard> {
       _month = value.month;
       _focusedDay = value;
       _selectedDay = null;
-      _bloc.fetchNotificacions(_month);
+      _bloc.fetchNotificacions(_month, _token);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final currentLogin = context.watch<DjauModel>();
-    var username = currentLogin.usernamame;
+    var nom = currentLogin.alumne.nom;
+    _token = currentLogin.alumne.token;
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'Alumne: $username',
+          'Alumne: $nom',
         ),
         actions: [
           IconButton(
@@ -84,7 +85,7 @@ class _DashBoardState extends State<Dashboard> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: () => _bloc.fetchNotificacions(_month),
+        onRefresh: () => _bloc.fetchNotificacions(_month, _token),
         child: StreamBuilder<ApiResponse<List<Notificacio>>>(
             stream: _bloc.notificationsListStream,
             builder: (context, snapshot) {

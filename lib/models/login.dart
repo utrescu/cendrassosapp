@@ -9,7 +9,15 @@ class Login {
     return Login(json['alumne'] as String, json['contrasenya'] as String);
   }
 
-  @override toString() {
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['alumne'] = this.alumne;
+    data['password'] = this.contrasenya;
+    return data;
+  }
+
+  @override
+  toString() {
     return '{ ${this.alumne}, ${this.contrasenya} }';
   }
 }

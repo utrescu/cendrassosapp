@@ -1,4 +1,3 @@
-
 class LoginResponse {
   String nom = "";
   String token = "";

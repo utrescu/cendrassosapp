@@ -1,10 +1,13 @@
 import 'package:cendrassos/cendrassos_theme.dart';
-import 'package:cendrassos/models/djau.dart';
+import 'package:cendrassos/providers/djau.dart';
+import 'package:cendrassos/utils/popup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   static const routeName = '/login';
+  static const NEEDUSERNAME = "Cal el codi de l'alumne";
+  static const NEEDPASSWORD = 'Cal omplir la paraula de pas';
 
   LoginPage({Key? key}) : super(key: key);
 
@@ -44,6 +47,7 @@ class LoginPage extends StatelessWidget {
           hintText: 'Nom d\'usuari',
           contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         ),
+        validator: (val) => val == null || val.isEmpty ? NEEDPASSWORD : null,
       ),
     );
 
@@ -58,6 +62,7 @@ class LoginPage extends StatelessWidget {
           hintText: 'Paraula de pas',
           contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         ),
+        validator: (val) => val == null || val.isEmpty ? NEEDPASSWORD : null,
       ),
     );
 
@@ -76,13 +81,22 @@ class LoginPage extends StatelessWidget {
         ],
       ),
       child: ElevatedButton(
-        child: Text(
-          'Inicia la sessió',
-          style: TextStyle(fontSize: buttonFontSize),
-        ),
-        onPressed: () =>
-            login(context) ? null : Navigator.pushNamed(context, '/dashboard'),
-      ),
+          child: Text(
+            'Inicia la sessió',
+            style: TextStyle(fontSize: buttonFontSize),
+          ),
+          onPressed: () {
+            if (login(context)) {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/dashboard');
+            } else {
+              showAlertPopup(
+                context,
+                "ERROR",
+                "Usuari o contrasenya incorrectes",
+              );
+            }
+          }),
     );
 
     final buttonForgotPassword = TextButton(
@@ -110,7 +124,7 @@ class LoginPage extends StatelessWidget {
     ));
   }
 
-  login(BuildContext context) {
+  bool login(BuildContext context) {
     var loginCall = context.read<DjauModel>();
 
     loginCall.login(usernameController.text, passwordController.text);

@@ -10,11 +10,26 @@ class ApiBaseHelper {
 
   static const String NOINTERNET = "Sense connexió a Internet";
 
-  Future<dynamic> get(String url) async {
+  // Future<dynamic> get(String url) async {
+  //   print('Api Get, url $url');
+  //   var responseJson;
+  //   try {
+  //     final response = await http.get(Uri.parse(_baseUrl + url));
+  //     responseJson = _returnResponse(response);
+  //   } on SocketException {
+  //     print('No net');
+  //     throw FetchDataException(NOINTERNET);
+  //   }
+  //   return responseJson;
+  // }
+
+  Future<dynamic> get(String url, [dynamic headers]) async {
     print('Api Get, url $url');
+    headers ??= Map();
     var responseJson;
     try {
-      final response = await http.get(Uri.parse(_baseUrl + url));
+      final response =
+          await http.get(Uri.parse(_baseUrl + url), headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
@@ -23,11 +38,13 @@ class ApiBaseHelper {
     return responseJson;
   }
 
-  Future<dynamic> post(String url, dynamic body) async {
+  Future<dynamic> post(String url, dynamic body, [dynamic headers]) async {
     print('Api Post, url $url');
+    headers ??= Map();
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(_baseUrl + url), body: body);
+      final response = await http.post(Uri.parse(_baseUrl + url),
+          body: body, headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
