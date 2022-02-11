@@ -85,15 +85,16 @@ class LoginPage extends StatelessWidget {
             'Inicia la sessió',
             style: TextStyle(fontSize: buttonFontSize),
           ),
-          onPressed: () {
-            if (login(context)) {
+          onPressed: () async {
+            var x = await login(context);
+            if (x.isLogged) {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/dashboard');
             } else {
               showAlertPopup(
                 context,
                 "ERROR",
-                "Usuari o contrasenya incorrectes",
+                x.errorMessage,
               );
             }
           }),
@@ -124,11 +125,12 @@ class LoginPage extends StatelessWidget {
     ));
   }
 
-  bool login(BuildContext context) {
+  Future<LoginResult> login(BuildContext context) async {
     var loginCall = context.read<DjauModel>();
 
-    loginCall.login(usernameController.text, passwordController.text);
-    return loginCall.isLogged();
+    var result =
+        await loginCall.login(usernameController.text, passwordController.text);
+    return result;
   }
 
   @override

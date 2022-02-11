@@ -23,14 +23,14 @@ class NotificacionsRepository {
     };
 
     final response = await _helper.post(url, dades.toJson(), requestHeaders);
-    return LoginResponse.fromJson(response);
+    return LoginResponse.fromJson(response, dades.contrasenya);
   }
 
-  Future<LoginResponse> isAuthenticated(String token) async {
-    var url = "/authenticated";
-    final response = await _helper.get(url, getHeaders(token));
-    return LoginResponse.fromJson(response);
-  }
+  // Future<bool> isAuthenticated(String token) async {
+  //   var url = "/authenticated";
+  //   final response = await _helper.get(url, getHeaders(token));
+  //   return response['value'];
+  // }
 
   Future<List<Notificacio>> getNotifications(int mes, String token) async {
     var url = "/notificacions/$mes";

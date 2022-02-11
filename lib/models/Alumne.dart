@@ -3,10 +3,15 @@ class Alumne {
   final String password;
   final String token;
   final String nom;
-  final String renovationToken;
+
+  static String usernameField = "email";
 
   Alumne(
-      this.username, this.password, this.nom, this.token, this.renovationToken);
+    this.username,
+    this.password,
+    this.nom,
+    this.token,
+  );
 
   @override
   int get hashCode => token.hashCode;
@@ -17,21 +22,28 @@ class Alumne {
 
   factory Alumne.fromJson(dynamic json) {
     return Alumne(
-      json['username'] as String,
+      json[usernameField] as String,
       json['password'] as String,
       json['token'] as String,
       json['nom'] as String,
-      json['renovationToken'] as String,
+    );
+  }
+
+  factory Alumne.fromPartialJson(dynamic json, String password, String token) {
+    return Alumne(
+      json[usernameField] as String,
+      password,
+      json['nom'] as String,
+      token,
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
+    data[usernameField] = this.username;
     data['password'] = this.password;
     data['token'] = this.token;
     data['nom'] = this.nom;
-    data["renovationToken"] = this.renovationToken;
     return data;
   }
 }

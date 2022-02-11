@@ -24,14 +24,16 @@ class _DashBoardState extends State<Dashboard> {
   DateTime? _selectedDay = DateTime.now();
   int _month = 0;
   List<Notificacio> _notificacions = [];
-  String _token = "";
 
-  NotificacioBloc _bloc = NotificacioBloc();
+  late NotificacioBloc _bloc;
 
   @override
   void initState() {
     super.initState();
+
     _month = _focusedDay.month;
+    final djau = Provider.of<DjauModel>(context, listen: false);
+    _bloc = NotificacioBloc(djau.alumne.token);
   }
 
   @override
@@ -42,7 +44,7 @@ class _DashBoardState extends State<Dashboard> {
 
   void _retryComunicacion() {
     setState(() {
-      _bloc.fetchNotificacions(_month, _token);
+      _bloc.fetchNotificacions(_month);
     });
   }
 
@@ -61,7 +63,7 @@ class _DashBoardState extends State<Dashboard> {
       _month = value.month;
       _focusedDay = value;
       _selectedDay = null;
-      _bloc.fetchNotificacions(_month, _token);
+      _bloc.fetchNotificacions(_month);
     });
   }
 
@@ -69,7 +71,6 @@ class _DashBoardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final currentLogin = context.watch<DjauModel>();
     var nom = currentLogin.alumne.nom;
-    _token = currentLogin.alumne.token;
 
     return Scaffold(
       appBar: AppBar(
@@ -85,7 +86,7 @@ class _DashBoardState extends State<Dashboard> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: () => _bloc.fetchNotificacions(_month, _token),
+        onRefresh: () => _bloc.fetchNotificacions(_month),
         child: StreamBuilder<ApiResponse<List<Notificacio>>>(
             stream: _bloc.notificationsListStream,
             builder: (context, snapshot) {
@@ -109,7 +110,7 @@ class _DashBoardState extends State<Dashboard> {
                     );
                 }
               } else {
-                return Loading(loadingMessage: "Loading");
+                return Loading(loadingMessage: "Carregant dades");
               }
             }),
       ),

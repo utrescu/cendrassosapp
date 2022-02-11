@@ -5,6 +5,7 @@ import 'package:cendrassos/models/notificacio.dart';
 import 'package:cendrassos/api/notificacions_repository.dart';
 
 class NotificacioBloc {
+  String _token = "";
   NotificacionsRepository _notificacioRepository = NotificacionsRepository();
   StreamController<ApiResponse<List<Notificacio>>> _notificacioListController =
       StreamController<ApiResponse<List<Notificacio>>>();
@@ -15,18 +16,19 @@ class NotificacioBloc {
   Stream<ApiResponse<List<Notificacio>>> get notificationsListStream =>
       _notificacioListController.stream;
 
-  NotificacioBloc() {
+  NotificacioBloc(String token) {
     _notificacioListController =
         StreamController<ApiResponse<List<Notificacio>>>();
     _notificacioRepository = NotificacionsRepository();
-    // fetchNotificacions(DateTime.now().month, token);
+    _token = token;
+    fetchNotificacions(DateTime.now().month);
   }
 
-  fetchNotificacions(int mes, String token) async {
+  fetchNotificacions(int mes) async {
     notificationsListSink
         .add(ApiResponse.loading('Recuperant notificacions', []));
     try {
-      var movies = await _notificacioRepository.getNotifications(mes, token);
+      var movies = await _notificacioRepository.getNotifications(mes, _token);
       notificationsListSink.add(ApiResponse.completed(movies));
     } catch (e) {
       notificationsListSink.add(ApiResponse.error(e.toString(), []));
@@ -36,5 +38,9 @@ class NotificacioBloc {
 
   dispose() {
     _notificacioListController.close();
+  }
+
+  void setToken(String token) {
+    _token = token;
   }
 }

@@ -44,7 +44,7 @@ class ApiBaseHelper {
     var responseJson;
     try {
       final response = await http.post(Uri.parse(_baseUrl + url),
-          body: body, headers: headers);
+          body: jsonEncode(body), headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');

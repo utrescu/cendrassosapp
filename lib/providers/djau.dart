@@ -4,6 +4,13 @@ import 'package:cendrassos/models/login.dart';
 import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/material.dart';
 
+class LoginResult {
+  bool isLogged;
+  String errorMessage;
+
+  LoginResult(this.isLogged, this.errorMessage);
+}
+
 class DjauModel with ChangeNotifier {
   NotificacionsRepository _repository = NotificacionsRepository();
 
@@ -12,15 +19,16 @@ class DjauModel with ChangeNotifier {
   bool _isLogged = false;
   String errorMessage = "";
 
-  Alumne alumne = Alumne("", "", "", "", "");
+  Alumne alumne = Alumne("", "", "", "");
 
   bool isLogged() => _isLogged;
 
   // Entrar en el sistema
-  void login(String username, String password) async {
+  Future<LoginResult> login(String username, String password) async {
     try {
       final response = await _repository.login(Login(username, password));
-      alumne = Alumne(username, password, response.nom, response.token, "");
+      alumne =
+          Alumne(username, password, response.alumne.nom, response.accessToken);
       _isLogged = true;
       errorMessage = "";
       await _storage.saveAlumne(alumne);
@@ -29,6 +37,7 @@ class DjauModel with ChangeNotifier {
       errorMessage = e.toString();
     }
     notifyListeners();
+    return LoginResult(this._isLogged, this.errorMessage);
   }
 
   // Canviar d'alumne

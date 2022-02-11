@@ -16,8 +16,8 @@ class NotificacionsResponse {
 
   NotificacionsResponse.fromJson(Map<String, dynamic> json) {
     totalResults = json['total_results'];
+    results = [];
     if (json['results'] != null) {
-      results = [];
       // results = List<Notificacio>.from(json['results']).map((x) => Notificacio.fromJson(x));
       json['results'].forEach((v) {
         results.add(new Notificacio.fromJson(v));
