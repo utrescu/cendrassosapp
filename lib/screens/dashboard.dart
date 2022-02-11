@@ -40,6 +40,12 @@ class _DashBoardState extends State<Dashboard> {
     super.dispose();
   }
 
+  void _retryComunicacion() {
+    setState(() {
+      _bloc.fetchNotificacions(_month);
+    });
+  }
+
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!DateUtils.isSameDay(_selectedDay, selectedDay)) {
       setState(() {
@@ -98,7 +104,7 @@ class _DashBoardState extends State<Dashboard> {
                   case Status.ERROR:
                     return Error(
                       errorMessage: snapshot.data!.message,
-                      onRetryPressed: () => _bloc.fetchNotificacions(_month),
+                      onRetryPressed: _retryComunicacion,
                     );
                 }
               } else {

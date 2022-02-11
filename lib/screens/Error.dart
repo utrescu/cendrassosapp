@@ -1,10 +1,12 @@
+import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:flutter/material.dart';
 
 class Error extends StatelessWidget {
   final String errorMessage;
-  final Function onRetryPressed;
+  final VoidCallback onRetryPressed;
 
-  const Error({Key? key, required this.errorMessage, required this.onRetryPressed})
+  const Error(
+      {Key? key, required this.errorMessage, required this.onRetryPressed})
       : super(key: key);
 
   @override
@@ -17,18 +19,19 @@ class Error extends StatelessWidget {
             errorMessage,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.lightGreen,
-              fontSize: 18,
+              color: primaryColor,
+              fontSize: titleFontSize,
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 12),
           ElevatedButton(
-            child: Text('Torna-ho a provar', style: TextStyle(fontSize: 20, color: Colors.white)),
+            child: Text('Torna-ho a provar',
+                style: TextStyle(fontSize: 20, color: Colors.white)),
             style: ElevatedButton.styleFrom(
-                onPrimary: Colors.white,
-                primary: const Color.fromRGBO(217, 48, 29, 1),
+                onPrimary: secondaryColor,
+                primary: primaryColor,
                 onSurface: Colors.grey),
-            onPressed: () => onRetryPressed,
+            onPressed: onRetryPressed,
           ),
         ],
       ),
@@ -51,13 +54,13 @@ class Loading extends StatelessWidget {
             loadingMessage,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.lightGreen,
-              fontSize: 24,
+              color: primaryColor,
+              fontSize: titleFontSize,
             ),
           ),
           SizedBox(height: 24),
           CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.lightGreen),
+            valueColor: AlwaysStoppedAnimation<Color>(primaryColorLight),
           ),
         ],
       ),
