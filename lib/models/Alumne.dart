@@ -24,8 +24,8 @@ class Alumne {
     return Alumne(
       json[usernameField] as String,
       json['password'] as String,
-      json['token'] as String,
       json['nom'] as String,
+      json['token'] as String,
     );
   }
 
