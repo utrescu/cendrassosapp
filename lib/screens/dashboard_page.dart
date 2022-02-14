@@ -2,6 +2,7 @@ import 'package:cendrassos/api/api_response.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/CalendariNotificacions.dart';
 import 'package:cendrassos/screens/Error.dart';
+import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cendrassos/api/notifications_bloc.dart';
@@ -84,7 +85,9 @@ class _DashBoardState extends State<Dashboard> {
         actions: [
           IconButton(
             icon: Icon(Icons.account_box),
-            onPressed: () {}, // TODO Afegir alumne o switch
+            onPressed: () {
+              Navigator.of(context).pushNamed(UsersPage.routeName);
+            },
           )
         ],
       ),

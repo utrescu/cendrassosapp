@@ -65,6 +65,20 @@ class DjauModel with ChangeNotifier {
     }
   }
 
+  // Obtenir els noms dels alumnes i el seu username
+  Future<Map<String, String>> getAlumnes() async {
+    var resultat = Map<String, String>();
+
+    var usernames = await _prefs.getAlumnes();
+    for (var username in usernames) {
+      try {
+        var alumne = await _storage.getAlumne(username);
+        resultat[username] = alumne.nom;
+      } catch (e) {}
+    }
+    return resultat;
+  }
+
   void logout() {
     notifyListeners();
   }
