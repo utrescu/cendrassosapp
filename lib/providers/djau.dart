@@ -5,23 +5,24 @@ import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/material.dart';
 
 class LoginResult {
-  bool isLogged;
+  DjauStatus isLogged;
   String errorMessage;
 
   LoginResult(this.isLogged, this.errorMessage);
 }
 
+enum DjauStatus { Loaded, Error, WithoutUser }
+
 class DjauModel with ChangeNotifier {
   NotificacionsRepository _repository = NotificacionsRepository();
+  DjauSecureStorage _storage = DjauSecureStorage();
+  DjauLocalStorage _prefs = DjauLocalStorage();
 
-  DjauStorage _storage = DjauStorage();
-
-  bool _isLogged = false;
+  DjauStatus _isLogged = DjauStatus.WithoutUser;
   String errorMessage = "";
-
   Alumne alumne = Alumne("", "", "", "");
-
-  bool isLogged() => _isLogged;
+  bool isLogged() => _isLogged == DjauStatus.Loaded;
+  bool isError() => _isLogged == DjauStatus.Error;
 
   // Entrar en el sistema
   Future<LoginResult> login(String username, String password) async {
@@ -29,30 +30,39 @@ class DjauModel with ChangeNotifier {
       final response = await _repository.login(Login(username, password));
       alumne =
           Alumne(username, password, response.alumne.nom, response.accessToken);
-      _isLogged = true;
+      _isLogged = DjauStatus.Loaded;
       errorMessage = "";
+      _prefs.setLastLogin(username);
       await _storage.saveAlumne(alumne);
     } catch (e) {
-      _isLogged = false;
+      _isLogged = DjauStatus.Error;
       errorMessage = e.toString();
     }
     notifyListeners();
-    return LoginResult(this._isLogged, this.errorMessage);
+    return LoginResult(_isLogged, this.errorMessage);
   }
 
   // Canviar d'alumne
-  void switchAlumne(Alumne nou) async {
+  Future loadAlumne(String username) async {
     try {
-      var dades = await _storage.getAlumne(nou.username);
+      var dades = await _storage.getAlumne(username);
       alumne = dades;
+      await login(alumne.username, alumne.password);
     } catch (e) {
-      _isLogged = false;
-      errorMessage = "Aquest alumne no existeix";
+      _isLogged = DjauStatus.WithoutUser;
+      errorMessage = "No hi ha dades de l'alumne $username";
+      notifyListeners();
     }
+  }
 
-    // TODO: Fer login amb el nou alumne
-    // (primer comprovar si el token val)
-    notifyListeners();
+  Future loadDefaultAlumne() async {
+    var alumne = await _prefs.getLastLogin();
+    if (alumne != null) {
+      await loadAlumne(alumne);
+    } else {
+      _isLogged = DjauStatus.WithoutUser;
+      errorMessage = "L'alumne $alumne no pot entrar";
+    }
   }
 
   void logout() {

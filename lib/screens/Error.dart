@@ -15,12 +15,18 @@ class Error extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            errorMessage,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: primaryColor,
-              fontSize: titleFontSize,
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 10),
+            child: Flexible(
+              child: Text(
+                errorMessage,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: titleFontSize,
+                ),
+              ),
             ),
           ),
           SizedBox(height: 12),

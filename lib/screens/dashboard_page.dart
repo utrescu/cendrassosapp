@@ -70,6 +70,9 @@ class _DashBoardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final currentLogin = context.watch<DjauModel>();
+    // if (!currentLogin.isLogged()) {
+    //   Navigator.pushNamed(context, LoginPage.routeName);
+    // }
     var nom = currentLogin.alumne.nom;
 
     return Scaffold(

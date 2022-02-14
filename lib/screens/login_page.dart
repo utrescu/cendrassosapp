@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
           tag: 'hero',
           child: CircleAvatar(
             radius: 56.0,
-            child: Image.asset('images/logo_cendrassos.png'),
+            child: Image.asset('assets/images/logo_cendrassos.png'),
             backgroundColor: secondaryColor,
           )),
     );
@@ -87,7 +87,7 @@ class LoginPage extends StatelessWidget {
           ),
           onPressed: () async {
             var x = await login(context);
-            if (x.isLogged) {
+            if (x.isLogged == DjauStatus.Loaded) {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/dashboard');
             } else {

@@ -2,6 +2,8 @@ import 'package:cendrassos/models/Alumne.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class SecureStorage {
   final _storage = FlutterSecureStorage();
 
@@ -21,24 +23,48 @@ class SecureStorage {
   }
 }
 
-class DjauStorage {
-  static String _prefix = "alumne_";
-
+class DjauSecureStorage {
   final SecureStorage _storage = SecureStorage();
-
-  Future<int> countAlumnes() async {
-    var data = await _storage.readSecureData('${_prefix}_count');
-    return data == null ? 0 : int.parse(data);
-  }
 
   Future<void> saveAlumne(Alumne alumne) async {
     var json = jsonEncode(alumne.toJson());
-    _storage.writeSecureStorage('${_prefix}_nom', json);
+    _storage.writeSecureStorage('${alumne.username}', json);
   }
 
   Future<Alumne> getAlumne(String username) async {
     var data = await _storage.readSecureData(username);
     var responseJson = json.decode(data);
     return Alumne.fromJson(responseJson);
+  }
+}
+
+class DjauLocalStorage {
+  static final String lastLoginKey = 'lastlogin';
+  static final String usersKey = 'alumnes';
+
+  Future<String?> getLastLogin() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(lastLoginKey);
+  }
+
+  void setLastLogin(String username) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString(lastLoginKey, username);
+    setAlumnes(username);
+  }
+
+  Future<List<String>> getAlumnes() async {
+    var prefs = await SharedPreferences.getInstance();
+    var alumnes = prefs.getStringList(usersKey);
+    return alumnes ?? [];
+  }
+
+  void setAlumnes(String username) async {
+    var prefs = await SharedPreferences.getInstance();
+    var alumnes = await getAlumnes();
+    if (!alumnes.contains(username)) {
+      alumnes.add(username);
+      prefs.setStringList(usersKey, alumnes);
+    }
   }
 }
