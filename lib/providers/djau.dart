@@ -55,6 +55,10 @@ class DjauModel with ChangeNotifier {
     }
   }
 
+  Future setDefaultAlumne(String username) async {
+    await _prefs.setLastLogin(username);
+  }
+
   Future loadDefaultAlumne() async {
     var alumne = await _prefs.getLastLogin();
     if (alumne != null) {

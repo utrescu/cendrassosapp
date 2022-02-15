@@ -47,7 +47,7 @@ class DjauLocalStorage {
     return prefs.getString(lastLoginKey);
   }
 
-  void setLastLogin(String username) async {
+  Future<void> setLastLogin(String username) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(lastLoginKey, username);
     setAlumnes(username);
