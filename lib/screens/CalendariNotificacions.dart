@@ -203,10 +203,8 @@ class CalendarListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 12.0,
-        vertical: 4.0,
-      ),
+      color: secondaryColor,
+      shadowColor: primaryColorLight,
       child: ListTile(
         // leading: _buildCircleAvatar(value[index].getColor()),
         leading: Column(children: [
@@ -218,7 +216,10 @@ class CalendarListItem extends StatelessWidget {
         ]),
 
         onTap: () => print('$notificacio'),
-        title: Text(notificacio.professor),
+        title: Text(
+          'Professor: ${notificacio.professor}',
+          // style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         subtitle: Text('${notificacio.text}'),
       ),
     );
