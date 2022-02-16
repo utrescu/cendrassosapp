@@ -61,5 +61,6 @@ var cendrassosTheme = ThemeData.from(colorScheme: colorScheme);
 
 var buttonFontSize = 15.0;
 var defaultFontSize = 14.0;
-var littleTextSize = 8.0;
+var littleTextSize = 10.0;
+var notificationsNumberTextSize = 10.0;
 var titleFontSize = 20.0;
