@@ -17,13 +17,6 @@ class UsersPage extends StatelessWidget {
     return await djau.getAlumnes();
   }
 
-  void gotoAlumne(context, String username) async {
-    final djau = Provider.of<DjauModel>(context, listen: false);
-    await djau.setDefaultAlumne(username);
-    Navigator.pop(context);
-    Navigator.pushNamed(context, LoadingPage.routeName);
-  }
-
   @override
   Widget build(BuildContext context) {
     final currentLogin = context.watch<DjauModel>();
@@ -62,69 +55,14 @@ class UsersPage extends StatelessWidget {
             snapshot.hasData
                 ? GridView.count(
                     crossAxisCount: 3,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
                     padding: EdgeInsets.all(8),
                     children: snapshot.data!.entries
-                        .map(
-                          (item) => GridTile(
-                            child: GestureDetector(
-                              onTap: () {
-                                if (item.key == username) {
-                                  Navigator.pop(context);
-                                } else {
-                                  gotoAlumne(context, item.key);
-                                }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: primaryColor,
-                                    width: 2.0,
-                                  ),
-                                  // gradient: LinearGradient(
-                                  //   colors: [primaryColor, primaryColorLight],
-                                  // ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    item.value,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: primaryColor,
-                                      fontSize: titleFontSize,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            footer: GridTileBar(
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Icon(
-                                    item.key == username
-                                        ? Icons.check_circle
-                                        : null,
-                                    color: primaryColor,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // header: GridTileBar(
-                            //   backgroundColor: primaryColorDark,
-                            //   title: Center(
-                            //     child: Text(
-                            //       item.value,
-                            //       style: TextStyle(
-                            //         color: secondaryColor,
-                            //         fontSize: defaultFontSize,
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                          ),
-                        )
+                        .map((item) => _UserItem(
+                            username: item.key,
+                            nom: item.value,
+                            enabled: item.key == username))
                         .toList(),
                   )
                 : Loading(
@@ -132,5 +70,89 @@ class UsersPage extends StatelessWidget {
                   ),
       ),
     );
+  }
+}
+
+class _UserItem extends StatelessWidget {
+  const _UserItem(
+      {Key? key,
+      required this.username,
+      required this.nom,
+      required this.enabled})
+      : super(key: key);
+
+  final String username;
+  final String nom;
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridTile(
+      child: GestureDetector(
+        onTap: () {
+          if (enabled) {
+            Navigator.pop(context);
+          } else {
+            gotoAlumne(context, username);
+          }
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: primaryColor,
+              width: 2.0,
+            ),
+            // gradient: LinearGradient(
+            //   colors: [primaryColor, primaryColorLight],
+            // ),
+          ),
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: Text(
+                nom,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: titleFontSize,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      footer: GridTileBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(
+              enabled ? Icons.check_circle : null,
+              color: primaryColor,
+            ),
+          ],
+        ),
+        // backgroundColor: Colors.black45,
+      ),
+      // header: GridTileBar(
+      //   backgroundColor: primaryColorDark,
+      //   title: Center(
+      //     child: Text(
+      //       item.value,
+      //       style: TextStyle(
+      //         color: secondaryColor,
+      //         fontSize: defaultFontSize,
+      //       ),
+      //     ),
+      //   ),
+      // ),
+    );
+  }
+
+  void gotoAlumne(context, String username) async {
+    final djau = Provider.of<DjauModel>(context, listen: false);
+    await djau.setDefaultAlumne(username);
+    Navigator.pop(context);
+    Navigator.pushNamed(context, LoadingPage.routeName);
   }
 }

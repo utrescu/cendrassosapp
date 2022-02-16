@@ -54,6 +54,28 @@ class CalendariNotificacions extends StatelessWidget {
     return "";
   }
 
+  // Crea les caixes de colors de les notificacions de cada
+  // un dels dies
+  Widget _notificationsBox(Color color, int lenght) {
+    return FittedBox(
+      fit: BoxFit.fill,
+      child: Container(
+        color: color,
+        width: 15,
+        height: 15,
+        child: Center(
+          child: Text(
+            lenght.toString(),
+            style: TextStyle(
+              fontSize: notificationsNumberTextSize,
+              color: primaryColorDark,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (selectedDay != null) {
@@ -94,7 +116,6 @@ class CalendariNotificacions extends StatelessWidget {
               if (events.isEmpty) return Container();
 
               // if (events.length < 5) return null;
-
               // Si n'hi ha més de quatre no es veuen
 
               final grups = groupBy(events, (Notificacio e) {
@@ -103,23 +124,7 @@ class CalendariNotificacions extends StatelessWidget {
 
               var controls = <Widget>[];
               grups.forEach((key, value) {
-                controls.add(FittedBox(
-                  fit: BoxFit.fill,
-                  child: Container(
-                    color: key,
-                    width: 10,
-                    height: 10,
-                    child: Center(
-                      child: Text(
-                        value.length.toString(),
-                        style: TextStyle(
-                          fontSize: 8,
-                          color: primaryColorDark,
-                        ),
-                      ),
-                    ),
-                  ),
-                ));
+                controls.add(_notificationsBox(key, value.length));
               });
 
               return Row(
@@ -175,26 +180,7 @@ class CalendariNotificacions extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 itemCount: value.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 4.0,
-                    ),
-                    child: ListTile(
-                      // leading: _buildCircleAvatar(value[index].getColor()),
-                      leading: Column(children: [
-                        Text(value[index].tipus.toShortString(),
-                            style: TextStyle(
-                              color: value[index].getColor(),
-                            )),
-                        Text("${value[index].hora} hora"),
-                      ]),
-
-                      onTap: () => print('${value[index]}'),
-                      title: Text(value[index].professor),
-                      subtitle: Text('${value[index].text}'),
-                    ),
-                  );
+                  return CalendarListItem(notificacio: value[index]);
                 },
               );
             }),
@@ -207,3 +193,34 @@ typedef SelectedDayCallBack = void Function(
     DateTime selected, DateTime focused);
 
 typedef MonthChangeCallBack = void Function(DateTime focused);
+
+class CalendarListItem extends StatelessWidget {
+  const CalendarListItem({Key? key, required this.notificacio})
+      : super(key: key);
+
+  final Notificacio notificacio;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 12.0,
+        vertical: 4.0,
+      ),
+      child: ListTile(
+        // leading: _buildCircleAvatar(value[index].getColor()),
+        leading: Column(children: [
+          Text(notificacio.tipus.toShortString(),
+              style: TextStyle(
+                color: notificacio.getColor(),
+              )),
+          Text("${notificacio.hora} hora"),
+        ]),
+
+        onTap: () => print('$notificacio'),
+        title: Text(notificacio.professor),
+        subtitle: Text('${notificacio.text}'),
+      ),
+    );
+  }
+}
