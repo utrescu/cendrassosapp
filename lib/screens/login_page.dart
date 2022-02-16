@@ -1,142 +1,141 @@
 import 'package:cendrassos/cendrassos_theme.dart';
+import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/utils/popup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   static const routeName = '/login';
-  static const NEEDUSERNAME = "Cal el codi de l'alumne";
-  static const NEEDPASSWORD = 'Cal omplir la paraula de pas';
 
-  LoginPage({Key? key}) : super(key: key);
-
-  TextEditingController usernameController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final titol = Padding(
-        padding: EdgeInsets.only(left: 15, bottom: 10),
-        child: Text(
-          "Identificació",
-          textAlign: TextAlign.left,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: titleFontSize),
-        ));
+  _LoginPageState createState() => _LoginPageState();
+}
 
-    final logo = Padding(
-      padding: EdgeInsets.all(20),
-      child: Hero(
-          tag: 'hero',
-          child: CircleAvatar(
-            radius: 56.0,
-            child: Image.asset('assets/images/logo_cendrassos.png'),
-            backgroundColor: secondaryColor,
-          )),
-    );
-
-    final inputUsername = Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: TextFormField(
-        // textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-        controller: usernameController,
-        keyboardType: TextInputType.name,
-        decoration: InputDecoration(
-          hintText: 'Nom d\'usuari',
-          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-        ),
-        validator: (val) => val == null || val.isEmpty ? NEEDPASSWORD : null,
-      ),
-    );
-
-    final inputPassword = Padding(
-      padding: EdgeInsets.only(bottom: 20),
-      child: TextFormField(
-        controller: passwordController,
-        textDirection: TextDirection.ltr,
-        keyboardType: TextInputType.text,
-        obscureText: true,
-        decoration: InputDecoration(
-          hintText: 'Paraula de pas',
-          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-        ),
-        validator: (val) => val == null || val.isEmpty ? NEEDPASSWORD : null,
-      ),
-    );
-
-    final buttonLogin = Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: secondaryColor,
-              offset: Offset(2, 4),
-              blurRadius: 5,
-              spreadRadius: 2)
-        ],
-      ),
-      child: ElevatedButton(
-          child: Text(
-            'Inicia la sessió',
-            style: TextStyle(fontSize: buttonFontSize),
-          ),
-          onPressed: () async {
-            var x = await login(context);
-            if (x.isLogged == DjauStatus.Loaded) {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/dashboard');
-            } else {
-              showAlertPopup(
-                context,
-                "ERROR",
-                x.errorMessage,
-              );
-            }
-          }),
-    );
-
-    final buttonForgotPassword = TextButton(
-        child: Text(
-          'Obtenir o recuperar l\'accés',
-        ),
-        onPressed: null);
-
-    return SafeArea(
-        child: Scaffold(
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          children: <Widget>[
-            logo,
-            titol,
-            inputUsername,
-            inputPassword,
-            buttonLogin,
-            buttonForgotPassword
-          ],
-        ),
-      ),
-    ));
-  }
-
-  Future<LoginResult> login(BuildContext context) async {
-    var loginCall = context.read<DjauModel>();
-
-    var result =
-        await loginCall.login(usernameController.text, passwordController.text);
-    return result;
-  }
+class _LoginPageState extends State<LoginPage> {
+  final _formkey = GlobalKey<FormState>();
+  final _usernameController = new TextEditingController();
+  final _passwordController = new TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    usernameController.dispose();
-    passwordController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  String _isNotNull(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Aquest camp no es pot deixar en blanc";
+    }
+    return "";
+  }
+
+  Future<LoginResult> _login(BuildContext context) async {
+    var loginCall = context.read<DjauModel>();
+
+    var result = await loginCall.login(
+        _usernameController.text, _passwordController.text);
+    return result;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formkey,
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              children: [
+                SizedBox(height: height * 0.20),
+                Center(
+                  child: Container(
+                    child: Image.asset('assets/images/logo_cendrassos.png'),
+                    width: width * 0.8,
+                  ),
+                ),
+                SizedBox(height: height * 0.1),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width / 15),
+                  child: TextFormField(
+                      controller: _usernameController,
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        labelText: 'Usuari',
+                        labelStyle: TextStyle(color: primaryColorDark),
+                        hintText: 'Entreu el nom d\'usuari',
+                      ),
+                      validator: (valor) => _isNotNull(valor)),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width / 15),
+                  child: TextFormField(
+                    obscureText: true,
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                        labelText: 'Contrasenya',
+                        hintText: 'Entreu la contrasenya'),
+                    validator: (valor) =>
+                        _isNotNull(valor), //Function to check validation
+                  ),
+                ),
+                SizedBox(height: height * 0.05),
+                Container(
+                  width: width,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                      child: Text(
+                        'Inicia la sessió',
+                        style: TextStyle(fontSize: buttonFontSize),
+                      ),
+                      onPressed: () async {
+                        if (_formkey.currentState!.validate()) {
+                          var x = await _login(context);
+                          if (x.isLogged == DjauStatus.Loaded) {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/dashboard');
+                          } else {
+                            showAlertPopup(
+                              context,
+                              "ERROR",
+                              x.errorMessage,
+                            );
+                          }
+                        }
+                      }),
+                ),
+                TextButton(
+                    child: Text(
+                      'recuperar l\'accés',
+                    ),
+                    onPressed: () async {
+                      var url = recuperarUrl;
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        showAlertPopup(
+                          context,
+                          "No s'obre el navegador",
+                          "Intenteu anar manualment a $djauUrl per recuperar la contrasenya",
+                        );
+                      }
+                    }),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
