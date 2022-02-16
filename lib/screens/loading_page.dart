@@ -52,6 +52,10 @@ class _LoadingPageState extends State<LoadingPage> {
     Navigator.pushNamed(context, initialRoute);
   }
 
+  void _gotoLogin() {
+    Navigator.of(context).pushNamed(LoginPage.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,8 +63,7 @@ class _LoadingPageState extends State<LoadingPage> {
       body: new Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          /// Paint the area where the inner widgets are loaded with the
-          /// background to keep consistency with the screen background
+          // Background
           new Container(
             decoration: BoxDecoration(color: secondaryColor),
           ),
@@ -74,16 +77,19 @@ class _LoadingPageState extends State<LoadingPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding:
-                          EdgeInsets.all(MediaQuery.of(context).size.width / 4),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 4),
                       child: Image.asset('assets/images/icon.png'),
                     ),
 
                     /// Loader Animation Widget
                     _errorMessage.isEmpty
                         ? Loading(loadingMessage: _message)
-                        : Error(
-                            errorMessage: _errorMessage, onRetryPressed: _load)
+                        : Error2Buttons(
+                            errorMessage: _errorMessage,
+                            onRetryPressed: _load,
+                            onLogin: _gotoLogin,
+                          ),
                   ],
                 ),
               ),

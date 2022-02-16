@@ -132,15 +132,6 @@ class CalendariNotificacions extends StatelessWidget {
                 children: controls,
               );
             },
-            singleMarkerBuilder: (context, date, event) {
-              Color c = event.getColor();
-              return Container(
-                decoration: BoxDecoration(shape: BoxShape.circle, color: c),
-                width: 6.0,
-                height: 6.0,
-                margin: const EdgeInsets.symmetric(horizontal: 1),
-              );
-            },
             selectedBuilder: (context, date, events) {
               return Container(
                 margin: const EdgeInsets.all(4.0),
@@ -157,12 +148,11 @@ class CalendariNotificacions extends StatelessWidget {
             // markerBuilder:
           ),
           locale: "ca_ES"),
-      const SizedBox(height: 8.0),
       Center(
         child: Text(
           '${_getSelectedDay()}',
           style: TextStyle(
-            fontSize: titleFontSize,
+            fontSize: defaultFontSize,
             color: primaryColor,
             decorationColor: primaryColorDark,
             fontWeight: FontWeight.bold,
