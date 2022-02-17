@@ -32,7 +32,7 @@ class Error extends StatelessWidget {
           SizedBox(height: 12),
           ElevatedButton(
             child: Text('Torna-ho a provar',
-                style: TextStyle(fontSize: 20, color: Colors.white)),
+                style: TextStyle(fontSize: 20, color: secondaryColor)),
             style: ElevatedButton.styleFrom(
                 onPrimary: secondaryColor,
                 primary: primaryColor,
@@ -59,7 +59,7 @@ class Error2Buttons extends StatelessWidget {
 
   Widget _boto(String text, VoidCallback metode) {
     return ElevatedButton(
-      child: Text(text, style: TextStyle(fontSize: 20, color: Colors.white)),
+      child: Text(text, style: TextStyle(fontSize: 20, color: secondaryColor)),
       style: ElevatedButton.styleFrom(
           onPrimary: secondaryColor,
           primary: primaryColor,
