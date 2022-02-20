@@ -1,19 +1,17 @@
-import 'package:cendrassos/models/Alumne.dart';
-
 class LoginResponse {
-  Alumne alumne = Alumne("", "", "", "");
+  String nom = "";
   String accessToken = "";
 
-  LoginResponse({required this.alumne, this.accessToken = ""});
+  LoginResponse({required this.nom, this.accessToken = ""});
 
-  LoginResponse.fromJson(Map<String, dynamic> json, String contrasenya) {
+  LoginResponse.fromJson(Map<String, dynamic> json) {
     accessToken = json['accessToken'];
-    alumne = Alumne.fromPartialJson(json['user'], contrasenya, accessToken);
+    nom = json['nom'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['alumne'] = alumne.toJson();
+    data['nom'] = this.nom;
     data['accessToken'] = this.accessToken;
     return data;
   }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cendrassos/api/login_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
+import 'package:cendrassos/config_cendrassos.dart';
 
 import '../models/login.dart';
 import 'api_base_helper.dart';
@@ -16,14 +17,14 @@ class NotificacionsRepository {
       };
 
   Future<LoginResponse> login(Login dades) async {
-    var url = "/login";
+    var url = PathLogin;
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
     };
 
     final response = await _helper.post(url, dades.toJson(), requestHeaders);
-    return LoginResponse.fromJson(response, dades.contrasenya);
+    return LoginResponse.fromJson(response);
   }
 
   // Future<bool> isAuthenticated(String token) async {
@@ -33,7 +34,7 @@ class NotificacionsRepository {
   // }
 
   Future<List<Notificacio>> getNotifications(int mes, String token) async {
-    var url = "/notificacions/$mes";
+    var url = "$PathNotificacions/$mes";
 
     final response = await _helper.get(url, getHeaders(token));
 

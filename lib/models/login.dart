@@ -1,6 +1,6 @@
 // @JsonSerializable()
 class Login {
-  static String usernameField = 'email';
+  static String usernameField = 'Email';
   String alumne = "";
   String contrasenya = "";
 
@@ -13,7 +13,7 @@ class Login {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data[usernameField] = this.alumne;
-    data['password'] = this.contrasenya;
+    data['Password'] = this.contrasenya;
     return data;
   }
 

@@ -28,11 +28,11 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  String _isNotNull(String? value) {
+  String? _isNotNull(String? value) {
     if (value == null || value.isEmpty) {
       return "Aquest camp no es pot deixar en blanc";
     }
-    return "";
+    return null;
   }
 
   Future<LoginResult> _login(BuildContext context) async {

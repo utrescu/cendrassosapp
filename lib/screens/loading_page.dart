@@ -53,6 +53,7 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   void _gotoLogin() {
+    Navigator.pop(context);
     Navigator.of(context).pushNamed(LoginPage.routeName);
   }
 

@@ -28,8 +28,7 @@ class DjauModel with ChangeNotifier {
   Future<LoginResult> login(String username, String password) async {
     try {
       final response = await _repository.login(Login(username, password));
-      alumne =
-          Alumne(username, password, response.alumne.nom, response.accessToken);
+      alumne = Alumne(username, password, response.nom, response.accessToken);
       _isLogged = DjauStatus.Loaded;
       errorMessage = "";
       _prefs.setLastLogin(username);
