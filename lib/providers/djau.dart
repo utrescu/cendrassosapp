@@ -68,11 +68,17 @@ class DjauModel with ChangeNotifier {
     }
   }
 
+  Future deleteAlumne(String username) async {
+    await _storage.deleteAlumne(username);
+    _prefs.deleteAlumneFromList(username);
+    await loadDefaultAlumne();
+  }
+
   // Obtenir els noms dels alumnes i el seu username
   Future<Map<String, String>> getAlumnes() async {
     var resultat = Map<String, String>();
 
-    var usernames = await _prefs.getAlumnes();
+    var usernames = await _prefs.getAlumnesList();
     for (var username in usernames) {
       try {
         var alumne = await _storage.getAlumne(username);

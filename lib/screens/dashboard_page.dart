@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cendrassos/api/api_response.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/CalendariNotificacions.dart';
@@ -68,6 +70,18 @@ class _DashBoardState extends State<Dashboard> {
     });
   }
 
+  FutureOr onGoBack(dynamic value) {
+    final djau = Provider.of<DjauModel>(context, listen: false);
+    if (_bloc.getToken() != djau.alumne.token) {
+      _bloc.setToken(djau.alumne.token);
+      _retryComunicacion();
+    }
+  }
+
+  void gotoUserPage() {
+    Navigator.of(context).pushNamed(UsersPage.routeName).then(onGoBack);
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentLogin = context.watch<DjauModel>();
@@ -85,9 +99,7 @@ class _DashBoardState extends State<Dashboard> {
         actions: [
           IconButton(
             icon: Icon(Icons.account_box),
-            onPressed: () {
-              Navigator.of(context).pushNamed(UsersPage.routeName);
-            },
+            onPressed: gotoUserPage,
           )
         ],
       ),

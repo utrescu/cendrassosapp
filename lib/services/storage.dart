@@ -36,6 +36,10 @@ class DjauSecureStorage {
     var responseJson = json.decode(data);
     return Alumne.fromJson(responseJson);
   }
+
+  Future<void> deleteAlumne(String username) async {
+    await _storage.deleteSecureData(username);
+  }
 }
 
 class DjauLocalStorage {
@@ -47,24 +51,48 @@ class DjauLocalStorage {
     return prefs.getString(lastLoginKey);
   }
 
+  Future deleteLastLogin() async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.remove(lastLoginKey);
+  }
+
   Future<void> setLastLogin(String username) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(lastLoginKey, username);
-    setAlumnes(username);
+    addAlumneToList(username);
   }
 
-  Future<List<String>> getAlumnes() async {
+  Future<List<String>> getAlumnesList() async {
     var prefs = await SharedPreferences.getInstance();
     var alumnes = prefs.getStringList(usersKey);
     return alumnes ?? [];
   }
 
-  void setAlumnes(String username) async {
+  void addAlumneToList(String username) async {
     var prefs = await SharedPreferences.getInstance();
-    var alumnes = await getAlumnes();
+    var alumnes = prefs.getStringList(usersKey) ?? [];
     if (!alumnes.contains(username)) {
       alumnes.add(username);
       prefs.setStringList(usersKey, alumnes);
+    }
+  }
+
+  void deleteAlumneFromList(String username) async {
+    var prefs = await SharedPreferences.getInstance();
+    var alumnes = prefs.getStringList(usersKey) ?? [];
+    if (alumnes.contains(username)) {
+      alumnes.remove(username);
+      prefs.setStringList(usersKey, alumnes);
+
+      if (alumnes.isEmpty) {
+        prefs.remove(lastLoginKey);
+      } else {
+        // Si és l'actiu el canviem pel primer que quedi
+        var defaultUser = prefs.getString(lastLoginKey);
+        if (defaultUser == username) {
+          prefs.setString(lastLoginKey, alumnes.first);
+        }
+      }
     }
   }
 }

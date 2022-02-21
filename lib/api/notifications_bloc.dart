@@ -40,6 +40,10 @@ class NotificacioBloc {
     _notificacioListController.close();
   }
 
+  String getToken() {
+    return _token;
+  }
+
   void setToken(String token) {
     _token = token;
   }
