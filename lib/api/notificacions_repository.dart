@@ -41,4 +41,14 @@ class NotificacionsRepository {
     var results = NotificacionsResponse.fromApi(response);
     return results.results;
   }
+
+  Future<bool> areNewNotifications(String token) async {
+    var url = "$PathNews";
+    try {
+      await _helper.get(url, getHeaders(token));
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 }

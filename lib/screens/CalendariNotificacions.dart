@@ -205,7 +205,7 @@ class CalendarListItem extends StatelessWidget {
           Text("${notificacio.hora} hora"),
         ]),
 
-        onTap: () => print('$notificacio'),
+        onTap: () => print('Veure $notificacio?'),
         title: Text(
           'Professor: ${notificacio.professor}',
           // style: TextStyle(fontWeight: FontWeight.bold),

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "cendrassos")
-set(APPLICATION_ID "com.example.cendrassos")
+set(APPLICATION_ID "net.cendrassos.djauapp")
 
 cmake_policy(SET CMP0063 NEW)
 

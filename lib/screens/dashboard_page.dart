@@ -1,14 +1,18 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:background_fetch/background_fetch.dart';
 import 'package:cendrassos/api/api_response.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/CalendariNotificacions.dart';
 import 'package:cendrassos/screens/Error.dart';
 import 'package:cendrassos/screens/users_page.dart';
+import 'package:cendrassos/services/background_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cendrassos/api/notifications_bloc.dart';
 
+import '../config_cendrassos.dart';
 import '../models/notificacio.dart';
 
 class Dashboard extends StatefulWidget {
@@ -33,16 +37,53 @@ class _DashBoardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    if (Platform.isAndroid || Platform.isIOS) {
+      initPlatformState();
+    }
 
     _month = _focusedDay.month;
     final djau = Provider.of<DjauModel>(context, listen: false);
     _bloc = NotificacioBloc(djau.alumne.token);
   }
 
+  Future<void> initPlatformState() async {
+    // Configure BackgroundFetch.
+    BackgroundFetch.configure(
+            BackgroundFetchConfig(
+                minimumFetchInterval: intervalNotificacions,
+                forceAlarmManager: true,
+                stopOnTerminate: false,
+                startOnBoot: true,
+                enableHeadless: true,
+                requiresBatteryNotLow: false,
+                requiresCharging: false,
+                requiresStorageNotLow: false,
+                requiresDeviceIdle: false,
+                requiredNetworkType: NetworkType.ANY),
+            _onBackgroundFetch)
+        .then((int status) {
+      print('[BackgroundFetch] configure success: $status');
+      // Fer post configuració?
+    }).catchError((e) {
+      print('[BackgroundFetch] configure ERROR: $e');
+    });
+  }
+
   @override
   void dispose() {
     _bloc.dispose();
     super.dispose();
+  }
+
+  void _onBackgroundFetch(String taskId) async {
+    // This is the fetch-event callback.
+    print("[BackgroundFetch] Event received $taskId");
+    BackgroundTask _background = BackgroundTask();
+    await _background.checkNewNotificacions();
+
+    // IMPORTANT:  You must signal completion of your task or the OS can punish your app
+    // for taking too long in the background.
+    BackgroundFetch.finish(taskId);
   }
 
   void _retryComunicacion() {
@@ -85,9 +126,7 @@ class _DashBoardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final currentLogin = context.watch<DjauModel>();
-    // if (!currentLogin.isLogged()) {
-    //   Navigator.pushNamed(context, LoginPage.routeName);
-    // }
+
     var nom = currentLogin.alumne.nom;
 
     return Scaffold(
