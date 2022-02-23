@@ -1,13 +1,8 @@
-import 'dart:io';
-
 import 'package:background_fetch/background_fetch.dart';
 import 'package:cendrassos/routes.dart';
 import 'package:cendrassos/screens/loading_page.dart';
 import 'package:cendrassos/services/background_tasks.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
-SharedPreferences? prefs;
 
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
   String taskId = task.taskId;
@@ -20,6 +15,7 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
     return;
   }
   print('[BackgroundFetch] Headless event received.');
+
   // Do your work here...
   var tasca = BackgroundTask();
   await tasca.checkNewNotificacions();

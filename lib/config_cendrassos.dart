@@ -9,7 +9,7 @@ const String MissatgeNotificacions = "Notificacions al Djau";
 const String AppName = "Cendrassos";
 
 // API
-const String baseUrl = "http://192.168.1.44:8080/api";
+const String baseUrl = "http://192.168.1.39:8080/api";
 const String PathLogin = "/auth/login";
 const String PathNotificacions = "/notificacions/mes";
 const String PathNews = "/notificacions/news";

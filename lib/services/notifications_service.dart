@@ -37,7 +37,8 @@ class NotificationService {
 
   void selectNotification(String? payload) async {
     if (payload != null) {
-      // TODO: Fer alguna cosa
+      // TODO: Fer alguna cosa com carregar l'usuari
+      //var nouuser = payload;
       //selectedNotificationPayload = payload;
     }
   }
