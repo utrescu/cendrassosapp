@@ -11,6 +11,7 @@ import 'package:cendrassos/services/background_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cendrassos/api/notifications_bloc.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../config_cendrassos.dart';
 import '../models/notificacio.dart';
@@ -31,6 +32,8 @@ class _DashBoardState extends State<Dashboard> {
   DateTime? _selectedDay = DateTime.now();
   int _month = 0;
   List<Notificacio> _notificacions = [];
+
+  CalendarFormat _format = CalendarFormat.month;
 
   late NotificacioBloc _bloc;
 
@@ -102,6 +105,12 @@ class _DashBoardState extends State<Dashboard> {
     }
   }
 
+  void _onFormatChanged(CalendarFormat nou) {
+    setState(() {
+      _format = nou;
+    });
+  }
+
   void _changeMonth(DateTime value) {
     setState(() {
       _month = value.month;
@@ -157,8 +166,10 @@ class _DashBoardState extends State<Dashboard> {
                       notificacions: _notificacions,
                       focusedDay: _focusedDay,
                       selectedDay: _selectedDay,
+                      format: _format,
                       onMonthChange: _changeMonth,
                       onSelectDay: _onDaySelected,
+                      onFormatChanged: _onFormatChanged,
                     );
                   case Status.ERROR:
                     return Error(
