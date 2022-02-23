@@ -28,8 +28,8 @@ class NotificacioBloc {
     notificationsListSink
         .add(ApiResponse.loading('Recuperant notificacions', []));
     try {
-      var movies = await _notificacioRepository.getNotifications(mes, _token);
-      notificationsListSink.add(ApiResponse.completed(movies));
+      var dades = await _notificacioRepository.getNotifications(mes, _token);
+      notificationsListSink.add(ApiResponse.completed(dades));
     } catch (e) {
       notificationsListSink.add(ApiResponse.error(e.toString(), []));
       print(e);

@@ -1,4 +1,4 @@
-package com.example.cendrassos
+package net.cendrassos.djauapp
 
 import io.flutter.embedding.android.FlutterActivity
 

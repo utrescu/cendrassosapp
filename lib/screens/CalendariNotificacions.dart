@@ -10,9 +10,11 @@ class CalendariNotificacions extends StatelessWidget {
   final List<Notificacio> notificacions;
   final DateTime? selectedDay;
   final DateTime focusedDay;
+  final CalendarFormat format;
 
   final MonthChangeCallBack onMonthChange;
   final SelectedDayCallBack onSelectDay;
+  final FormatChanged onFormatChanged;
 
   final ValueNotifier<List<Notificacio>> _selectedEvents =
       ValueNotifier<List<Notificacio>>([]);
@@ -21,8 +23,10 @@ class CalendariNotificacions extends StatelessWidget {
     required this.notificacions,
     required this.focusedDay,
     required this.selectedDay,
+    required this.format,
     required this.onMonthChange,
     required this.onSelectDay,
+    required this.onFormatChanged,
   });
 
   DateTime getFirstCourseDay() {
@@ -31,12 +35,12 @@ class CalendariNotificacions extends StatelessWidget {
     if (mes < startMonth) {
       year = year - 1;
     }
-    return DateTime.utc(year, startMonth, 1);
+    return DateTime(year, startMonth, 1);
   }
 
   DateTime getLastCourseDay() {
     var dia = getFirstCourseDay();
-    return DateTime.utc(dia.year + 1, endMonth, 31);
+    return DateTime(dia.year + 1, endMonth + 1, 0);
   }
 
   List<Notificacio> _getEventsForDay(DateTime day) {
@@ -97,15 +101,19 @@ class CalendariNotificacions extends StatelessWidget {
           calendarStyle: CalendarStyle(
             outsideDaysVisible: false,
           ),
-          calendarFormat: CalendarFormat.month,
+          calendarFormat: format,
+          availableCalendarFormats: const {
+            CalendarFormat.month: "Veure el Mes",
+            CalendarFormat.twoWeeks: "Veure 15 dies",
+          },
           eventLoader: _getEventsForDay,
           selectedDayPredicate: (day) {
             return isSameDay(selectedDay, day);
           },
           onDaySelected: _selectDay,
-          onFormatChanged: (format) {},
+          onFormatChanged: onFormatChanged,
           headerStyle: HeaderStyle(
-            formatButtonVisible: false,
+            formatButtonVisible: true,
             titleCentered: true,
           ),
           onPageChanged: (focusedDay) {
@@ -184,6 +192,8 @@ typedef SelectedDayCallBack = void Function(
 
 typedef MonthChangeCallBack = void Function(DateTime focused);
 
+typedef FormatChanged = void Function(CalendarFormat format);
+
 class CalendarListItem extends StatelessWidget {
   const CalendarListItem({Key? key, required this.notificacio})
       : super(key: key);
@@ -205,7 +215,7 @@ class CalendarListItem extends StatelessWidget {
           Text("${notificacio.hora} hora"),
         ]),
 
-        onTap: () => print('$notificacio'),
+        onTap: () => print('Veure $notificacio?'),
         title: Text(
           'Professor: ${notificacio.professor}',
           // style: TextStyle(fontWeight: FontWeight.bold),

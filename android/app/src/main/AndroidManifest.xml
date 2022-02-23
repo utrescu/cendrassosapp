@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cendrassos">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="net.cendrassos.djauapp">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
+        tools:replace="android:label"
         android:label="cendrassos"
         android:allowBackup="false"
         android:fullBackupContent="false"
