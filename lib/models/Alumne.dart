@@ -1,10 +1,10 @@
+import '../config_cendrassos.dart';
+
 class Alumne {
   final String username;
   final String password;
   final String token;
   final String nom;
-
-  static String usernameField = "email";
 
   Alumne(
     this.username,

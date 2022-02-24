@@ -8,7 +8,8 @@ import 'dart:async';
 class ApiBaseHelper {
   final String _baseUrl = baseUrl;
 
-  static const String NOINTERNET = "Sense connexió a Internet";
+  static const String NOINTERNET =
+      "Hi ha problemes per accedir a la xarxa. Proveu-ho més tard";
 
   // Future<dynamic> get(String url) async {
   //   print('Api Get, url $url');

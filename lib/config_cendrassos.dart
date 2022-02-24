@@ -9,7 +9,7 @@ const String MissatgeNotificacions = "Notificacions al Djau";
 const String AppName = "Cendrassos";
 
 // API
-const String baseUrl = "http://192.168.1.39:8080/api";
+const String baseUrl = "http://134.209.255.231/api";
 const String PathLogin = "/auth/login";
 const String PathNotificacions = "/notificacions/mes";
 const String PathNews = "/notificacions/news";
@@ -17,3 +17,6 @@ const String PathNews = "/notificacions/news";
 const String djauUrl = "https://djau.cendrassos.net";
 const String recuperarUrl =
     "https://djau.cendrassos.net/usuaris/sendPasswdByEmail/";
+
+// TMP
+const String usernameField = 'Email';

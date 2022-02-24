@@ -1,6 +1,7 @@
 // @JsonSerializable()
+import '../config_cendrassos.dart';
+
 class Login {
-  static String usernameField = 'Email';
   String alumne = "";
   String contrasenya = "";
 
