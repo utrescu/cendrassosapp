@@ -8,8 +8,8 @@ class BackgroundTask {
   DjauLocalStorage prefs = DjauLocalStorage();
   DjauSecureStorage storage = DjauSecureStorage();
 
-  Future<void> checkNewNotificacions() async {
-    await manager.initNotificationManager();
+  Future<void> checkNewNotificacions(dynamic Function(String? p) goto) async {
+    await manager.initNotificationManager(goto);
     var alumnes = await prefs.getAlumnesList();
     for (var i = 0; i < alumnes.length; i++) {
       var data = await storage.getAlumne(alumnes[i]);

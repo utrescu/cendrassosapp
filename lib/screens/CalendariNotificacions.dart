@@ -104,7 +104,7 @@ class CalendariNotificacions extends StatelessWidget {
           calendarFormat: format,
           availableCalendarFormats: const {
             CalendarFormat.month: "Veure el Mes",
-            CalendarFormat.twoWeeks: "Veure 15 dies",
+            CalendarFormat.week: "Col·lapsa",
           },
           eventLoader: _getEventsForDay,
           selectedDayPredicate: (day) {

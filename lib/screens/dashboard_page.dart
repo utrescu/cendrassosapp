@@ -14,6 +14,7 @@ import 'package:cendrassos/api/notifications_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../config_cendrassos.dart';
+import '../main.dart';
 import '../models/notificacio.dart';
 
 class Dashboard extends StatefulWidget {
@@ -82,7 +83,7 @@ class _DashBoardState extends State<Dashboard> {
     // This is the fetch-event callback.
     print("[BackgroundFetch] Event received $taskId");
     BackgroundTask _background = BackgroundTask();
-    await _background.checkNewNotificacions();
+    await _background.checkNewNotificacions(onNotification);
 
     // IMPORTANT:  You must signal completion of your task or the OS can punish your app
     // for taking too long in the background.

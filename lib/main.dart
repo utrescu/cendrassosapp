@@ -18,9 +18,13 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
 
   // Do your work here...
   var tasca = BackgroundTask();
-  await tasca.checkNewNotificacions();
+  await tasca.checkNewNotificacions(onNotification);
 
   BackgroundFetch.finish(taskId);
+}
+
+void onNotification(String? payload) {
+  Routes(initialRoute: LoadingPage.routeName);
 }
 
 Future<void> main() async {

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../config_cendrassos.dart';
@@ -12,11 +11,13 @@ class NotificationManager {
 
   String? selectedNotificationPayload;
 
+  static const channel_id = "123";
+
   NotificationManager() {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   }
 
-  Future initNotificationManager() async {
+  Future initNotificationManager(Function(String? p) selectNotification) async {
     initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
     initializationSettingsIOS = IOSInitializationSettings();
     initializationSettingsLinux =
@@ -31,18 +32,11 @@ class NotificationManager {
         onSelectNotification: selectNotification);
   }
 
-  void selectNotification(String? payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: $payload');
-      selectedNotificationPayload = payload;
-    }
-  }
-
   Future<void> showNotification(String username, String nom) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'CHANEL_ID',
-      'CHANEL_NAME',
-      channelDescription: 'CHANEL_DESCRIPTION',
+      channel_id,
+      AppName,
+      channelDescription: 'Notificacions del Djau',
       importance: Importance.max,
       priority: Priority.high,
     );
