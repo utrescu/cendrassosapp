@@ -1,10 +1,11 @@
 import 'package:cendrassos/cendrassos_theme.dart';
-import 'package:cendrassos/screens/Error.dart';
+import 'package:cendrassos/screens/components/Error.dart';
 import 'package:cendrassos/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/djau.dart';
+import 'components/AppMenuBar.dart';
 
 class UsersPage extends StatelessWidget {
   static const routeName = '/users';
@@ -40,19 +41,7 @@ class UsersPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        // automaticallyImplyLeading: false,
-        title: Text(
-          'Alumne: $nom',
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.account_box),
-            disabledColor: secondaryColorDark,
-            onPressed: null,
-          )
-        ],
-      ),
+      appBar: AppMenuBar(nom: nom, haveleading: true, gotoUserPage: null),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Anar a pàgina de login per afegir un alumne nou

@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:cendrassos/api/api_response.dart';
 import 'package:cendrassos/providers/djau.dart';
-import 'package:cendrassos/screens/CalendariNotificacions.dart';
-import 'package:cendrassos/screens/Error.dart';
+import 'package:cendrassos/screens/components/CalendariNotificacions.dart';
+import 'package:cendrassos/screens/components/Error.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:cendrassos/services/background_tasks.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../config_cendrassos.dart';
 import '../main.dart';
 import '../models/notificacio.dart';
+import 'components/AppMenuBar.dart';
 
 class Dashboard extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -140,18 +141,8 @@ class _DashBoardState extends State<Dashboard> {
     var nom = currentLogin.alumne.nom;
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Alumne: $nom',
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.account_box),
-            onPressed: gotoUserPage,
-          )
-        ],
-      ),
+      appBar:
+          AppMenuBar(nom: nom, haveleading: false, gotoUserPage: gotoUserPage),
       body: RefreshIndicator(
         onRefresh: () => _bloc.fetchNotificacions(_month),
         child: StreamBuilder<ApiResponse<List<Notificacio>>>(
