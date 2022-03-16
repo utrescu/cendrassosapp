@@ -13,6 +13,7 @@ const String baseUrl = "http://134.209.255.231/api";
 const String PathLogin = "/auth/login";
 const String PathNotificacions = "/notificacions/mes";
 const String PathNews = "/notificacions/news";
+const String PathProfile = "/perfil";
 
 const String djauUrl = "https://djau.cendrassos.net";
 const String recuperarUrl =
@@ -20,3 +21,10 @@ const String recuperarUrl =
 
 // TMP
 const String usernameField = 'Email';
+
+const String MissatgeCarregantDades = "Carregant dades";
+const String MissatgeTornaAProvar = "Torna-ho a provar";
+const String MissatgeOk = "D'acord";
+
+const String ErrorCarregant =
+    "ERROR carregant les dades. Torna-ho a provar més tard";

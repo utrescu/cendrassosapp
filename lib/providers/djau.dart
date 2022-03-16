@@ -1,5 +1,6 @@
 import 'package:cendrassos/api/notificacions_repository.dart';
 import 'package:cendrassos/models/Alumne.dart';
+import 'package:cendrassos/models/Perfil.dart';
 import 'package:cendrassos/models/login.dart';
 import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/material.dart';
@@ -90,5 +91,23 @@ class DjauModel with ChangeNotifier {
 
   void logout() {
     notifyListeners();
+  }
+
+  Future<Perfil> loadPerfil() async {
+    // final response = await _repository.getProfile(alumne.token);
+    // return response;
+    return Perfil("ESO1A", "20/02/1927", "666666666",
+        "CM de Siurana 8 - El Far d'Empordà", {
+      Responsable(
+        "Manel Garcia Pimiento",
+        "manel@gmail.com",
+        "606000666",
+      ),
+      Responsable(
+        "Filomena Pi Boronat",
+        "filo@hotmail.com",
+        "972500550",
+      ),
+    });
   }
 }

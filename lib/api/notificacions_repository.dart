@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cendrassos/api/login_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
 import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/models/Perfil.dart';
 
 import '../models/login.dart';
 import 'api_base_helper.dart';
@@ -50,5 +51,12 @@ class NotificacionsRepository {
       return false;
     }
     return true;
+  }
+
+  Future<Perfil> getProfile(String token) async {
+    var url = '$PathProfile';
+
+    final response = await _helper.get(url, getHeaders(token));
+    return Perfil.fromJson(response);
   }
 }

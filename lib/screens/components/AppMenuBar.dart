@@ -1,4 +1,3 @@
-import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -24,20 +23,13 @@ class AppMenuBar extends StatelessWidget with PreferredSizeWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.account_circle_rounded),
-          disabledColor: secondaryColor,
-          onPressed: () {
-            if (ModalRoute.of(context)?.settings.name !=
-                ProfilePage.routeName) {
-              Navigator.of(context).pushNamed(
-                ProfilePage.routeName,
-                arguments: <String, String>{'nom': nom},
-              );
-            }
-          },
+          disabledColor: Theme.of(context).disabledColor,
+          onPressed: enableProfileButton(
+              context, ModalRoute.of(context)?.settings.name, {'nom': nom}),
         ),
         IconButton(
           icon: Icon(Icons.switch_account),
-          disabledColor: secondaryColorDark,
+          disabledColor: Theme.of(context).disabledColor,
           onPressed: gotoUserPage,
         )
       ],
@@ -46,4 +38,13 @@ class AppMenuBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
+
+  VoidCallback? enableProfileButton(
+      context, String? currentRoute, Map<String, String> arguments) {
+    if (currentRoute != ProfilePage.routeName) {
+      return () => Navigator.of(context)
+          .pushNamed(ProfilePage.routeName, arguments: arguments);
+    }
+    return null;
+  }
 }
