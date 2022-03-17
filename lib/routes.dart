@@ -6,6 +6,7 @@ import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';
 import 'package:cendrassos/screens/loading_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
+import 'package:cendrassos/screens/profile_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class Routes {
     Dashboard.routeName: (context) => Dashboard(),
     LoadingPage.routeName: (context) => LoadingPage(),
     UsersPage.routeName: (context) => UsersPage(),
+    ProfilePage.routeName: (context) => ProfilePage(),
   };
 
   Routes({this.initialRoute}) {

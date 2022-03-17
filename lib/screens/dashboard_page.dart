@@ -164,13 +164,14 @@ class _DashBoardState extends State<Dashboard> {
                       onFormatChanged: _onFormatChanged,
                     );
                   case Status.ERROR:
-                    return Error(
+                    return ErrorRetry(
                       errorMessage: snapshot.data!.message,
+                      textBoto: MissatgeTornaAProvar,
                       onRetryPressed: _retryComunicacion,
                     );
                 }
               } else {
-                return Loading(loadingMessage: "Carregant dades");
+                return Loading(loadingMessage: MissatgeCarregantDades);
               }
             }),
       ),

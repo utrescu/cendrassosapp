@@ -1,5 +1,7 @@
 import 'package:cendrassos/cendrassos_theme.dart';
+import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/screens/components/Error.dart';
+import 'package:cendrassos/screens/dashboard_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,10 +50,10 @@ class UsersPage extends StatelessWidget {
           // He de fer pop?
           Navigator.pushNamed(context, LoginPage.routeName);
         },
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         child: Icon(
           Icons.add,
-          color: secondaryColor,
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       body: ValueListenableBuilder<Map<String, String>>(
@@ -74,7 +76,7 @@ class UsersPage extends StatelessWidget {
                     .toList(),
               )
             : Loading(
-                loadingMessage: "Carregant",
+                loadingMessage: MissatgeCarregantDades,
               ),
       ),
     );
@@ -104,7 +106,8 @@ class _UserItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           if (enabled) {
-            Navigator.pop(context);
+            Navigator.popUntil(
+                context, ModalRoute.withName(Dashboard.routeName));
           } else {
             gotoAlumne(context, username);
           }
@@ -113,7 +116,7 @@ class _UserItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: primaryColor,
+              color: Theme.of(context).colorScheme.primary,
               width: 2.0,
             ),
             // gradient: LinearGradient(
@@ -127,7 +130,7 @@ class _UserItem extends StatelessWidget {
                 nom,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: primaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                   fontSize: titleFontSize,
                 ),
               ),
@@ -141,39 +144,24 @@ class _UserItem extends StatelessWidget {
           children: [
             Icon(
               enabled ? Icons.check_circle : null,
-              color: primaryColor,
+              color: Theme.of(context).colorScheme.primary,
             ),
             IconButton(
               icon: Icon(
                 Icons.delete,
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () => deleteItem(context, username),
             ),
           ],
         ),
-        // backgroundColor: Colors.black45,
       ),
-      // header: GridTileBar(
-      //   backgroundColor: primaryColorDark,
-      //   title: Center(
-      //     child: Text(
-      //       item.value,
-      //       style: TextStyle(
-      //         color: secondaryColor,
-      //         fontSize: defaultFontSize,
-      //       ),
-      //     ),
-      //   ),
-      // ),
     );
   }
 
   void gotoAlumne(context, String username) async {
-    if (!enabled) {
-      final djau = Provider.of<DjauModel>(context, listen: false);
-      await djau.loadAlumne(username);
-    }
-    Navigator.pop(context);
+    final djau = Provider.of<DjauModel>(context, listen: false);
+    await djau.loadAlumne(username);
+    Navigator.pushNamed(context, Dashboard.routeName);
   }
 }
