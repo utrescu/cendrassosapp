@@ -148,7 +148,7 @@ class ProfilePage extends StatelessWidget {
                             ConnectionState.done &&
                         snapshot.hasError) {
                       return ErrorRetry(
-                        errorMessage: ErrorCarregant,
+                        errorMessage: '$ErrorCarregant: ${snapshot.error}',
                         textBoto: MissatgeOk,
                         onRetryPressed: () => Navigator.pop(context),
                       );
