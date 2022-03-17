@@ -10,10 +10,10 @@ class Perfil {
 
   factory Perfil.fromJson(dynamic json) {
     return Perfil(
-      json['grup'] as String,
-      json['datanaixement'] as String,
+      json['grup'] != null ? json['grup'] as String : "No especificat",
+      json['datanaixement'] != null ? json['datanaixement'] as String : "",
       json['telefon'] != null ? json['telefon'] as String : "",
-      json['adreca'] as String,
+      json['adreca'] != null ? json['adreca'] as String : "",
       List<Responsable>.from(
           json['responsables'].map((x) => Responsable.fromJson(x))),
     );
