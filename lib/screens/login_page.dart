@@ -72,7 +72,8 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: 'Usuari',
-                        labelStyle: TextStyle(color: primaryColorDark),
+                        labelStyle: TextStyle(
+                            color: Theme.of(context).primaryColorDark),
                         hintText: 'Entreu el nom d\'usuari',
                       ),
                       validator: (valor) => _isNotNull(valor)),
@@ -84,6 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _passwordController,
                     decoration: InputDecoration(
                         labelText: 'Contrasenya',
+                        labelStyle: TextStyle(
+                            color: Theme.of(context).primaryColorDark),
                         hintText: 'Entreu la contrasenya'),
                     validator: (valor) =>
                         _isNotNull(valor), //Function to check validation

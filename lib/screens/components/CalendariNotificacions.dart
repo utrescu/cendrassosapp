@@ -60,7 +60,7 @@ class CalendariNotificacions extends StatelessWidget {
 
   // Crea les caixes de colors de les notificacions de cada
   // un dels dies
-  Widget _notificationsBox(Color color, int lenght) {
+  Widget _notificationsBox(context, Color color, int lenght) {
     return FittedBox(
       fit: BoxFit.fill,
       child: Container(
@@ -71,9 +71,8 @@ class CalendariNotificacions extends StatelessWidget {
           child: Text(
             lenght.toString(),
             style: TextStyle(
-              fontSize: notificationsNumberTextSize,
-              color: primaryColorDark,
-            ),
+                fontSize: notificationsNumberTextSize,
+                color: Theme.of(context).primaryColorDark),
           ),
         ),
       ),
@@ -132,7 +131,7 @@ class CalendariNotificacions extends StatelessWidget {
 
               var controls = <Widget>[];
               grups.forEach((key, value) {
-                controls.add(_notificationsBox(key, value.length));
+                controls.add(_notificationsBox(context, key, value.length));
               });
 
               return Row(
@@ -145,7 +144,7 @@ class CalendariNotificacions extends StatelessWidget {
                 margin: const EdgeInsets.all(4.0),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: primaryColorUltraLight,
+                    color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(50.0)),
                 child: Text(
                   date.day.toString(),
@@ -161,8 +160,8 @@ class CalendariNotificacions extends StatelessWidget {
           '${_getSelectedDay()}',
           style: TextStyle(
             fontSize: defaultFontSize,
-            color: primaryColor,
-            decorationColor: primaryColorDark,
+            color: Theme.of(context).colorScheme.primary,
+            decorationColor: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.bold,
           ),
           maxLines: 4,
@@ -203,8 +202,8 @@ class CalendarListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: secondaryColor,
-      shadowColor: primaryColorLight,
+      color: Theme.of(context).colorScheme.background,
+      shadowColor: Theme.of(context).primaryColorLight,
       child: ListTile(
         // leading: _buildCircleAvatar(value[index].getColor()),
         leading: Column(children: [

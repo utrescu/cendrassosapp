@@ -1,6 +1,6 @@
-import 'package:cendrassos/cendrassos_theme.dart';
+import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
-import 'package:cendrassos/screens/Error.dart';
+import 'package:cendrassos/screens/components/Error.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  static String carregant = "Carregant";
+  static String carregant = MissatgeCarregantDades;
   String _message = carregant;
   String _errorMessage = "";
 
@@ -66,7 +66,9 @@ class _LoadingPageState extends State<LoadingPage> {
         children: <Widget>[
           // Background
           new Container(
-            decoration: BoxDecoration(color: secondaryColor),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+            ),
           ),
 
           /// Render the Title widget, loader and messages below each other
@@ -86,7 +88,7 @@ class _LoadingPageState extends State<LoadingPage> {
                     /// Loader Animation Widget
                     _errorMessage.isEmpty
                         ? Loading(loadingMessage: _message)
-                        : Error2Buttons(
+                        : ErrorRetryLogin(
                             errorMessage: _errorMessage,
                             onRetryPressed: _load,
                             onLogin: _gotoLogin,
