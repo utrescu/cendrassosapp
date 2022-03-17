@@ -1,6 +1,7 @@
 import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/screens/components/Error.dart';
+import 'package:cendrassos/screens/dashboard_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -105,7 +106,8 @@ class _UserItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           if (enabled) {
-            Navigator.pop(context);
+            Navigator.popUntil(
+                context, ModalRoute.withName(Dashboard.routeName));
           } else {
             gotoAlumne(context, username);
           }
@@ -158,10 +160,8 @@ class _UserItem extends StatelessWidget {
   }
 
   void gotoAlumne(context, String username) async {
-    if (!enabled) {
-      final djau = Provider.of<DjauModel>(context, listen: false);
-      await djau.loadAlumne(username);
-    }
-    Navigator.pop(context);
+    final djau = Provider.of<DjauModel>(context, listen: false);
+    await djau.loadAlumne(username);
+    Navigator.pushNamed(context, Dashboard.routeName);
   }
 }
