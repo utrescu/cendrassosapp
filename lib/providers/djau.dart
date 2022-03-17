@@ -94,20 +94,20 @@ class DjauModel with ChangeNotifier {
   }
 
   Future<Perfil> loadPerfil() async {
-    // final response = await _repository.getProfile(alumne.token);
-    // return response;
-    return Perfil("ESO1A", "20/02/1927", "666666666",
-        "CM de Siurana 8 - El Far d'Empordà", {
-      Responsable(
-        "Manel Garcia Pimiento",
-        "manel@gmail.com",
-        "606000666",
-      ),
-      Responsable(
-        "Filomena Pi Boronat",
-        "filo@hotmail.com",
-        "972500550",
-      ),
-    });
+    final response = await _repository.getProfile(alumne.token);
+    return response;
+    // return Perfil("ESO1A", "20/02/1927", "666666666",
+    //     "CM de Siurana 8 - El Far d'Empordà", {
+    //   Responsable(
+    //     "Manel Garcia Pimiento",
+    //     "manel@gmail.com",
+    //     "606000666",
+    //   ),
+    //   Responsable(
+    //     "Filomena Pi Boronat",
+    //     "filo@hotmail.com",
+    //     "972500550",
+    //   ),
+    // });
   }
 }

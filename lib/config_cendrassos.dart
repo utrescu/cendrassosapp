@@ -13,7 +13,7 @@ const String baseUrl = "http://134.209.255.231/api";
 const String PathLogin = "/auth/login";
 const String PathNotificacions = "/notificacions/mes";
 const String PathNews = "/notificacions/news";
-const String PathProfile = "/perfil";
+const String PathProfile = "/alumnes/dades";
 
 const String djauUrl = "https://djau.cendrassos.net";
 const String recuperarUrl =

@@ -12,9 +12,10 @@ class Perfil {
     return Perfil(
       json['grup'] as String,
       json['datanaixement'] as String,
-      json['telefon'] as String,
+      json['telefon'] != null ? json['telefon'] as String : "",
       json['adreca'] as String,
-      List<Responsable>.from(json['responsables']).map((x) => x),
+      List<Responsable>.from(
+          json['responsables'].map((x) => Responsable.fromJson(x))),
     );
   }
 }
@@ -27,6 +28,10 @@ class Responsable {
   Responsable(this.nom, this.mail, this.telefon);
 
   factory Responsable.fromJson(dynamic json) {
-    return Responsable(json['nom'], json['mail'], json['telefon']);
+    return Responsable(
+      json['nom'] != null ? json['nom'] as String : "",
+      json['mail'] != null ? json['mail'] as String : "",
+      json['telefon'] != null ? json['telefon'] as String : "",
+    );
   }
 }
