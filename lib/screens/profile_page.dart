@@ -1,4 +1,3 @@
-import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/Perfil.dart';
 import 'package:cendrassos/providers/djau.dart';
@@ -13,13 +12,10 @@ class ProfilePage extends StatelessWidget {
 
   const ProfilePage({Key? key}) : super(key: key);
 
-  Widget redText(context, String text, double size, {bool weight = false}) {
+  Widget redText(String text, TextStyle? estil) {
     return Text(
       text,
-      style: TextStyle(
-          fontSize: size,
-          color: Theme.of(context).colorScheme.primary,
-          fontWeight: weight == true ? FontWeight.bold : FontWeight.normal),
+      style: estil,
     );
   }
 
@@ -27,7 +23,7 @@ class ProfilePage extends StatelessWidget {
     return Column(
       children: [
         Container(
-          child: redText(context, nom, buttonFontSize, weight: true),
+          child: redText(nom, Theme.of(context).textTheme.headline6),
         ),
         Divider(
           indent: 20,
@@ -36,16 +32,16 @@ class ProfilePage extends StatelessWidget {
         ListTile(
           leading: Icon(
             Icons.email,
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).primaryColor,
           ),
-          title: redText(context, email, defaultFontSize),
+          title: redText(email, Theme.of(context).textTheme.bodyText1),
         ),
         ListTile(
           leading: Icon(
             Icons.phone,
             color: Theme.of(context).colorScheme.primary,
           ),
-          title: redText(context, telefon, defaultFontSize),
+          title: redText(telefon, Theme.of(context).textTheme.bodyText1),
         ),
       ],
     );
@@ -70,8 +66,7 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
         Center(
-          child: redText(context, dades.grup,
-              Theme.of(context).textTheme.headline5?.fontSize ?? 20),
+          child: redText(dades.grup, Theme.of(context).textTheme.headline6),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 30),
@@ -79,23 +74,26 @@ class ProfilePage extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.cake,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).primaryColor,
               ),
-              title: redText(context, dades.datanaixement, defaultFontSize),
+              title: redText(
+                  dades.datanaixement, Theme.of(context).textTheme.bodyText1),
             ),
             ListTile(
               leading: Icon(
                 Icons.home,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              title: redText(context, dades.adreca, defaultFontSize),
+              title:
+                  redText(dades.adreca, Theme.of(context).textTheme.bodyText1),
             ),
             ListTile(
               leading: Icon(
                 Icons.phone,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              title: redText(context, dades.telefon, defaultFontSize),
+              title:
+                  redText(dades.telefon, Theme.of(context).textTheme.bodyText1),
             ),
           ]),
         ),

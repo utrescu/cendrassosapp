@@ -54,14 +54,34 @@ ColorScheme colorScheme = ColorScheme.fromSwatch(
 );
 
 TextTheme textScheme = const TextTheme(
-  bodyText1: TextStyle(fontSize: 14),
+  bodyText1: TextStyle(
+    fontSize: 14,
+    color: Color.fromRGBO(217, 48, 29, 1),
+  ),
   bodyText2: TextStyle(fontSize: 14),
-  headline1: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
-  headline6: TextStyle(fontSize: 20.0),
+  headline1: TextStyle(
+    fontSize: 36.0,
+    fontWeight: FontWeight.bold,
+  ),
+  headline5: TextStyle(
+    fontSize: 20.0,
+    fontWeight: FontWeight.bold,
+    color: Color.fromRGBO(217, 48, 29, 1),
+  ),
+  headline6: TextStyle(
+    fontSize: 15.0,
+    fontWeight: FontWeight.bold,
+    color: Color.fromRGBO(217, 48, 29, 1),
+  ),
   button: TextStyle(fontSize: 15.0),
+
+  // titleMedium: TextStyle(fontSize: 20.0),
 );
 
-var cendrassosTheme = ThemeData.from(
+var cendrassosTheme = ThemeData(
+  primaryColor: primaryColor,
+  primaryColorLight: primaryColorLight,
+  primaryColorDark: primaryColorDark,
   colorScheme: colorScheme,
   textTheme: textScheme,
 );

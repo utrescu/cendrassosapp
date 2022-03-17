@@ -26,10 +26,7 @@ class ErrorRetry extends StatelessWidget {
               child: Text(
                 errorMessage,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: titleFontSize,
-                ),
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
           ),
@@ -43,7 +40,7 @@ class ErrorRetry extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 onPrimary: Theme.of(context).colorScheme.background,
                 primary: Theme.of(context).colorScheme.primary,
-                onSurface: Colors.grey),
+                onSurface: Colors.white),
             onPressed: onRetryPressed,
           ),
         ],

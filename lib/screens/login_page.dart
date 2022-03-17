@@ -1,4 +1,3 @@
-import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/utils/popup.dart';
@@ -72,8 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: 'Usuari',
-                        labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColorDark),
+                        labelStyle:
+                            TextStyle(color: Theme.of(context).primaryColor),
                         hintText: 'Entreu el nom d\'usuari',
                       ),
                       validator: (valor) => _isNotNull(valor)),
@@ -85,8 +84,8 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _passwordController,
                     decoration: InputDecoration(
                         labelText: 'Contrasenya',
-                        labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColorDark),
+                        labelStyle:
+                            TextStyle(color: Theme.of(context).primaryColor),
                         hintText: 'Entreu la contrasenya'),
                     validator: (valor) =>
                         _isNotNull(valor), //Function to check validation
@@ -100,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                       child: Text(
                         'Inicia la sessió',
-                        style: TextStyle(fontSize: buttonFontSize),
+                        //style: TextStyle(fontSize: buttonFontSize),
                       ),
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {

@@ -159,9 +159,7 @@ class CalendariNotificacions extends StatelessWidget {
         child: Text(
           '${_getSelectedDay()}',
           style: TextStyle(
-            fontSize: defaultFontSize,
-            color: Theme.of(context).colorScheme.primary,
-            decorationColor: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).primaryColor,
             fontWeight: FontWeight.bold,
           ),
           maxLines: 4,
@@ -202,7 +200,6 @@ class CalendarListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.background,
       shadowColor: Theme.of(context).primaryColorLight,
       child: ListTile(
         // leading: _buildCircleAvatar(value[index].getColor()),
@@ -217,7 +214,7 @@ class CalendarListItem extends StatelessWidget {
         onTap: () => print('Veure $notificacio?'),
         title: Text(
           'Professor: ${notificacio.professor}',
-          // style: TextStyle(fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         subtitle: Text('${notificacio.text}'),
       ),
