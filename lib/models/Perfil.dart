@@ -10,10 +10,10 @@ class Perfil {
 
   factory Perfil.fromJson(dynamic json) {
     return Perfil(
-      json['grup'] != null ? json['grup'] as String : "No especificat",
-      json['datanaixement'] != null ? json['datanaixement'] as String : "",
-      json['telefon'] != null ? json['telefon'] as String : "",
-      json['adreca'] != null ? json['adreca'] as String : "",
+      json['grup'] ?? "No especificat",
+      json['datanaixement'] ?? "",
+      json['telefon'] ?? "",
+      json['adreca'] ?? "",
       List<Responsable>.from(
           json['responsables'].map((x) => Responsable.fromJson(x))),
     );
@@ -29,9 +29,9 @@ class Responsable {
 
   factory Responsable.fromJson(dynamic json) {
     return Responsable(
-      json['nom'] != null ? json['nom'] as String : "",
-      json['mail'] != null ? json['mail'] as String : "",
-      json['telefon'] != null ? json['telefon'] as String : "",
+      json['nom'] ?? "",
+      json['mail'] ?? "",
+      json['telefon'] ?? "",
     );
   }
 }
