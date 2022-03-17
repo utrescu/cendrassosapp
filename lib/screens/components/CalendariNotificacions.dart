@@ -1,4 +1,3 @@
-import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/notificacio.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +69,7 @@ class CalendariNotificacions extends StatelessWidget {
         child: Center(
           child: Text(
             lenght.toString(),
-            style: TextStyle(
-                fontSize: notificationsNumberTextSize,
-                color: Theme.of(context).primaryColorDark),
+            style: Theme.of(context).textTheme.labelSmall,
           ),
         ),
       ),

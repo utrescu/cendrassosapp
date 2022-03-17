@@ -23,7 +23,7 @@ class ProfilePage extends StatelessWidget {
     return Column(
       children: [
         Container(
-          child: redText(nom, Theme.of(context).textTheme.headline6),
+          child: redText(nom, Theme.of(context).textTheme.headlineSmall),
         ),
         Divider(
           indent: 20,
@@ -66,7 +66,7 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
         Center(
-          child: redText(dades.grup, Theme.of(context).textTheme.headline6),
+          child: redText(dades.grup, Theme.of(context).textTheme.headlineSmall),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 30),

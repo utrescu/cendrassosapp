@@ -127,7 +127,7 @@ class _UserItem extends StatelessWidget {
               padding: EdgeInsets.all(5),
               child: Text(nom,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline5),
+                  style: Theme.of(context).textTheme.titleLarge),
             ),
           ),
         ),
