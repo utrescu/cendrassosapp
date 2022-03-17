@@ -1,4 +1,3 @@
-import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/screens/components/Error.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';
@@ -50,10 +49,10 @@ class UsersPage extends StatelessWidget {
           // He de fer pop?
           Navigator.pushNamed(context, LoginPage.routeName);
         },
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).primaryColor,
         child: Icon(
           Icons.add,
-          color: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
       body: ValueListenableBuilder<Map<String, String>>(
@@ -116,7 +115,7 @@ class _UserItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).primaryColor,
               width: 2.0,
             ),
             // gradient: LinearGradient(
@@ -126,14 +125,9 @@ class _UserItem extends StatelessWidget {
           child: Center(
             child: Padding(
               padding: EdgeInsets.all(5),
-              child: Text(
-                nom,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: titleFontSize,
-                ),
-              ),
+              child: Text(nom,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleLarge),
             ),
           ),
         ),

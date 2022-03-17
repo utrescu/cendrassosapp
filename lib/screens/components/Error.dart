@@ -1,4 +1,3 @@
-import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:flutter/material.dart';
 
 class ErrorRetry extends StatelessWidget {
@@ -26,10 +25,7 @@ class ErrorRetry extends StatelessWidget {
               child: Text(
                 errorMessage,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: titleFontSize,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ),
@@ -43,7 +39,7 @@ class ErrorRetry extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 onPrimary: Theme.of(context).colorScheme.background,
                 primary: Theme.of(context).colorScheme.primary,
-                onSurface: Colors.grey),
+                onSurface: Colors.white),
             onPressed: onRetryPressed,
           ),
         ],
@@ -92,10 +88,7 @@ class ErrorRetryLogin extends StatelessWidget {
               child: Text(
                 errorMessage,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: titleFontSize,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ),
@@ -126,14 +119,12 @@ class Loading extends StatelessWidget {
           Text(
             loadingMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: titleFontSize,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           SizedBox(height: 24),
           CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(primaryColorLight),
+            valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).primaryColorLight),
           ),
         ],
       ),

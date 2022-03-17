@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Colors
 
-var primaryColor = const Color.fromRGBO(217, 48, 29, 1);
+var primaryColor = Color.fromRGBO(217, 48, 29, 1);
 var primaryColorDark = const Color.fromARGB(255, 105, 18, 8);
 var primaryColorLight = Color.fromARGB(255, 238, 144, 134);
 var secondaryColor = const Color(0xFFFFFFFF);
@@ -54,14 +54,34 @@ ColorScheme colorScheme = ColorScheme.fromSwatch(
 );
 
 TextTheme textScheme = const TextTheme(
-  bodyText1: TextStyle(fontSize: 14),
-  bodyText2: TextStyle(fontSize: 14),
-  headline1: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
-  headline6: TextStyle(fontSize: 20.0),
-  button: TextStyle(fontSize: 15.0),
+  bodyLarge: TextStyle(
+    fontSize: 14,
+    color: Color.fromRGBO(217, 48, 29, 1),
+  ),
+  bodyMedium: TextStyle(fontSize: 14),
+  displayLarge: TextStyle(
+    fontSize: 36.0,
+    fontWeight: FontWeight.bold,
+  ),
+  headlineSmall: TextStyle(
+    fontSize: 20.0,
+    fontWeight: FontWeight.bold,
+    color: Color.fromRGBO(217, 48, 29, 1),
+  ),
+  titleLarge: TextStyle(
+    color: Color.fromRGBO(217, 48, 29, 1),
+  ),
+  titleMedium: TextStyle(
+    fontSize: 15.0,
+    fontWeight: FontWeight.bold,
+    color: Color.fromRGBO(217, 48, 29, 1),
+  ),
 );
 
-var cendrassosTheme = ThemeData.from(
+var cendrassosTheme = ThemeData(
+  primaryColor: primaryColor,
+  primaryColorLight: primaryColorLight,
+  primaryColorDark: primaryColorDark,
   colorScheme: colorScheme,
   textTheme: textScheme,
 );
