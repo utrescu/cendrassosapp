@@ -146,22 +146,23 @@ class UserItem extends StatelessWidget {
             ? Theme.of(context).primaryColorLight.withOpacity(0.5)
             : Theme.of(context).colorScheme.onPrimary,
       ),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset('assets/images/student2.png', fit: BoxFit.cover),
-          Positioned(
-            bottom: 48,
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.5 -
-                  2 * spaceAroundCells,
-              decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Text(nom,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium),
-              ),
+          Container(
+            height:
+                MediaQuery.of(context).size.width * 0.25 - 2 * spaceAroundCells,
+            child: Image.asset('assets/images/student2.png', fit: BoxFit.cover),
+          ),
+          Container(
+            width:
+                MediaQuery.of(context).size.width * 0.5 - 2 * spaceAroundCells,
+            decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(nom,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium),
             ),
           ),
         ],
