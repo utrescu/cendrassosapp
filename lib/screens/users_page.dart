@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../providers/djau.dart';
 import 'components/AppMenuBar.dart';
 
+const spaceAroundCells = 10.0;
+
 class UsersPage extends StatelessWidget {
   static const routeName = '/users';
   final ValueNotifier<Map<String, String>> _users =
@@ -60,12 +62,14 @@ class UsersPage extends StatelessWidget {
         builder: (context, value, _) => value.isNotEmpty
             ? GridView.count(
                 crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                padding: EdgeInsets.all(8),
+                crossAxisSpacing: spaceAroundCells,
+                mainAxisSpacing: spaceAroundCells,
+                // mainAxisSpacing: 8,
+                // crossAxisSpacing: 8,
+                padding: EdgeInsets.all(10),
                 children: value.entries
                     .map(
-                      (item) => _UserItem(
+                      (item) => UserItem(
                         username: item.key,
                         nom: item.value,
                         enabled: item.key == username,
@@ -85,8 +89,8 @@ class UsersPage extends StatelessWidget {
 typedef DeleteAlumneCallBack = void Function(
     BuildContext context, String username);
 
-class _UserItem extends StatelessWidget {
-  const _UserItem(
+class UserItem extends StatelessWidget {
+  const UserItem(
       {Key? key,
       required this.username,
       required this.nom,
@@ -101,54 +105,67 @@ class _UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridTile(
-      child: GestureDetector(
-        onTap: () {
-          if (enabled) {
-            Navigator.popUntil(
-                context, ModalRoute.withName(Dashboard.routeName));
-          } else {
-            gotoAlumne(context, username);
-          }
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: Theme.of(context).primaryColor,
-              width: 2.0,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: GridTile(
+        child: GestureDetector(
+          onTap: () {
+            if (enabled) {
+              Navigator.popUntil(
+                  context, ModalRoute.withName(Dashboard.routeName));
+            } else {
+              gotoAlumne(context, username);
+            }
+          },
+          child: gridContent(context),
+        ),
+        footer: GridTileBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Text(""),
+          trailing: IconButton(
+            icon: Icon(
+              Icons.delete,
+              // color: Theme.of(context).colorScheme.primary,
             ),
-            // gradient: LinearGradient(
-            //   colors: [primaryColor, primaryColorLight],
-            // ),
-          ),
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.all(5),
-              child: Text(nom,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleLarge),
-            ),
+            onPressed: () => deleteItem(context, username),
           ),
         ),
       ),
-      footer: GridTileBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              enabled ? Icons.check_circle : null,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.delete,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onPressed: () => deleteItem(context, username),
-            ),
-          ],
+    );
+  }
+
+  Widget gridContent(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: Theme.of(context).primaryColor,
+          width: 2.0,
         ),
+        color: enabled
+            ? Theme.of(context).primaryColorLight.withOpacity(0.5)
+            : Theme.of(context).colorScheme.onPrimary,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            height:
+                MediaQuery.of(context).size.width * 0.25 - 2 * spaceAroundCells,
+            child: Image.asset('assets/images/student2.png', fit: BoxFit.cover),
+          ),
+          Container(
+            width:
+                MediaQuery.of(context).size.width * 0.5 - 2 * spaceAroundCells,
+            decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(nom,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+          ),
+        ],
       ),
     );
   }
