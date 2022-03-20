@@ -64,8 +64,6 @@ class UsersPage extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: spaceAroundCells,
                 mainAxisSpacing: spaceAroundCells,
-                // mainAxisSpacing: 8,
-                // crossAxisSpacing: 8,
                 padding: EdgeInsets.all(10),
                 children: value.entries
                     .map(
