@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/Error.dart';
@@ -59,6 +61,8 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
+    var margew = MediaQuery.of(context).size.width / 4;
+    var margeh = MediaQuery.of(context).size.height / 4;
     return Scaffold(
       backgroundColor: Colors.black,
       body: new Stack(
@@ -72,31 +76,26 @@ class _LoadingPageState extends State<LoadingPage> {
           ),
 
           /// Render the Title widget, loader and messages below each other
-          new Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width / 4),
-                      child: Image.asset('assets/images/icon.png'),
-                    ),
-
-                    /// Loader Animation Widget
-                    _errorMessage.isEmpty
-                        ? Loading(loadingMessage: _message)
-                        : ErrorRetryLogin(
-                            errorMessage: _errorMessage,
-                            onRetryPressed: _load,
-                            onLogin: _gotoLogin,
-                          ),
-                  ],
+          new Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/icon.png',
+                  height: margeh,
+                  width: margew,
                 ),
-              ),
-            ],
+
+                /// Loader Animation Widget
+                _errorMessage.isEmpty
+                    ? Loading(loadingMessage: _message)
+                    : ErrorRetryLogin(
+                        errorMessage: _errorMessage,
+                        onRetryPressed: _load,
+                        onLogin: _gotoLogin,
+                      ),
+              ],
+            ),
           ),
         ],
       ),
