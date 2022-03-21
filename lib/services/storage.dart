@@ -1,11 +1,11 @@
-import 'package:cendrassos/models/Alumne.dart';
+import 'package:cendrassos/models/alumne.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SecureStorage {
-  final _storage = FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
 
   Future writeSecureStorage(String key, String value) async {
     var writeData = await _storage.write(key: key, value: value);
@@ -28,7 +28,7 @@ class DjauSecureStorage {
 
   Future<void> saveAlumne(Alumne alumne) async {
     var json = jsonEncode(alumne.toJson());
-    _storage.writeSecureStorage('${alumne.username}', json);
+    _storage.writeSecureStorage(alumne.username, json);
   }
 
   Future<Alumne> getAlumne(String username) async {
@@ -43,8 +43,8 @@ class DjauSecureStorage {
 }
 
 class DjauLocalStorage {
-  static final String lastLoginKey = 'lastlogin';
-  static final String usersKey = 'alumnes';
+  static const String lastLoginKey = 'lastlogin';
+  static const String usersKey = 'alumnes';
 
   Future<String?> getLastLogin() async {
     var prefs = await SharedPreferences.getInstance();

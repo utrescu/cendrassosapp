@@ -4,16 +4,16 @@ const int endMonth = 6;
 
 const int intervalNotificacions = 15;
 
-const String NomInstitut = "Institut Cendrassos";
-const String MissatgeNotificacions = "Notificacions al Djau";
-const String AppName = "Cendrassos";
+const String nomInstitut = "Institut Cendrassos";
+const String missatgeNotificacions = "Notificacions al Djau";
+const String appName = "Cendrassos";
 
 // API
 const String baseUrl = "http://134.209.255.231/api";
-const String PathLogin = "/auth/login";
-const String PathNotificacions = "/notificacions/mes";
-const String PathNews = "/notificacions/news";
-const String PathProfile = "/alumnes/dades";
+const String pathLogin = "/auth/login";
+const String pathNotificacions = "/notificacions/mes";
+const String pathNews = "/notificacions/news";
+const String pathProfile = "/alumnes/dades";
 
 const String djauUrl = "https://djau.cendrassos.net";
 const String recuperarUrl =
@@ -22,9 +22,9 @@ const String recuperarUrl =
 // TMP
 const String usernameField = 'Email';
 
-const String MissatgeCarregantDades = "Carregant dades";
-const String MissatgeTornaAProvar = "Torna-ho a provar";
-const String MissatgeOk = "D'acord";
+const String missatgeCarregantDades = "Carregant dades";
+const String missatgeTornaAProvar = "Torna-ho a provar";
+const String missatgeOk = "D'acord";
 
-const String ErrorCarregant =
+const String errorCarregant =
     "ERROR carregant les dades. Torna-ho a provar més tard";

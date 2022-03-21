@@ -19,6 +19,7 @@ class CalendariNotificacions extends StatelessWidget {
       ValueNotifier<List<Notificacio>>([]);
 
   CalendariNotificacions({
+    Key? key,
     required this.notificacions,
     required this.focusedDay,
     required this.selectedDay,
@@ -26,7 +27,7 @@ class CalendariNotificacions extends StatelessWidget {
     required this.onMonthChange,
     required this.onSelectDay,
     required this.onFormatChanged,
-  });
+  }) : super(key: key);
 
   DateTime getFirstCourseDay() {
     int mes = DateTime.now().month;
@@ -88,13 +89,13 @@ class CalendariNotificacions extends StatelessWidget {
           lastDay: getLastCourseDay(),
           focusedDay: focusedDay,
           startingDayOfWeek: StartingDayOfWeek.monday,
-          weekendDays: [DateTime.saturday, DateTime.sunday],
+          weekendDays: const [DateTime.saturday, DateTime.sunday],
           // Desactivar dissabtes i diumenges
           enabledDayPredicate: (date) {
             return (date.weekday != DateTime.sunday &&
                 date.weekday != DateTime.saturday);
           },
-          calendarStyle: CalendarStyle(
+          calendarStyle: const CalendarStyle(
             outsideDaysVisible: false,
           ),
           calendarFormat: format,
@@ -108,7 +109,7 @@ class CalendariNotificacions extends StatelessWidget {
           },
           onDaySelected: _selectDay,
           onFormatChanged: onFormatChanged,
-          headerStyle: HeaderStyle(
+          headerStyle: const HeaderStyle(
             formatButtonVisible: true,
             titleCentered: true,
           ),
@@ -145,7 +146,7 @@ class CalendariNotificacions extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50.0)),
                 child: Text(
                   date.day.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
               );
             },
@@ -154,7 +155,7 @@ class CalendariNotificacions extends StatelessWidget {
           locale: "ca_ES"),
       Center(
         child: Text(
-          '${_getSelectedDay()}',
+          _getSelectedDay(),
           style: TextStyle(
             color: Theme.of(context).primaryColor,
             fontWeight: FontWeight.bold,
@@ -169,7 +170,7 @@ class CalendariNotificacions extends StatelessWidget {
             valueListenable: _selectedEvents,
             builder: (context, value, _) {
               return ListView.builder(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 itemCount: value.length,
                 itemBuilder: (context, index) {
                   return CalendarListItem(notificacio: value[index]);
@@ -208,12 +209,12 @@ class CalendarListItem extends StatelessWidget {
           Text("${notificacio.hora} hora"),
         ]),
 
-        onTap: () => print('Veure $notificacio?'),
+        onTap: () => debugPrint('Veure $notificacio?'),
         title: Text(
           'Professor: ${notificacio.professor}',
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        subtitle: Text('${notificacio.text}'),
+        subtitle: Text(notificacio.text),
       ),
     );
   }

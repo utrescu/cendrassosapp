@@ -11,17 +11,18 @@ class NotificationManager {
 
   String? selectedNotificationPayload;
 
-  static const channel_id = "123";
+  static const channelId = "123";
 
   NotificationManager() {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   }
 
   Future initNotificationManager(Function(String? p) selectNotification) async {
-    initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-    initializationSettingsIOS = IOSInitializationSettings();
-    initializationSettingsLinux =
-        LinuxInitializationSettings(defaultActionName: 'Open notification');
+    initializationSettingsAndroid =
+        const AndroidInitializationSettings('app_icon');
+    initializationSettingsIOS = const IOSInitializationSettings();
+    initializationSettingsLinux = const LinuxInitializationSettings(
+        defaultActionName: 'Open notification');
     initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
@@ -33,21 +34,21 @@ class NotificationManager {
   }
 
   Future<void> showNotification(String username, String nom) async {
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      channel_id,
-      AppName,
+    var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
+      channelId,
+      appName,
       channelDescription: 'Notificacions del Djau',
       importance: Importance.max,
       priority: Priority.high,
     );
-    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics,
     );
     await flutterLocalNotificationsPlugin.show(
       0,
-      NomInstitut,
+      nomInstitut,
       'Notificacions al Djau de $nom',
       platformChannelSpecifics,
       payload: username,

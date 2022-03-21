@@ -1,6 +1,6 @@
 import 'package:cendrassos/api/notificacions_repository.dart';
-import 'package:cendrassos/models/Alumne.dart';
-import 'package:cendrassos/models/Perfil.dart';
+import 'package:cendrassos/models/alumne.dart';
+import 'package:cendrassos/models/perfil.dart';
 import 'package:cendrassos/models/login.dart';
 import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/material.dart';
@@ -12,34 +12,34 @@ class LoginResult {
   LoginResult(this.isLogged, this.errorMessage);
 }
 
-enum DjauStatus { Loaded, Error, WithoutUser }
+enum DjauStatus { loaded, error, withoutUser }
 
 class DjauModel with ChangeNotifier {
-  NotificacionsRepository _repository = NotificacionsRepository();
-  DjauSecureStorage _storage = DjauSecureStorage();
-  DjauLocalStorage _prefs = DjauLocalStorage();
+  final NotificacionsRepository _repository = NotificacionsRepository();
+  final DjauSecureStorage _storage = DjauSecureStorage();
+  final DjauLocalStorage _prefs = DjauLocalStorage();
 
-  DjauStatus _isLogged = DjauStatus.WithoutUser;
+  DjauStatus _isLogged = DjauStatus.withoutUser;
   String errorMessage = "";
   Alumne alumne = Alumne("", "", "", "");
-  bool isLogged() => _isLogged == DjauStatus.Loaded;
-  bool isError() => _isLogged == DjauStatus.Error;
+  bool isLogged() => _isLogged == DjauStatus.loaded;
+  bool isError() => _isLogged == DjauStatus.error;
 
   // Entrar en el sistema
   Future<LoginResult> login(String username, String password) async {
     try {
       final response = await _repository.login(Login(username, password));
       alumne = Alumne(username, password, response.nom, response.accessToken);
-      _isLogged = DjauStatus.Loaded;
+      _isLogged = DjauStatus.loaded;
       errorMessage = "";
       _prefs.setLastLogin(username);
       await _storage.saveAlumne(alumne);
     } catch (e) {
-      _isLogged = DjauStatus.Error;
+      _isLogged = DjauStatus.error;
       errorMessage = e.toString();
     }
     notifyListeners();
-    return LoginResult(_isLogged, this.errorMessage);
+    return LoginResult(_isLogged, errorMessage);
   }
 
   // Canviar d'alumne
@@ -49,7 +49,7 @@ class DjauModel with ChangeNotifier {
       alumne = dades;
       await login(alumne.username, alumne.password);
     } catch (e) {
-      _isLogged = DjauStatus.WithoutUser;
+      _isLogged = DjauStatus.withoutUser;
       errorMessage = "No hi ha dades de l'alumne $username";
       notifyListeners();
     }
@@ -64,7 +64,7 @@ class DjauModel with ChangeNotifier {
     if (alumne != null) {
       await loadAlumne(alumne);
     } else {
-      _isLogged = DjauStatus.WithoutUser;
+      _isLogged = DjauStatus.withoutUser;
       errorMessage = "L'alumne $alumne no pot entrar";
     }
   }
@@ -77,14 +77,16 @@ class DjauModel with ChangeNotifier {
 
   // Obtenir els noms dels alumnes i el seu username
   Future<Map<String, String>> getAlumnes() async {
-    var resultat = Map<String, String>();
+    var resultat = <String, String>{};
 
     var usernames = await _prefs.getAlumnesList();
     for (var username in usernames) {
       try {
         var alumne = await _storage.getAlumne(username);
         resultat[username] = alumne.nom;
-      } catch (e) {}
+      } catch (e) {
+        debugPrint("No hi ha alumnes registrats");
+      }
     }
     return resultat;
   }

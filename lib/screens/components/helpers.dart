@@ -29,7 +29,7 @@ class ErrorRetry extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           ElevatedButton(
             child: Text(textBoto,
                 style: TextStyle(
@@ -84,15 +84,13 @@ class ErrorRetryLogin extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 10),
-            child: Flexible(
-              child: Text(
-                errorMessage,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+            child: Text(
+              errorMessage,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Column(
             children: [
               _boto(context, 'Torna-ho a provar', onRetryPressed),
@@ -121,7 +119,7 @@ class Loading extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(
                 Theme.of(context).primaryColorLight),

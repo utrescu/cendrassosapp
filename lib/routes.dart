@@ -17,11 +17,11 @@ class Routes {
   final String? initialRoute;
 
   var routes = {
-    LoginPage.routeName: (context) => LoginPage(),
-    Dashboard.routeName: (context) => Dashboard(),
-    LoadingPage.routeName: (context) => LoadingPage(),
+    LoginPage.routeName: (context) => const LoginPage(),
+    Dashboard.routeName: (context) => const Dashboard(),
+    LoadingPage.routeName: (context) => const LoadingPage(),
     UsersPage.routeName: (context) => UsersPage(),
-    ProfilePage.routeName: (context) => ProfilePage(),
+    ProfilePage.routeName: (context) => const ProfilePage(),
   };
 
   Routes({this.initialRoute}) {
@@ -31,7 +31,7 @@ class Routes {
         ChangeNotifierProvider(create: (_) => DjauModel()),
         Provider<BuildContext>(create: (c) => c),
       ],
-      child: new MaterialApp(
+      child: MaterialApp(
           title: "Institut Cendrassos",
           theme: cendrassosTheme,
           debugShowCheckedModeBanner: false,

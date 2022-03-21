@@ -1,8 +1,8 @@
 import 'package:cendrassos/config_cendrassos.dart';
-import 'package:cendrassos/models/Perfil.dart';
+import 'package:cendrassos/models/perfil.dart';
 import 'package:cendrassos/providers/djau.dart';
-import 'package:cendrassos/screens/components/AppMenuBar.dart';
-import 'package:cendrassos/screens/components/Error.dart';
+import 'package:cendrassos/screens/components/app_menu_bar.dart';
+import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +25,7 @@ class ProfilePage extends StatelessWidget {
         Container(
           child: redText(nom, Theme.of(context).textTheme.headlineSmall),
         ),
-        Divider(
+        const Divider(
           indent: 20,
           endIndent: 20,
         ),
@@ -59,7 +59,8 @@ class ProfilePage extends StatelessWidget {
                 children: <Widget>[
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('assets/images/student.png'),
+                    backgroundImage:
+                        const AssetImage('assets/images/student.png'),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                 ]),
@@ -69,7 +70,7 @@ class ProfilePage extends StatelessWidget {
           child: redText(dades.grup, Theme.of(context).textTheme.headlineSmall),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(children: [
             ListTile(
               leading: Icon(
@@ -131,10 +132,10 @@ class ProfilePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               FutureBuilder<Perfil>(
@@ -148,12 +149,13 @@ class ProfilePage extends StatelessWidget {
                             ConnectionState.done &&
                         snapshot.hasError) {
                       return ErrorRetry(
-                        errorMessage: '$ErrorCarregant: ${snapshot.error}',
-                        textBoto: MissatgeOk,
+                        errorMessage: '$errorCarregant: ${snapshot.error}',
+                        textBoto: missatgeOk,
                         onRetryPressed: () => Navigator.pop(context),
                       );
                     } else {
-                      return Loading(loadingMessage: MissatgeCarregantDades);
+                      return const Loading(
+                          loadingMessage: missatgeCarregantDades);
                     }
                   }),
             ],

@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:background_fetch/background_fetch.dart';
 import 'package:cendrassos/api/api_response.dart';
 import 'package:cendrassos/providers/djau.dart';
-import 'package:cendrassos/screens/components/CalendariNotificacions.dart';
-import 'package:cendrassos/screens/components/Error.dart';
+import 'package:cendrassos/screens/components/calendari_notificacions.dart';
+import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:cendrassos/services/background_tasks.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../config_cendrassos.dart';
 import '../main.dart';
 import '../models/notificacio.dart';
-import 'components/AppMenuBar.dart';
+import 'components/app_menu_bar.dart';
 
 class Dashboard extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -67,10 +68,10 @@ class _DashBoardState extends State<Dashboard> {
                 requiredNetworkType: NetworkType.ANY),
             _onBackgroundFetch)
         .then((int status) {
-      print('[BackgroundFetch] configure success: $status');
+      log('[BackgroundFetch] configure success: $status');
       // Fer post configuració?
     }).catchError((e) {
-      print('[BackgroundFetch] configure ERROR: $e');
+      log('[BackgroundFetch] configure ERROR: $e');
     });
   }
 
@@ -82,7 +83,7 @@ class _DashBoardState extends State<Dashboard> {
 
   void _onBackgroundFetch(String taskId) async {
     // This is the fetch-event callback.
-    print("[BackgroundFetch] Event received $taskId");
+    log("[BackgroundFetch] Event received $taskId");
     BackgroundTask _background = BackgroundTask();
     await _background.checkNewNotificacions(onNotification);
 
@@ -150,9 +151,9 @@ class _DashBoardState extends State<Dashboard> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 switch (snapshot.data!.status) {
-                  case Status.LOADING:
+                  case Status.loading:
                     return Loading(loadingMessage: snapshot.data!.message);
-                  case Status.COMPLETED:
+                  case Status.completed:
                     _notificacions = snapshot.data!.data;
                     return CalendariNotificacions(
                       notificacions: _notificacions,
@@ -163,15 +164,15 @@ class _DashBoardState extends State<Dashboard> {
                       onSelectDay: _onDaySelected,
                       onFormatChanged: _onFormatChanged,
                     );
-                  case Status.ERROR:
+                  case Status.error:
                     return ErrorRetry(
                       errorMessage: snapshot.data!.message,
-                      textBoto: MissatgeTornaAProvar,
+                      textBoto: missatgeTornaAProvar,
                       onRetryPressed: _retryComunicacion,
                     );
                 }
               } else {
-                return Loading(loadingMessage: MissatgeCarregantDades);
+                return const Loading(loadingMessage: missatgeCarregantDades);
               }
             }),
       ),

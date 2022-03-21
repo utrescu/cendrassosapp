@@ -1,19 +1,19 @@
 import 'package:cendrassos/config_cendrassos.dart';
-import 'package:cendrassos/screens/components/Error.dart';
+import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/djau.dart';
-import 'components/AppMenuBar.dart';
+import 'components/app_menu_bar.dart';
 
 const spaceAroundCells = 10.0;
 
 class UsersPage extends StatelessWidget {
   static const routeName = '/users';
   final ValueNotifier<Map<String, String>> _users =
-      new ValueNotifier<Map<String, String>>({});
+      ValueNotifier<Map<String, String>>({});
 
   UsersPage({Key? key}) : super(key: key);
 
@@ -64,7 +64,7 @@ class UsersPage extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: spaceAroundCells,
                 mainAxisSpacing: spaceAroundCells,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 children: value.entries
                     .map(
                       (item) => UserItem(
@@ -76,8 +76,8 @@ class UsersPage extends StatelessWidget {
                     )
                     .toList(),
               )
-            : Loading(
-                loadingMessage: MissatgeCarregantDades,
+            : const Loading(
+                loadingMessage: missatgeCarregantDades,
               ),
       ),
     );
@@ -119,9 +119,9 @@ class UserItem extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text(""),
+          title: const Text(""),
           trailing: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.delete,
               // color: Theme.of(context).colorScheme.primary,
             ),
@@ -147,7 +147,7 @@ class UserItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             height:
                 MediaQuery.of(context).size.width * 0.25 - 2 * spaceAroundCells,
             child: Image.asset('assets/images/student2.png', fit: BoxFit.cover),
@@ -157,7 +157,7 @@ class UserItem extends StatelessWidget {
                 MediaQuery.of(context).size.width * 0.5 - 2 * spaceAroundCells,
             decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: Text(nom,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleMedium),

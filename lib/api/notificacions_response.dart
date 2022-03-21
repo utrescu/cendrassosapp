@@ -9,9 +9,9 @@ class NotificacionsResponse {
   NotificacionsResponse.fromApi(List<dynamic> received) {
     totalResults = received.length;
     results = [];
-    received.forEach((element) {
-      results.add(new Notificacio.fromJson(element));
-    });
+    for (var element in received) {
+      results.add(Notificacio.fromJson(element));
+    }
   }
 
   NotificacionsResponse.fromJson(Map<String, dynamic> json) {
@@ -20,15 +20,15 @@ class NotificacionsResponse {
     if (json['results'] != null) {
       // results = List<Notificacio>.from(json['results']).map((x) => Notificacio.fromJson(x));
       json['results'].forEach((v) {
-        results.add(new Notificacio.fromJson(v));
+        results.add(Notificacio.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_results'] = this.totalResults;
-    data['results'] = this.results.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total_results'] = totalResults;
+    data['results'] = results.map((v) => v.toJson()).toList();
     return data;
   }
 }

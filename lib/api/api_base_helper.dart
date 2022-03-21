@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cendrassos/api/exceptions.dart';
 import 'package:cendrassos/config_cendrassos.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -8,7 +9,7 @@ import 'dart:async';
 class ApiBaseHelper {
   final String _baseUrl = baseUrl;
 
-  static const String NOINTERNET =
+  static const String noInternet =
       "Hi ha problemes per accedir a la xarxa. Proveu-ho més tard";
 
   // Future<dynamic> get(String url) async {
@@ -25,57 +26,57 @@ class ApiBaseHelper {
   // }
 
   Future<dynamic> get(String url, [dynamic headers]) async {
-    print('Api Get, url $url');
-    headers ??= Map();
-    var responseJson;
+    debugPrint('Api Get, url $url');
+    headers ??= {};
+    dynamic responseJson;
     try {
       final response =
           await http.get(Uri.parse(_baseUrl + url), headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
-      print('No net');
-      throw FetchDataException(NOINTERNET);
+      debugPrint('No net');
+      throw FetchDataException(noInternet);
     }
     return responseJson;
   }
 
   Future<dynamic> post(String url, dynamic body, [dynamic headers]) async {
-    print('Api Post, url $url');
-    headers ??= Map();
-    var responseJson;
+    debugPrint('Api Post, url $url');
+    headers ??= {};
+    dynamic responseJson;
     try {
       final response = await http.post(Uri.parse(_baseUrl + url),
           body: jsonEncode(body), headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
-      print('No net');
-      throw FetchDataException(NOINTERNET);
+      debugPrint('No net');
+      throw FetchDataException(noInternet);
     }
     return responseJson;
   }
 
   Future<dynamic> put(String url, dynamic body) async {
-    print('Api Put, url $url');
-    var responseJson;
+    debugPrint('Api Put, url $url');
+    dynamic responseJson;
     try {
       final response = await http.put(Uri.parse(_baseUrl + url), body: body);
       responseJson = _returnResponse(response);
     } on SocketException {
-      print('No net');
-      throw FetchDataException(NOINTERNET);
+      debugPrint('No net');
+      throw FetchDataException(noInternet);
     }
     return responseJson;
   }
 
   Future<dynamic> delete(String url) async {
-    print('Api delete, url $url');
-    var apiResponse;
+    debugPrint('Api delete, url $url');
+    dynamic apiResponse;
     try {
       final response = await http.delete(Uri.parse(_baseUrl + url));
       apiResponse = _returnResponse(response);
     } on SocketException {
-      print('No net');
-      throw FetchDataException(NOINTERNET);
+      debugPrint('No net');
+      throw FetchDataException(noInternet);
     }
     return apiResponse;
   }

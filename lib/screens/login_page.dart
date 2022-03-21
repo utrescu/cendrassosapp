@@ -16,8 +16,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
-  final _usernameController = new TextEditingController();
-  final _passwordController = new TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -54,11 +54,11 @@ class _LoginPageState extends State<LoginPage> {
             key: _formkey,
             child: ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
                 SizedBox(height: height * 0.20),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     child: Image.asset('assets/images/logo_cendrassos.png'),
                     width: width * 0.8,
                   ),
@@ -94,17 +94,17 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: height * 0.05),
                 Container(
                   width: width,
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                      child: Text(
+                      child: const Text(
                         'Inicia la sessió',
                         //style: TextStyle(fontSize: buttonFontSize),
                       ),
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
                           var x = await _login(context);
-                          if (x.isLogged == DjauStatus.Loaded) {
+                          if (x.isLogged == DjauStatus.loaded) {
                             Navigator.pop(context);
                             Navigator.pushNamed(context, '/dashboard');
                           } else {
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                       }),
                 ),
                 TextButton(
-                    child: Text(
+                    child: const Text(
                       'recuperar l\'accés',
                     ),
                     onPressed: () async {

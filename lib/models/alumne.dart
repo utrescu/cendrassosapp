@@ -39,11 +39,11 @@ class Alumne {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data[usernameField] = this.username;
-    data['password'] = this.password;
-    data['token'] = this.token;
-    data['nom'] = this.nom;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data[usernameField] = username;
+    data['password'] = password;
+    data['token'] = token;
+    data['nom'] = nom;
     return data;
   }
 }

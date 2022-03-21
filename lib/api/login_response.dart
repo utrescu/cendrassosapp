@@ -10,9 +10,9 @@ class LoginResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nom'] = this.nom;
-    data['accessToken'] = this.accessToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nom'] = nom;
+    data['accessToken'] = accessToken;
     return data;
   }
 }

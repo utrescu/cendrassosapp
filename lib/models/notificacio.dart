@@ -8,7 +8,7 @@ enum NotificacioType { observacio, falta, justificada, incidencia, expulsio }
 
 extension ParseToString on NotificacioType {
   String toShortString() {
-    return this.toString().split('.').last;
+    return toString().split('.').last;
   }
 }
 
@@ -49,8 +49,8 @@ class Notificacio {
   }
 
   Color getColor() {
-    var color = notificacionsColor[this.tipus.toShortString()];
-    return color == null ? defaultColor : color;
+    var color = notificacionsColor[tipus.toShortString()];
+    return color ?? defaultColor;
   }
 
   static bool isSameDay(DateTime? dateA, DateTime? dateB) {

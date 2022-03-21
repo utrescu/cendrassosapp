@@ -22,13 +22,13 @@ class AppMenuBar extends StatelessWidget with PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(Icons.account_circle_rounded),
+          icon: const Icon(Icons.account_circle_rounded),
           disabledColor: Theme.of(context).disabledColor,
           onPressed: enableProfileButton(
               context, ModalRoute.of(context)?.settings.name, {'nom': nom}),
         ),
         IconButton(
-          icon: Icon(Icons.switch_account),
+          icon: const Icon(Icons.switch_account),
           disabledColor: Theme.of(context).disabledColor,
           onPressed: gotoUserPage,
         )
@@ -37,7 +37,7 @@ class AppMenuBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   VoidCallback? enableProfileButton(
       context, String? currentRoute, Map<String, String> arguments) {

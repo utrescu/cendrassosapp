@@ -10,14 +10,14 @@ void showAlertPopup(BuildContext context, String title, String detail) async {
     );
   }
 
-  return showDemoDialog<Null>(
+  return showDemoDialog<void>(
       context: context,
       child: AlertDialog(
         title: Text(title),
         content: Text(detail),
         actions: [
           ElevatedButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.pop(context);
               }),

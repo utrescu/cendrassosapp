@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cendrassos/api/api_response.dart';
 import 'package:cendrassos/models/notificacio.dart';
 import 'package:cendrassos/api/notificacions_repository.dart';
+import 'package:flutter/material.dart';
 
 class NotificacioBloc {
   String _token = "";
@@ -32,7 +33,7 @@ class NotificacioBloc {
       notificationsListSink.add(ApiResponse.completed(dades));
     } catch (e) {
       notificationsListSink.add(ApiResponse.error(e.toString(), []));
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
