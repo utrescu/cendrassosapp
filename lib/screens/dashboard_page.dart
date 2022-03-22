@@ -82,6 +82,14 @@ class _DashBoardState extends State<Dashboard> {
   }
 
   void _onBackgroundFetch(String taskId) async {
+    // if (Platform.isAndroid) {
+    //       SharedPreferencesAndroid.registerWith();}
+    // if (Platform.isIOS) {
+    //   SharedPreferencesIOS.registerWith();}
+
+    // v.2.11
+    // DartPluginRegistrant.ensureInitialized();
+
     // This is the fetch-event callback.
     log("[BackgroundFetch] Event received $taskId");
     BackgroundTask _background = BackgroundTask();

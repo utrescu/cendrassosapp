@@ -4,8 +4,19 @@ import 'package:cendrassos/screens/loading_page.dart';
 import 'package:cendrassos/services/background_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+// import 'package:shared_preferences_android/shared_preferences_android.dart';
+// import 'package:shared_preferences_ios/shared_preferences_ios.dart';
 
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
+  // if (Platform.isAndroid) {
+  //       SharedPreferencesAndroid.registerWith();}
+  // if (Platform.isIOS) {
+  //   SharedPreferencesIOS.registerWith();
+  // }
+
+  // v.2.11
+  // DartPluginRegistrant.ensureInitialized();
+
   String taskId = task.taskId;
   bool isTimeout = task.timeout;
   if (isTimeout) {
@@ -24,7 +35,9 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
   BackgroundFetch.finish(taskId);
 }
 
-void onNotification(String? payload) {
+void onNotification(String? payload) async {
+  // TODO: Posar el payload a defaultuser
+
   Routes(initialRoute: LoadingPage.routeName);
 }
 

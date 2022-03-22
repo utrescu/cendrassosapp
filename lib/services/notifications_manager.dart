@@ -33,7 +33,7 @@ class NotificationManager {
         onSelectNotification: selectNotification);
   }
 
-  Future<void> showNotification(String username, String nom) async {
+  Future<void> showNotification(id, String username, String nom) async {
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
       channelId,
       appName,
@@ -47,7 +47,7 @@ class NotificationManager {
       iOS: iOSPlatformChannelSpecifics,
     );
     await flutterLocalNotificationsPlugin.show(
-      0,
+      id,
       nomInstitut,
       'Notificacions al Djau de $nom',
       platformChannelSpecifics,

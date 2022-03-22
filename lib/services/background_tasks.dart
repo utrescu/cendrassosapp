@@ -14,7 +14,7 @@ class BackgroundTask {
     for (var i = 0; i < alumnes.length; i++) {
       var data = await storage.getAlumne(alumnes[i]);
       if (await api.areNewNotifications(data.token)) {
-        manager.showNotification(data.username, data.nom);
+        manager.showNotification(i, data.username, data.nom);
       }
     }
   }
