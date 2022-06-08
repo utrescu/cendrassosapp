@@ -8,7 +8,7 @@ import 'dart:async';
 class ApiBaseHelper {
   final String _baseUrl = baseUrl;
 
-  static const String NOINTERNET =
+  static const String noInternet =
       "Hi ha problemes per accedir a la xarxa. Proveu-ho més tard";
 
   // Future<dynamic> get(String url) async {
@@ -26,7 +26,7 @@ class ApiBaseHelper {
 
   Future<dynamic> get(String url, [dynamic headers]) async {
     print('Api Get, url $url');
-    headers ??= Map();
+    headers ??= {};
     var responseJson;
     try {
       final response =
@@ -34,7 +34,7 @@ class ApiBaseHelper {
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
-      throw FetchDataException(NOINTERNET);
+      throw FetchDataException(noInternet);
     }
     return responseJson;
   }
@@ -49,7 +49,7 @@ class ApiBaseHelper {
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
-      throw FetchDataException(NOINTERNET);
+      throw FetchDataException(noInternet);
     }
     return responseJson;
   }
@@ -62,7 +62,7 @@ class ApiBaseHelper {
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
-      throw FetchDataException(NOINTERNET);
+      throw FetchDataException(noInternet);
     }
     return responseJson;
   }
@@ -75,7 +75,7 @@ class ApiBaseHelper {
       apiResponse = _returnResponse(response);
     } on SocketException {
       print('No net');
-      throw FetchDataException(NOINTERNET);
+      throw FetchDataException(noInternet);
     }
     return apiResponse;
   }

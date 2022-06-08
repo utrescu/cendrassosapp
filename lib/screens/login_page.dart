@@ -16,8 +16,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
-  final _usernameController = new TextEditingController();
-  final _passwordController = new TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
                           var x = await _login(context);
-                          if (x.isLogged == DjauStatus.Loaded) {
+                          if (x.isLogged == DjauStatus.loaded) {
                             Navigator.pop(context);
                             Navigator.pushNamed(context, '/dashboard');
                           } else {

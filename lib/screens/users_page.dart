@@ -13,7 +13,7 @@ const spaceAroundCells = 10.0;
 class UsersPage extends StatelessWidget {
   static const routeName = '/users';
   final ValueNotifier<Map<String, String>> _users =
-      new ValueNotifier<Map<String, String>>({});
+      ValueNotifier<Map<String, String>>({});
 
   UsersPage({Key? key}) : super(key: key);
 
@@ -77,7 +77,7 @@ class UsersPage extends StatelessWidget {
                     .toList(),
               )
             : Loading(
-                loadingMessage: MissatgeCarregantDades,
+                loadingMessage: missatgeCarregantDades,
               ),
       ),
     );

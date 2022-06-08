@@ -148,12 +148,13 @@ class ProfilePage extends StatelessWidget {
                             ConnectionState.done &&
                         snapshot.hasError) {
                       return ErrorRetry(
-                        errorMessage: '$ErrorCarregant: ${snapshot.error}',
-                        textBoto: MissatgeOk,
+                        errorMessage: '$errorCarregant: ${snapshot.error}',
+                        textBoto: missatgeOk,
                         onRetryPressed: () => Navigator.pop(context),
                       );
                     } else {
-                      return Loading(loadingMessage: MissatgeCarregantDades);
+                      return const Loading(
+                          loadingMessage: missatgeCarregantDades);
                     }
                   }),
             ],

@@ -11,7 +11,7 @@ const String appName = "Cendrassos";
 // API
 const String baseUrl = "https://djauproves.cendrassos.net/api";
 const String pathLogin = "/token/login/";
-const String pathNotificacions = "/notificacions/mes";
+const String pathNotificacions = "/notificacions/mes/";
 const String pathNews = "/notificacions/news";
 const String pathProfile = "/alumnes/dades";
 
@@ -21,6 +21,7 @@ const String recuperarUrl =
 
 // TMP
 const String usernameField = 'username';
+const String passwordField = 'password';
 
 const String missatgeCarregantDades = "Carregant dades";
 const String missatgeTornaAProvar = "Torna-ho a provar";

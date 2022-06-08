@@ -150,9 +150,9 @@ class _DashBoardState extends State<Dashboard> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 switch (snapshot.data!.status) {
-                  case Status.LOADING:
+                  case Status.loading:
                     return Loading(loadingMessage: snapshot.data!.message);
-                  case Status.COMPLETED:
+                  case Status.completed:
                     _notificacions = snapshot.data!.data;
                     return CalendariNotificacions(
                       notificacions: _notificacions,
@@ -163,15 +163,15 @@ class _DashBoardState extends State<Dashboard> {
                       onSelectDay: _onDaySelected,
                       onFormatChanged: _onFormatChanged,
                     );
-                  case Status.ERROR:
+                  case Status.error:
                     return ErrorRetry(
                       errorMessage: snapshot.data!.message,
-                      textBoto: MissatgeTornaAProvar,
+                      textBoto: missatgeTornaAProvar,
                       onRetryPressed: _retryComunicacion,
                     );
                 }
               } else {
-                return Loading(loadingMessage: MissatgeCarregantDades);
+                return const Loading(loadingMessage: missatgeCarregantDades);
               }
             }),
       ),

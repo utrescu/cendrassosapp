@@ -12,14 +12,14 @@ class Login {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data[usernameField] = this.alumne;
-    data[passwordField] = this.contrasenya;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data[usernameField] = alumne;
+    data[passwordField] = contrasenya;
     return data;
   }
 
   @override
   toString() {
-    return '{ ${this.alumne}, ${this.contrasenya} }';
+    return '{ $alumne, $contrasenya }';
   }
 }

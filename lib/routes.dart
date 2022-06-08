@@ -31,7 +31,7 @@ class Routes {
         ChangeNotifierProvider(create: (_) => DjauModel()),
         Provider<BuildContext>(create: (c) => c),
       ],
-      child: new MaterialApp(
+      child: MaterialApp(
           title: "Institut Cendrassos",
           theme: cendrassosTheme,
           debugShowCheckedModeBanner: false,

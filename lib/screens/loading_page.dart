@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/Error.dart';
@@ -18,7 +16,7 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  static String carregant = MissatgeCarregantDades;
+  static String carregant = missatgeCarregantDades;
   String _message = carregant;
   String _errorMessage = "";
 
@@ -49,8 +47,9 @@ class _LoadingPageState extends State<LoadingPage> {
 
     if (djau.isLogged()) {
       initialRoute = Dashboard.routeName;
-    } else
+    } else {
       Navigator.pop(context);
+    }
     Navigator.pushNamed(context, initialRoute);
   }
 
@@ -65,18 +64,18 @@ class _LoadingPageState extends State<LoadingPage> {
     var margeh = MediaQuery.of(context).size.height / 4;
     return Scaffold(
       backgroundColor: Colors.black,
-      body: new Stack(
+      body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           // Background
-          new Container(
+          Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
             ),
           ),
 
           /// Render the Title widget, loader and messages below each other
-          new Expanded(
+          Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

@@ -11,7 +11,7 @@ class NotificationManager {
 
   String? selectedNotificationPayload;
 
-  static const channel_id = "123";
+  static const channelId = "123";
 
   NotificationManager() {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -34,8 +34,8 @@ class NotificationManager {
 
   Future<void> showNotification(String username, String nom) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      channel_id,
-      AppName,
+      channelId,
+      appName,
       channelDescription: 'Notificacions del Djau',
       importance: Importance.max,
       priority: Priority.high,
@@ -47,7 +47,7 @@ class NotificationManager {
     );
     await flutterLocalNotificationsPlugin.show(
       0,
-      NomInstitut,
+      nomInstitut,
       'Notificacions al Djau de $nom',
       platformChannelSpecifics,
       payload: username,

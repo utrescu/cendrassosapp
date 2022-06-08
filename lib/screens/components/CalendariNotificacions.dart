@@ -213,7 +213,7 @@ class CalendarListItem extends StatelessWidget {
           'Professor: ${notificacio.professor}',
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        subtitle: Text('${notificacio.text}'),
+        subtitle: Text(notificacio.text),
       ),
     );
   }

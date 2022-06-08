@@ -23,7 +23,7 @@ class Alumne {
   factory Alumne.fromJson(dynamic json) {
     return Alumne(
       json[usernameField] as String,
-      json['password'] as String,
+      json[passwordField] as String,
       json['nom'] as String,
       json['token'] as String,
     );
@@ -39,11 +39,11 @@ class Alumne {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data[usernameField] = this.username;
-    data['password'] = this.password;
-    data['token'] = this.token;
-    data['nom'] = this.nom;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data[usernameField] = username;
+    data[passwordField] = password;
+    data['token'] = token;
+    data['nom'] = nom;
     return data;
   }
 }

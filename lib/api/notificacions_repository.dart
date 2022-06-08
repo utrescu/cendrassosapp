@@ -9,7 +9,7 @@ import 'api_base_helper.dart';
 import '../models/notificacio.dart';
 
 class NotificacionsRepository {
-  ApiBaseHelper _helper = ApiBaseHelper();
+  final ApiBaseHelper _helper = ApiBaseHelper();
 
   Map<String, String> getHeaders(String token) => {
         "Content-Type": "application/json",
@@ -18,7 +18,7 @@ class NotificacionsRepository {
       };
 
   Future<LoginResponse> login(Login dades) async {
-    var url = PathLogin;
+    var url = pathLogin;
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -35,7 +35,7 @@ class NotificacionsRepository {
   // }
 
   Future<List<Notificacio>> getNotifications(int mes, String token) async {
-    var url = "$PathNotificacions/$mes";
+    var url = "$pathNotificacions/$mes";
 
     final response = await _helper.get(url, getHeaders(token));
 
@@ -44,7 +44,7 @@ class NotificacionsRepository {
   }
 
   Future<bool> areNewNotifications(String token) async {
-    var url = "$PathNews";
+    var url = pathNews;
     try {
       await _helper.get(url, getHeaders(token));
     } catch (e) {
@@ -54,7 +54,7 @@ class NotificacionsRepository {
   }
 
   Future<Perfil> getProfile(String token) async {
-    var url = '$PathProfile';
+    var url = pathProfile;
 
     final response = await _helper.get(url, getHeaders(token));
     return Perfil.fromJson(response);
