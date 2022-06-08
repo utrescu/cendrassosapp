@@ -92,8 +92,8 @@ class _DashBoardState extends State<Dashboard> {
 
     // This is the fetch-event callback.
     log("[BackgroundFetch] Event received $taskId");
-    BackgroundTask _background = BackgroundTask();
-    await _background.checkNewNotificacions(onNotification);
+    BackgroundTask background = BackgroundTask();
+    await background.checkNewNotificacions(onNotification);
 
     // IMPORTANT:  You must signal completion of your task or the OS can punish your app
     // for taking too long in the background.

@@ -9,18 +9,18 @@ const String missatgeNotificacions = "Notificacions al Djau";
 const String appName = "Cendrassos";
 
 // API
-const String baseUrl = "http://134.209.255.231/api";
-const String pathLogin = "/auth/login";
+const String baseUrl = "https://djauproves.cendrassos.net/api";
+const String pathLogin = "/token/login/";
 const String pathNotificacions = "/notificacions/mes";
 const String pathNews = "/notificacions/news";
 const String pathProfile = "/alumnes/dades";
 
-const String djauUrl = "https://djau.cendrassos.net";
+const String djauUrl = "https://djau.cendrassos.net/api/";
 const String recuperarUrl =
     "https://djau.cendrassos.net/usuaris/sendPasswdByEmail/";
 
 // TMP
-const String usernameField = 'Email';
+const String usernameField = 'username';
 
 const String missatgeCarregantDades = "Carregant dades";
 const String missatgeTornaAProvar = "Torna-ho a provar";

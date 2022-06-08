@@ -30,7 +30,7 @@ class Notificacio {
         professor = json['professor'] ?? "",
         text = json['text'] ?? "",
         tipus = NotificacioType.values.firstWhere(
-            (e) => e.toString() == 'NotificacioType.' + json['tipus']);
+            (e) => e.toString() == 'NotificacioType.${json['tipus']}');
 
   Map<String, dynamic> toJson() => {
         'dia': DateFormat('dd/MM/yyyy').format(dia),

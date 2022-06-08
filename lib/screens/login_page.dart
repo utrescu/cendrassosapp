@@ -59,8 +59,8 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: height * 0.20),
                 Center(
                   child: SizedBox(
-                    child: Image.asset('assets/images/logo_cendrassos.png'),
                     width: width * 0.8,
+                    child: Image.asset('assets/images/logo_cendrassos.png'),
                   ),
                 ),
                 SizedBox(height: height * 0.1),

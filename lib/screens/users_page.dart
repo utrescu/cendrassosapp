@@ -106,17 +106,6 @@ class UserItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
-        child: GestureDetector(
-          onTap: () {
-            if (enabled) {
-              Navigator.popUntil(
-                  context, ModalRoute.withName(Dashboard.routeName));
-            } else {
-              gotoAlumne(context, username);
-            }
-          },
-          child: gridContent(context),
-        ),
         footer: GridTileBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: const Text(""),
@@ -127,6 +116,17 @@ class UserItem extends StatelessWidget {
             ),
             onPressed: () => deleteItem(context, username),
           ),
+        ),
+        child: GestureDetector(
+          onTap: () {
+            if (enabled) {
+              Navigator.popUntil(
+                  context, ModalRoute.withName(Dashboard.routeName));
+            } else {
+              gotoAlumne(context, username);
+            }
+          },
+          child: gridContent(context),
         ),
       ),
     );

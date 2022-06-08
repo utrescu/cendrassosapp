@@ -31,16 +31,19 @@ class ErrorRetry extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           ElevatedButton(
-            child: Text(textBoto,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Theme.of(context).colorScheme.background,
-                )),
             style: ElevatedButton.styleFrom(
-                onPrimary: Theme.of(context).colorScheme.background,
-                primary: Theme.of(context).colorScheme.primary,
-                onSurface: Colors.white),
+              onPrimary: Theme.of(context).colorScheme.background,
+              primary: Theme.of(context).colorScheme.primary,
+              onSurface: Colors.white,
+            ),
             onPressed: onRetryPressed,
+            child: Text(
+              textBoto,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.background,
+                fontSize: 20,
+              ),
+            ),
           ),
         ],
       ),
@@ -62,16 +65,19 @@ class ErrorRetryLogin extends StatelessWidget {
 
   Widget _boto(context, String text, VoidCallback metode) {
     return ElevatedButton(
-      child: Text(text,
-          style: TextStyle(
-            fontSize: 20,
-            color: Theme.of(context).colorScheme.background,
-          )),
       style: ElevatedButton.styleFrom(
-          onPrimary: Theme.of(context).colorScheme.background,
-          primary: Theme.of(context).colorScheme.primary,
-          onSurface: Colors.grey),
+        onPrimary: Theme.of(context).colorScheme.background,
+        primary: Theme.of(context).colorScheme.primary,
+        onSurface: Colors.grey,
+      ),
       onPressed: metode,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 20,
+          color: Theme.of(context).colorScheme.background,
+        ),
+      ),
     );
   }
 

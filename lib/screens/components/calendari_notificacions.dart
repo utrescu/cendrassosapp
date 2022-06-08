@@ -53,7 +53,7 @@ class CalendariNotificacions extends StatelessWidget {
 
   String _getSelectedDay() {
     if (selectedDay != null) {
-      return "Dia: " + DateFormat('dd/MM/yyyy').format(selectedDay!);
+      return "Dia: ${DateFormat('dd/MM/yyyy').format(selectedDay!)}";
     }
     return "";
   }
