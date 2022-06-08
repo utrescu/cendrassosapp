@@ -8,13 +8,13 @@ class Login {
   Login(this.alumne, this.contrasenya);
 
   factory Login.fromJson(dynamic json) {
-    return Login(json[usernameField] as String, json['contrasenya'] as String);
+    return Login(json[usernameField] as String, json[passwordField] as String);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data[usernameField] = this.alumne;
-    data['Password'] = this.contrasenya;
+    data[passwordField] = this.contrasenya;
     return data;
   }
 
