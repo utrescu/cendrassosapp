@@ -21,6 +21,7 @@ const String recuperarUrl =
 
 // TMP
 const String usernameField = 'username';
+const String passwordField = 'password';
 
 const String missatgeCarregantDades = "Carregant dades";
 const String missatgeTornaAProvar = "Torna-ho a provar";
