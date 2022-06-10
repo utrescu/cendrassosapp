@@ -21,12 +21,10 @@ class ErrorRetry extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 10),
-            child: Flexible(
-              child: Text(
-                errorMessage,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+            child: Text(
+              errorMessage,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           const SizedBox(height: 12),

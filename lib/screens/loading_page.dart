@@ -12,7 +12,7 @@ class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
 
   @override
-  _LoadingPageState createState() => _LoadingPageState();
+  State<LoadingPage> createState() => _LoadingPageState();
 }
 
 class _LoadingPageState extends State<LoadingPage> {
@@ -48,11 +48,14 @@ class _LoadingPageState extends State<LoadingPage> {
     if (djau.isLogged()) {
       initialRoute = Dashboard.routeName;
     }
-    Navigator.popAndPushNamed(context, initialRoute);
+    gotoPath(initialRoute);
   }
 
+  void gotoPath(String initialRoute) =>
+      Navigator.popAndPushNamed(context, initialRoute);
+
   void _gotoLogin() {
-    Navigator.of(context).popAndPushNamed(LoginPage.routeName);
+    gotoPath(LoginPage.routeName);
   }
 
   @override

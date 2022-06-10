@@ -11,7 +11,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -104,15 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
                           var x = await _login(context);
-                          if (x.isLogged == DjauStatus.loaded) {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, '/dashboard');
-                          } else {
-                            showAlertPopup(
-                              context,
-                              "ERROR",
-                              x.errorMessage,
-                            );
+                          if (mounted) {
+                            gotoDashboard(x, context);
                           }
                         }
                       }),
@@ -139,5 +132,17 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void gotoDashboard(LoginResult x, BuildContext context) {
+    if (x.isLogged == DjauStatus.loaded) {
+      Navigator.popAndPushNamed(context, '/dashboard');
+    } else {
+      showAlertPopup(
+        context,
+        "ERROR",
+        x.errorMessage,
+      );
+    }
   }
 }

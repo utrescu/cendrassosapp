@@ -27,10 +27,15 @@ class UsersPage extends StatelessWidget {
     await djau.deleteAlumne(username);
     var usuaris = await djau.getAlumnes();
     if (usuaris.isEmpty) {
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.of(context).pushNamed(LoginPage.routeName);
+      // No hi ha cap alumne, torna a fer login
+      gotoLogin(context);
     }
     _users.value = usuaris;
+  }
+
+  void gotoLogin(BuildContext context) {
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.of(context).pushNamed(LoginPage.routeName);
   }
 
   @override
