@@ -4,7 +4,22 @@ import 'package:cendrassos/cendrassos_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-enum NotificacioType { observacio, falta, justificada, incidencia, expulsio }
+enum NotificacioType {
+  observacio,
+  falta,
+  justificada,
+  incidencia,
+  expulsio,
+  desconeguda
+}
+
+const Map<String, NotificacioType> traduccions = {
+  "Observació": NotificacioType.observacio,
+  "Falta": NotificacioType.falta,
+  "Incidència": NotificacioType.incidencia,
+  "Justificada": NotificacioType.justificada,
+  "Expulsió": NotificacioType.expulsio
+};
 
 extension ParseToString on NotificacioType {
   String toShortString() {
@@ -22,15 +37,22 @@ class Notificacio {
   final String text;
   final NotificacioType tipus;
 
+  static NotificacioType tradueix(String nom) {
+    if (traduccions[nom] != null) {
+      return traduccions[nom]!;
+    } else {
+      return NotificacioType.desconeguda;
+    }
+  }
+
   Notificacio(this.dia, this.hora, this.professor, this.text, this.tipus);
 
   Notificacio.fromJson(Map<String, dynamic> json)
-      : dia = DateFormat('dd/MM/yyyy').parse(json['dia']),
+      : dia = DateFormat('dd/M/yyyy').parse(json['dia']),
         hora = json['hora'] ?? "",
         professor = json['professor'] ?? "",
         text = json['text'] ?? "",
-        tipus = NotificacioType.values.firstWhere(
-            (e) => e.toString() == 'NotificacioType.' + json['tipus']);
+        tipus = tradueix(json['tipus']);
 
   Map<String, dynamic> toJson() => {
         'dia': DateFormat('dd/MM/yyyy').format(dia),
