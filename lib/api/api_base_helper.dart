@@ -87,7 +87,7 @@ class ApiBaseHelper {
 
 dynamic _returnResponse(http.Response response) {
   if (response.statusCode == 200) {
-    var responseJson = json.decode(response.body);
+    var responseJson = json.decode(utf8.decode(response.bodyBytes));
     return responseJson;
   } else {
     var result = jsonDecode(utf8.decode(response.bodyBytes));
