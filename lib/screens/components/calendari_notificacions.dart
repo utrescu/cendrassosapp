@@ -206,7 +206,7 @@ class CalendarListItem extends StatelessWidget {
               style: TextStyle(
                 color: notificacio.getColor(),
               )),
-          Text("${notificacio.hora} hora"),
+          Text(notificacio.hora),
         ]),
 
         onTap: () => debugPrint('Veure $notificacio?'),
