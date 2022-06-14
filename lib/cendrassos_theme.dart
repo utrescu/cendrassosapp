@@ -8,14 +8,6 @@ var primaryColorLight = Color.fromARGB(255, 238, 144, 134);
 var secondaryColor = const Color(0xFFFFFFFF);
 var secondaryColorDark = const Color(0xffc0ae75);
 
-Map<String, Color> notificacionsColor = {
-  "falta": const Color(0xFF00BCD4),
-  "justificada": const Color(0xFF4CAF50),
-  "incidencia": const Color(0xFFFF9800),
-  "expulsio": const Color(0xFFF44336),
-  "observacio": Color.fromARGB(255, 197, 116, 190),
-};
-
 var defaultColor = const Color(0x000000FF);
 
 Map<int, Color> _primaryColorMap = {

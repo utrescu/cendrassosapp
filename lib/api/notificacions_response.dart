@@ -9,7 +9,7 @@ class NotificacionsResponse {
   NotificacionsResponse.fromApi(List<dynamic> received) {
     totalResults = received.length;
     results = [];
-    received.forEach((element) {
+    received.skip(1).forEach((element) {
       results.add(Notificacio.fromJson(element));
     });
   }
