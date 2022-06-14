@@ -13,7 +13,7 @@ class Perfil {
       json['grup'] ?? "No especificat",
       json['datanaixement'] ?? "",
       json['telefon'] ?? "",
-      json['adreca'] ?? "",
+      json['adreça'] ?? "",
       List<Responsable>.from(
           json['responsables'].map((x) => Responsable.fromJson(x))),
     );
@@ -31,7 +31,7 @@ class Responsable {
     return Responsable(
       json['nom'] ?? "",
       json['mail'] ?? "",
-      json['telefon'] ?? "",
+      json['tfn'] ?? "",
     );
   }
 }
