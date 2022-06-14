@@ -6,8 +6,6 @@ import 'dart:convert';
 import 'dart:async';
 
 class ApiBaseHelper {
-  final String _baseUrl = baseUrl;
-
   static Uri createUrl(urlpath) {
     return Uri.parse("$baseUrl$urlpath$endBaseUrl");
   }
