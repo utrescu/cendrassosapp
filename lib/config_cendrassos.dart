@@ -1,16 +1,23 @@
 // Mes inici de curs
-const int startMonth = 9;
-const int endMonth = 6;
+import 'dart:ui';
 
-const int intervalNotificacions = 15;
-
-const String nomInstitut = "Institut Cendrassos";
-const String missatgeNotificacions = "Notificacions al Djau";
 const String appName = "Cendrassos";
 
-// API
+// Dades del centre
+const String nomInstitut = "Institut Cendrassos";
+const String missatgeNotificacions = "Notificacions al Djau";
+
+// Mesos d'inici i final del curs
+const int startMonth = 9;
+const int endMonth = 6;
+const int intervalNotificacions =
+    15; // Cada quants minuts comprova notificacions
+
+// URLs d'accés a l'API
 const String baseUrl = "https://djauproves.cendrassos.net/api/token";
+// La URL ha d'acabar amb una barra
 const String endBaseUrl = "/";
+
 const String pathLogin = "/login";
 const String pathNotificacions = "/notificacions/mes";
 const String pathNews = "/notificacions/news";
@@ -20,9 +27,23 @@ const String djauUrl = "https://djau.cendrassos.net/api/";
 const String recuperarUrl =
     "https://djau.cendrassos.net/usuaris/sendPasswdByEmail/";
 
-// TMP
+// Personalitzar els camps de login
 const String usernameField = 'username';
 const String passwordField = 'password';
+
+// Llista dels tipus de notificacions i els colors amb el que es veuran
+// Comprovar que el text és el que arriba en la notificació. Si en calen
+// més, s'afegeixen.
+
+Map<String, Color> notificacionsColor = {
+  "Falta": const Color(0xFF00BCD4),
+  "Justificada": const Color(0xFF4CAF50),
+  "Incidència": const Color(0xFFFF9800),
+  "Expulsió": const Color(0xFFF44336),
+  "Observació": Color.fromARGB(255, 197, 116, 190),
+};
+
+// Textos dels missatges d'error
 
 const String missatgeCarregantDades = "Carregant dades";
 const String missatgeTornaAProvar = "Torna-ho a provar";
