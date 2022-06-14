@@ -1,4 +1,3 @@
-// Mes inici de curs
 import 'dart:ui';
 
 const String appName = "Cendrassos";
@@ -40,7 +39,7 @@ Map<String, Color> notificacionsColor = {
   "Justificada": const Color(0xFF4CAF50),
   "Incidència": const Color(0xFFFF9800),
   "Expulsió": const Color(0xFFF44336),
-  "Observació": Color.fromARGB(255, 197, 116, 190),
+  "Observació": const Color.fromARGB(255, 197, 116, 190),
 };
 
 // Textos dels missatges d'error

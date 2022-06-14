@@ -28,7 +28,7 @@ class ApiBaseHelper {
   // }
 
   Future<dynamic> get(String path, [dynamic headers]) async {
-    print('Api Get, url $path');
+    debugPrint('Api Get, url $path');
     headers ??= {};
     dynamic responseJson;
     try {
@@ -43,47 +43,45 @@ class ApiBaseHelper {
   }
 
   Future<dynamic> post(String path, dynamic body, [dynamic headers]) async {
-    print('Api Post, url $path');
+    debugPrint('Api Post, url $path');
     headers ??= {};
-    var responseJson;
+
     try {
       var url = createUrl(path);
       final response =
           await http.post(url, body: jsonEncode(body), headers: headers);
-      responseJson = _returnResponse(response);
+      var responseJson = _returnResponse(response);
+      return responseJson;
     } on SocketException {
       debugPrint('No net');
       throw FetchDataException(noInternet);
     }
-    return responseJson;
   }
 
   Future<dynamic> put(String path, dynamic body) async {
-    print('Api Put, url $path');
-    var responseJson;
+    debugPrint('Api Put, url $path');
     try {
       var url = createUrl(path);
       final response = await http.put(url, body: body);
-      responseJson = _returnResponse(response);
+      var responseJson = _returnResponse(response);
+      return responseJson;
     } on SocketException {
       debugPrint('No net');
       throw FetchDataException(noInternet);
     }
-    return responseJson;
   }
 
   Future<dynamic> delete(String path) async {
-    print('Api delete, url $path');
-    var apiResponse;
+    debugPrint('Api delete, url $path');
     try {
       var url = createUrl(path);
       final response = await http.delete(url);
-      apiResponse = _returnResponse(response);
+      var apiResponse = _returnResponse(response);
+      return apiResponse;
     } on SocketException {
       debugPrint('No net');
       throw FetchDataException(noInternet);
     }
-    return apiResponse;
   }
 }
 

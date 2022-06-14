@@ -5,7 +5,7 @@ import 'package:cendrassos/config_cendrassos.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-List<String> TipusNotificacio = notificacionsColor.keys.toList();
+List<String> tipusNotificacio = notificacionsColor.keys.toList();
 
 List<Notificacio> notificacioFromJson(String str) => List<Notificacio>.from(
     json.decode(str).map((x) => Notificacio.fromJson(x)));
