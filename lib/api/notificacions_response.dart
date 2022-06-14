@@ -9,7 +9,8 @@ class NotificacionsResponse {
   NotificacionsResponse.fromApi(List<dynamic> received) {
     totalResults = received.length;
     results = [];
-    for (var element in received) {
+    // El primer resultat és basura!
+    for (var element in received.skip(1)) {
       results.add(Notificacio.fromJson(element));
     }
   }

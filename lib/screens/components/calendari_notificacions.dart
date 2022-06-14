@@ -202,7 +202,7 @@ class CalendarListItem extends StatelessWidget {
       child: ListTile(
         // leading: _buildCircleAvatar(value[index].getColor()),
         leading: Column(children: [
-          Text(notificacio.tipus.toShortString(),
+          Text(notificacio.tipus,
               style: TextStyle(
                 color: notificacio.getColor(),
               )),
