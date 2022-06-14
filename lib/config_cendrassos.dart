@@ -9,8 +9,9 @@ const String missatgeNotificacions = "Notificacions al Djau";
 const String appName = "Cendrassos";
 
 // API
-const String baseUrl = "https://djauproves.cendrassos.net/api";
-const String pathLogin = "/token/login/";
+const String baseUrl = "https://djauproves.cendrassos.net/api/token";
+const String endBaseUrl = "/";
+const String pathLogin = "/login";
 const String pathNotificacions = "/notificacions/mes";
 const String pathNews = "/notificacions/news";
 const String pathProfile = "/alumnes/dades";
