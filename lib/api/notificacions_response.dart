@@ -1,6 +1,15 @@
 import 'package:cendrassos/models/notificacio.dart';
 
 /// Resposta de l'API davant d'una petició de notificacions
+///
+/// Espera que arribi un array amb les notificacions i les transforma
+///
+/// > Com que l'API retorna un array amb el primer element que no
+/// > és una notificació faig un `skip(1)` en la llista rebuda.
+/// >
+/// > ```
+/// >  for (var element in received.skip(1)) {
+/// > ```
 class NotificacionsResponse {
   int totalResults = 0;
   List<Notificacio> results = List.empty();

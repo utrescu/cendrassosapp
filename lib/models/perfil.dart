@@ -1,9 +1,12 @@
 /// Defineix el perfil de l'alumne tal com arriba del servei
-/// [grup] grup al qual pertany
-/// Data de naixement [datanaixement]
-/// Telèfon de l'alumne [telefon]
-/// Adreça [adreca]
-/// I dades dels pares/tutors [responsables]
+///
+/// - [grup] grup al qual pertany
+/// - Data de naixement [datanaixement]
+/// - Telèfon de l'alumne [telefon]
+/// - Adreça [adreca]
+/// - I dades dels pares/tutors [responsables]
+///
+/// No s'emmagatzema res
 class Perfil {
   final String grup;
   final String datanaixement;
@@ -27,9 +30,10 @@ class Perfil {
 }
 
 /// Dades dels pares/tutors de l'alumne
-/// [nom]
-/// Correu electrònic [mail]
-/// Telèfon [telefon] (l'api l'anomena "tfn")
+///
+/// - El nom [nom]
+/// - Correu electrònic [mail]
+/// - Telèfon [telefon] (l'api l'anomena "tfn")
 class Responsable {
   final String nom;
   final String mail;

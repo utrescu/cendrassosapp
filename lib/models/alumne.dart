@@ -1,11 +1,15 @@
 import '../config_cendrassos.dart';
 
 /// Defineix l'alumne a partir dels components mínimament necessaris
-/// [username] i [contrasenya] fan falta per si s'ha de tornar a fer login.
+///
+/// Es fa servir sobretot per mantenir la sessió de l'usuari. Per això
+/// conté:
+///
+/// - [username] i [contrasenya] fan falta per si s'ha de tornar a fer login.
 /// En teoria no haurien de fer falta si funciona el "refreshtoken"
 /// (però no ho han provat)
-/// El [Token] d'autenticació
-/// El [nom] de l'alumne per no haver de fer peticions
+/// - El [Token] d'autenticació
+/// - El [nom] de l'alumne per no haver de fer peticions
 class Alumne {
   final String username;
   final String password;

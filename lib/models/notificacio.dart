@@ -5,6 +5,8 @@ import 'package:cendrassos/config_cendrassos.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+/// Tipus de notificacions
+///
 /// Com que els tipus de notificacions són dinàmics, es crea una llista amb
 /// els possibles noms per emplenar les notificacions a partir dels noms
 /// de la configuració
@@ -14,7 +16,16 @@ List<String> tipusNotificacio = notificacionsColor.keys.toList();
 List<Notificacio> notificacioFromJson(String str) => List<Notificacio>.from(
     json.decode(str).map((x) => Notificacio.fromJson(x)));
 
-/// Defineix una notificació. Només es fa servir per mostrar-la a la UI
+/// Defineix una notificació.
+///
+/// Només es fa servir per mostrar-la a la UI
+///
+/// - Data [dia]
+/// - Hora [hora]
+/// - Professor [professor]
+/// - [text] de la notificació
+/// - [tipus] de notificació
+///
 /// No s'emmagatzema
 class Notificacio {
   final DateTime dia;
@@ -47,7 +58,9 @@ class Notificacio {
     return key.day * 1000000 + key.month * 10000 + key.year;
   }
 
-  /// Obtenir el color de la notificació. Si no està definit retorna
+  /// Obtenir el color de la notificació.
+  ///
+  /// Si no està definit retorna
   /// el color per defecte definit en la configuració
   Color getColor() {
     var color = notificacionsColor[tipus];
@@ -55,6 +68,7 @@ class Notificacio {
   }
 
   /// Comprova si una notificació és del mateix dia que una altra.
+  ///
   /// Es fa servir per ordenar
   static bool isSameDay(DateTime? dateA, DateTime? dateB) {
     return dateA?.year == dateB?.year &&

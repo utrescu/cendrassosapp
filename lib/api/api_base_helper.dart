@@ -7,9 +7,12 @@ import 'dart:convert';
 import 'dart:async';
 
 /// Classe base per fer peticions a qualsevol API.
-/// Gestiona els errors a través d'excepcions
+///
+/// Gestiona els errors a través d'excepcions que poden ser generades
+/// per la crida o a través del _returnResponse
 class ApiBaseHelper {
   /// Munta la URL a partir del path rebut
+  ///
   /// - L'he creat perquè el cendrassos fa que les URL acabin sempre
   ///   amb guió
   static Uri createUrl(urlpath) {
@@ -17,6 +20,7 @@ class ApiBaseHelper {
   }
 
   /// Petició GET amb el [path] i capsaleres opcionals [headers]
+  ///
   /// La resposta es passa a _returnResponse perquè la tracti
   /// Pot generar una excepció si falla la connexió de xarxa, que
   /// es converteix en [FetchDataException]
@@ -36,6 +40,7 @@ class ApiBaseHelper {
   }
 
   /// Petició POST a un [path] amb dades Json [body] i capsaleres [headers]
+  ///
   /// La resposta es passa a _returnResponse perquè la tracti
   /// Pot generar una excepció si falla la connexió de xarxa, que
   /// es converteix en [FetchDataException]
@@ -56,6 +61,7 @@ class ApiBaseHelper {
   }
 
   /// Petició PUT a un [path] amb dades Json [body]
+  ///
   /// La resposta es passa a _returnResponse perquè la tracti
   /// Pot generar una excepció si falla la connexió de xarxa, que
   /// es converteix en [FetchDataException]
@@ -74,6 +80,7 @@ class ApiBaseHelper {
   }
 
   /// Petició DELETE amb el [path]
+  ///
   /// La resposta es passa a _returnResponse perquè la tracti
   /// Pot generar una excepció si falla la connexió de xarxa, que
   /// es converteix en [FetchDataException]
@@ -93,6 +100,7 @@ class ApiBaseHelper {
 }
 
 /// Processa la resposta de l'API [response] i decodifica el resultat
+///
 /// En cas de que hi hagi un error genera la excepció corresponent
 dynamic _returnResponse(http.Response response) {
   if (response.statusCode == 200) {

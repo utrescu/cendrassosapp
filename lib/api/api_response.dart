@@ -1,5 +1,7 @@
-/// Emmagatzema les respostes de l'API [data] i l'estat en que es troba
-/// la petició [status] amb el corresponent missatge [message]
+/// Emmagatzema les respostes de l'API
+///
+/// Entre les respostes hi ha el contigunt [data], l'estat en que es troba
+/// la petició [status] i el corresponent missatge [message]
 class ApiResponse<T> {
   Status status;
   T data;

@@ -1,4 +1,5 @@
 /// Resposta de l'API davant d'una petició de login correcta.
+///
 /// Només cal que hi hagi el nom de l'alumne [nom] (estalvia peticions)
 /// i el [token] que es farà servir per poder fer peticions
 class LoginResponse {
