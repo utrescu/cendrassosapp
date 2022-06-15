@@ -1,6 +1,8 @@
 // @JsonSerializable()
 import '../config_cendrassos.dart';
 
+/// Dades que es passaran a l'API per identificar a un alumne
+/// No es fan servir per emmagatzemar dades
 class Login {
   String alumne = "";
   String contrasenya = "";

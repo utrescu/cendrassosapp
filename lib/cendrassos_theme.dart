@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Colors
-
+// Colors de l'aplicació
 var primaryColor = const Color.fromRGBO(217, 48, 29, 1);
 var primaryColorDark = const Color.fromARGB(255, 105, 18, 8);
 var primaryColorLight = const Color.fromARGB(255, 238, 144, 134);
@@ -45,6 +44,8 @@ ColorScheme colorScheme = ColorScheme.fromSwatch(
   backgroundColor: Colors.grey.shade50,
 );
 
+// Forma dels diferents tipus de text
+
 TextTheme textScheme = const TextTheme(
   bodyLarge: TextStyle(
     fontSize: 14,
@@ -77,11 +78,3 @@ var cendrassosTheme = ThemeData(
   colorScheme: colorScheme,
   textTheme: textScheme,
 );
-
-// Mida dels textos
-
-var buttonFontSize = 15.0;
-var defaultFontSize = 14.0;
-var littleTextSize = 10.0;
-var notificationsNumberTextSize = 10.0;
-var titleFontSize = 20.0;

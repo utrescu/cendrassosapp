@@ -3,16 +3,20 @@ import 'dart:ui';
 const String appName = "Cendrassos";
 
 // Dades del centre
+// -------------------------------------------------------------------
 const String nomInstitut = "Institut Cendrassos";
 const String missatgeNotificacions = "Notificacions al Djau";
 
 // Mesos d'inici i final del curs
+// -------------------------------------------------------------------
 const int startMonth = 9;
 const int endMonth = 6;
-const int intervalNotificacions =
-    15; // Cada quants minuts comprova notificacions
+
+// Interval de notificacions en minuts
+const int intervalNotificacions = 60;
 
 // URLs d'accés a l'API
+// -------------------------------------------------------------------
 const String baseUrl = "https://djauproves.cendrassos.net/api/token";
 // La URL ha d'acabar amb una barra
 const String endBaseUrl = "/";
@@ -27,11 +31,13 @@ const String recuperarUrl =
     "https://djau.cendrassos.net/usuaris/sendPasswdByEmail/";
 
 // Personalitzar els camps de login
+// -------------------------------------------------------------------
 const String usernameField = 'username';
 const String passwordField = 'password';
 
-// Llista dels tipus de notificacions i els colors amb el que es veuran
-// Comprovar que el text és el que arriba en la notificació. Si en calen
+// Llista dels tipus de notificacions i els colors amb el que es ressaltaran
+// -------------------------------------------------------------------
+// Cal comprovar que el text és el que arriba en la notificació. Si en calen
 // més, s'afegeixen.
 
 Map<String, Color> notificacionsColor = {
@@ -43,7 +49,7 @@ Map<String, Color> notificacionsColor = {
 };
 
 // Textos dels missatges d'error
-
+// -------------------------------------------------------------------
 const String missatgeCarregantDades = "Carregant dades";
 const String missatgeTornaAProvar = "Torna-ho a provar";
 const String missatgeOk = "D'acord";
