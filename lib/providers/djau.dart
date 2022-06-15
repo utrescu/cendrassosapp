@@ -5,6 +5,10 @@ import 'package:cendrassos/models/login.dart';
 import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/material.dart';
 
+/// Emmagatzema l'estat del login en el provider
+///
+/// L'estat està a [isLogged] i el missatge d'error, si n'hi ha, estarà
+/// a [message]
 class LoginResult {
   DjauStatus isLogged;
   String errorMessage;
@@ -12,8 +16,24 @@ class LoginResult {
   LoginResult(this.isLogged, this.errorMessage);
 }
 
+/// Estats en que pot estar l'aplicació
+///
+/// Són:
+/// - Loaded: s'ha carregat un alumne
+/// - error: L'aplicació està en estat d'error
+/// - withoutUser: No s'ha identificat cap alumne
+///
 enum DjauStatus { loaded, error, withoutUser }
 
+/// Emmagatzema l'estat general de l'aplicació
+///
+/// Les dades dels alumnes s'emmagatzemen al SecureStorage del sistema
+/// per protegir-los [_storage]
+///
+/// Les dades de funcionament que cal conservar s'emmagatzemen en el
+/// Local Storage [_prefs]
+///
+/// El [_repository] es fa servir per fer les crides a l'API
 class DjauModel with ChangeNotifier {
   final NotificacionsRepository _repository = NotificacionsRepository();
   final DjauSecureStorage _storage = DjauSecureStorage();
@@ -25,7 +45,10 @@ class DjauModel with ChangeNotifier {
   bool isLogged() => _isLogged == DjauStatus.loaded;
   bool isError() => _isLogged == DjauStatus.error;
 
-  // Entrar en el sistema
+  /// Intenta entrar en el sistema
+  ///
+  /// Retorna el resultat en un [LoginResult] de manera que la UI
+  /// pot saber si ha pogut entrar i el missatge d'error
   Future<LoginResult> login(String username, String password) async {
     try {
       final response = await _repository.login(Login(username, password));
@@ -42,7 +65,13 @@ class DjauModel with ChangeNotifier {
     return LoginResult(_isLogged, errorMessage);
   }
 
-  // Canviar d'alumne
+  /// Canvia d'alumne
+  ///
+  /// Carrega un nou alumne a l'aplicació que identifica amb [username]
+  /// Les dades de l'alumne es carreguen de [_storage]
+  ///
+  /// Sobretot es fa servir per canviar d'un alumne a un altre que ja estiguin
+  /// previament identificats
   Future loadAlumne(String username) async {
     try {
       var dades = await _storage.getAlumne(username);
@@ -55,10 +84,14 @@ class DjauModel with ChangeNotifier {
     }
   }
 
+  /// Defineix quin és l'alumne que es carrega per defecte
+  ///
+  /// Normalment es farà que sigui l'últim que s'ha visualitzat
   Future setDefaultAlumne(String username) async {
     await _prefs.setLastLogin(username);
   }
 
+  /// Carrega l'alumne per defecte si n'hi ha algun
   Future loadDefaultAlumne() async {
     var alumne = await _prefs.getLastLogin();
     if (alumne != null) {
@@ -69,13 +102,16 @@ class DjauModel with ChangeNotifier {
     }
   }
 
+  /// Esborra l'alumne identificat per l'[username]
+  ///
+  /// En acabar carrega el que hi hagi per defecte
   Future deleteAlumne(String username) async {
     await _storage.deleteAlumne(username);
     _prefs.deleteAlumneFromList(username);
     await loadDefaultAlumne();
   }
 
-  // Obtenir els noms dels alumnes i el seu username
+  /// Obtenir els noms dels alumnes identificats i el seu username
   Future<Map<String, String>> getAlumnes() async {
     var resultat = <String, String>{};
 
@@ -91,25 +127,14 @@ class DjauModel with ChangeNotifier {
     return resultat;
   }
 
+  /// Desconnectar
   void logout() {
     notifyListeners();
   }
 
+  /// Carrega el perfil de l'alumne actiu
   Future<Perfil> loadPerfil() async {
     final response = await _repository.getProfile(alumne.token);
     return response;
-    // return Perfil("ESO1A", "20/02/1927", "666666666",
-    //     "CM de Siurana 8 - El Far d'Empordà", {
-    //   Responsable(
-    //     "Manel Garcia Pimiento",
-    //     "manel@gmail.com",
-    //     "606000666",
-    //   ),
-    //   Responsable(
-    //     "Filomena Pi Boronat",
-    //     "filo@hotmail.com",
-    //     "972500550",
-    //   ),
-    // });
   }
 }
