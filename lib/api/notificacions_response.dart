@@ -1,5 +1,6 @@
 import 'package:cendrassos/models/notificacio.dart';
 
+/// Resposta de l'API davant d'una petició de notificacions
 class NotificacionsResponse {
   int totalResults = 0;
   List<Notificacio> results = List.empty();

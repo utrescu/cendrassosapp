@@ -47,6 +47,7 @@ Map<String, Color> notificacionsColor = {
 const String missatgeCarregantDades = "Carregant dades";
 const String missatgeTornaAProvar = "Torna-ho a provar";
 const String missatgeOk = "D'acord";
-
+const String noInternet =
+    "Hi ha problemes per accedir a la xarxa. Proveu-ho més tard";
 const String errorCarregant =
     "ERROR carregant les dades. Torna-ho a provar més tard";

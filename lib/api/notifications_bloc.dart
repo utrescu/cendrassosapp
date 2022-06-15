@@ -5,6 +5,8 @@ import 'package:cendrassos/models/notificacio.dart';
 import 'package:cendrassos/api/notificacions_repository.dart';
 import 'package:flutter/material.dart';
 
+/// Gestiona les peticions a l'API a través del repositori
+/// Envia streams de dades de forma asíncrona per la UI
 class NotificacioBloc {
   String _token = "";
   NotificacionsRepository _notificacioRepository = NotificacionsRepository();

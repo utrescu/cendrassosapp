@@ -8,6 +8,7 @@ import '../models/login.dart';
 import 'api_base_helper.dart';
 import '../models/notificacio.dart';
 
+/// Crides a l'API de notifcacions
 class NotificacionsRepository {
   final ApiBaseHelper _helper = ApiBaseHelper();
 
@@ -17,6 +18,9 @@ class NotificacionsRepository {
         "Authorization": "Bearer $token",
       };
 
+  /// Identifica l'alumne a partir del seu usuari i contrasenya
+  /// que estan continguts a [dades]
+  /// És la única crida que es pot fer sense autenticació
   Future<LoginResponse> login(Login dades) async {
     var url = pathLogin;
     Map<String, String> requestHeaders = {
@@ -34,6 +38,8 @@ class NotificacionsRepository {
   //   return response['value'];
   // }
 
+  /// Obtenir la llista de notificacions d'un determinat mes [mes]
+  /// Necessita el [token] per demostrar que s'ha identificat
   Future<List<Notificacio>> getNotifications(int mes, String token) async {
     var url = "$pathNotificacions/$mes";
 
@@ -43,7 +49,10 @@ class NotificacionsRepository {
     return results.results;
   }
 
-  Future<bool> areNewNotifications(String token) async {
+  /// Comprova si hi ha noves notificacions o no
+  /// Retorna un booleà que indica si n'hi ha.
+  /// Necessita el [token] per demostrar que s'ha identificat
+  Future<bool> haveNewNotifications(String token) async {
     var url = pathNews;
     try {
       await _helper.get(url, getHeaders(token));
@@ -53,6 +62,8 @@ class NotificacionsRepository {
     return true;
   }
 
+  /// Obté el perfil de l'alumne connectat
+  /// Necessita el [token] per demostrar que s'ha identificat
   Future<Perfil> getProfile(String token) async {
     var url = pathProfile;
 
