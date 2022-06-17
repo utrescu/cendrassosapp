@@ -78,3 +78,26 @@ var cendrassosTheme = ThemeData(
   colorScheme: colorScheme,
   textTheme: textScheme,
 );
+
+// Llista dels tipus de notificacions i els colors amb el que es ressaltaran
+// -------------------------------------------------------------------
+// Cal comprovar que el text és el que arriba en la notificació. Si en calen
+// més, s'afegeixen.
+
+Map<String, Color> notificacionsColor = {
+  "Falta": const Color(0xFF00BCD4),
+  "Justificada": const Color(0xFF4CAF50),
+  "Incidència": const Color(0xFFFF9800),
+  "Expulsió": const Color(0xFFF44336),
+  "Observació": const Color.fromARGB(255, 197, 116, 190),
+};
+
+// Textos dels missatges d'error
+// -------------------------------------------------------------------
+const String missatgeCarregantDades = "Carregant dades";
+const String missatgeTornaAProvar = "Torna-ho a provar";
+const String missatgeOk = "D'acord";
+const String noInternet =
+    "Hi ha problemes per accedir a la xarxa. Proveu-ho més tard";
+const String errorCarregant =
+    "ERROR carregant les dades. Torna-ho a provar més tard";

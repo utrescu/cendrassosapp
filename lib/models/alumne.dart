@@ -1,5 +1,3 @@
-import '../config_cendrassos.dart';
-
 /// Defineix l'alumne a partir dels components mínimament necessaris
 ///
 /// Es fa servir sobretot per mantenir la sessió de l'usuari. Per això
@@ -32,8 +30,8 @@ class Alumne {
 
   factory Alumne.fromJson(dynamic json) {
     return Alumne(
-      json[usernameField] as String,
-      json[passwordField] as String,
+      json['username'] as String,
+      json['password'] as String,
       json['nom'] as String,
       json['token'] as String,
     );
@@ -41,7 +39,7 @@ class Alumne {
 
   factory Alumne.fromPartialJson(dynamic json, String password, String token) {
     return Alumne(
-      json[usernameField] as String,
+      json['username'] as String,
       password,
       json['nom'] as String,
       token,
@@ -50,8 +48,8 @@ class Alumne {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data[usernameField] = username;
-    data[passwordField] = password;
+    data['username'] = username;
+    data['password'] = password;
     data['token'] = token;
     data['nom'] = nom;
     return data;

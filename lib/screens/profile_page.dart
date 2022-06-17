@@ -1,4 +1,3 @@
-import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/perfil.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/app_menu_bar.dart';
@@ -6,6 +5,8 @@ import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../cendrassos_theme.dart';
 
 class ProfilePage extends StatelessWidget {
   static const routeName = '/profile';

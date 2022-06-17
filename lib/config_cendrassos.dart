@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 const String appName = "Cendrassos";
 
 // Dades del centre
@@ -7,12 +5,16 @@ const String appName = "Cendrassos";
 const String nomInstitut = "Institut Cendrassos";
 const String missatgeNotificacions = "Notificacions al Djau";
 
+const String djauUrl = "https://djau.cendrassos.net/";
+const String recuperarUrl =
+    "https://djau.cendrassos.net/usuaris/sendPasswdByEmail/";
+
 // Mesos d'inici i final del curs
 // -------------------------------------------------------------------
 const int startMonth = 9;
 const int endMonth = 6;
 
-// Interval de notificacions en minuts
+// Interval de comprovació de notificacions en minuts
 const int intervalNotificacions = 60;
 
 // URLs d'accés a l'API
@@ -21,39 +23,8 @@ const String baseUrl = "https://djauproves.cendrassos.net/api/token";
 // La URL ha d'acabar amb una barra
 const String endBaseUrl = "/";
 
+// Punts d'accés a l'API. Normalment no s'hauran de tocar
 const String pathLogin = "/login";
 const String pathNotificacions = "/notificacions/mes";
 const String pathNews = "/notificacions/news";
 const String pathProfile = "/alumnes/dades";
-
-const String djauUrl = "https://djau.cendrassos.net/api/";
-const String recuperarUrl =
-    "https://djau.cendrassos.net/usuaris/sendPasswdByEmail/";
-
-// Personalitzar els camps de login
-// -------------------------------------------------------------------
-const String usernameField = 'username';
-const String passwordField = 'password';
-
-// Llista dels tipus de notificacions i els colors amb el que es ressaltaran
-// -------------------------------------------------------------------
-// Cal comprovar que el text és el que arriba en la notificació. Si en calen
-// més, s'afegeixen.
-
-Map<String, Color> notificacionsColor = {
-  "Falta": const Color(0xFF00BCD4),
-  "Justificada": const Color(0xFF4CAF50),
-  "Incidència": const Color(0xFFFF9800),
-  "Expulsió": const Color(0xFFF44336),
-  "Observació": const Color.fromARGB(255, 197, 116, 190),
-};
-
-// Textos dels missatges d'error
-// -------------------------------------------------------------------
-const String missatgeCarregantDades = "Carregant dades";
-const String missatgeTornaAProvar = "Torna-ho a provar";
-const String missatgeOk = "D'acord";
-const String noInternet =
-    "Hi ha problemes per accedir a la xarxa. Proveu-ho més tard";
-const String errorCarregant =
-    "ERROR carregant les dades. Torna-ho a provar més tard";
