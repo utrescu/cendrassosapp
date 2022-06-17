@@ -1,5 +1,4 @@
 // @JsonSerializable()
-import '../config_cendrassos.dart';
 
 /// Dades que es passaran a l'API per identificar a un alumne
 ///
@@ -14,13 +13,13 @@ class Login {
   Login(this.alumne, this.contrasenya);
 
   factory Login.fromJson(dynamic json) {
-    return Login(json[usernameField] as String, json[passwordField] as String);
+    return Login(json['username'] as String, json['password'] as String);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data[usernameField] = alumne;
-    data[passwordField] = contrasenya;
+    data['username'] = alumne;
+    data['password'] = contrasenya;
     return data;
   }
 

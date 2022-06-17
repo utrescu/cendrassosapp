@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
+import '../cendrassos_theme.dart';
+
 /// Classe base per fer peticions a qualsevol API.
 ///
 /// Gestiona els errors a través d'excepcions que poden ser generades
