@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cendrassos/api/exceptions.dart';
-import 'package:cendrassos/config_cendrassos.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -13,14 +12,6 @@ import '../cendrassos_theme.dart';
 /// Gestiona els errors a través d'excepcions que poden ser generades
 /// per la crida o a través del _returnResponse
 class ApiBaseHelper {
-  /// Munta la URL a partir del path rebut
-  ///
-  /// - L'he creat perquè el cendrassos fa que les URL acabin sempre
-  ///   amb guió
-  static Uri createUrl(urlpath) {
-    return Uri.parse("$baseUrl$urlpath$endBaseUrl");
-  }
-
   /// Petició GET amb el [path] i capsaleres opcionals [headers]
   ///
   /// La resposta es passa a _returnResponse perquè la tracti
@@ -31,7 +22,7 @@ class ApiBaseHelper {
     headers ??= {};
     dynamic responseJson;
     try {
-      var url = createUrl(path);
+      var url = Uri.parse(path);
       final response = await http.get(url, headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
@@ -51,7 +42,7 @@ class ApiBaseHelper {
     headers ??= {};
 
     try {
-      var url = createUrl(path);
+      var url = Uri.parse(path);
       final response =
           await http.post(url, body: jsonEncode(body), headers: headers);
       var responseJson = _returnResponse(response);
@@ -71,7 +62,7 @@ class ApiBaseHelper {
   Future<dynamic> put(String path, dynamic body) async {
     debugPrint('Api Put, url $path');
     try {
-      var url = createUrl(path);
+      var url = Uri.parse(path);
       final response = await http.put(url, body: body);
       var responseJson = _returnResponse(response);
       return responseJson;
@@ -90,7 +81,7 @@ class ApiBaseHelper {
   Future<dynamic> delete(String path) async {
     debugPrint('Api delete, url $path');
     try {
-      var url = createUrl(path);
+      var url = Uri.parse(path);
       final response = await http.delete(url);
       var apiResponse = _returnResponse(response);
       return apiResponse;
