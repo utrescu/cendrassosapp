@@ -14,7 +14,7 @@ const String recuperarUrl =
 const int startMonth = 9;
 const int endMonth = 6;
 
-// Interval de comprovació de notificacions en minuts
+// Interval de comprovació de notificacions (en minuts)
 const int intervalNotificacions = 60;
 
 // URLs d'accés a l'API
