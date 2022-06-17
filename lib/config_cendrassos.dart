@@ -13,7 +13,7 @@ const int startMonth = 9;
 const int endMonth = 6;
 
 // Interval de notificacions en minuts
-const int intervalNotificacions = 60;
+const int intervalNotificacions = 15;
 
 // URLs d'accés a l'API
 // -------------------------------------------------------------------

@@ -1,5 +1,6 @@
 import 'package:cendrassos/models/alumne.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:intl/intl.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,6 +46,10 @@ class DjauSecureStorage {
 class DjauLocalStorage {
   static const String lastLoginKey = 'lastlogin';
   static const String usersKey = 'alumnes';
+  static const String lastOperationKey = "lastoperation";
+  static final DateFormat _formatDates = DateFormat("yyyy-MM-dd HH:mm:ss");
+  static final String oldTimes =
+      _formatDates.format(DateTime(1970, 1, 1, 0, 10, 0));
 
   Future<String?> getLastLogin() async {
     var prefs = await SharedPreferences.getInstance();
@@ -94,5 +99,15 @@ class DjauLocalStorage {
         }
       }
     }
+  }
+
+  Future<String> getLastOperationTime() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(lastOperationKey) ?? oldTimes;
+  }
+
+  Future<void> setLastOperationTime() async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString(lastOperationKey, _formatDates.format(DateTime.now()));
   }
 }

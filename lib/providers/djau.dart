@@ -42,6 +42,13 @@ class DjauModel with ChangeNotifier {
   DjauStatus _isLogged = DjauStatus.withoutUser;
   String errorMessage = "";
   Alumne alumne = Alumne("", "", "", "");
+
+  DjauModel();
+
+  DjauModel.withUser(String defaultUser) {
+    _prefs.setLastLogin(defaultUser);
+  }
+
   bool isLogged() => _isLogged == DjauStatus.loaded;
   bool isError() => _isLogged == DjauStatus.error;
 
@@ -82,13 +89,6 @@ class DjauModel with ChangeNotifier {
       errorMessage = "No hi ha dades de l'alumne $username";
       notifyListeners();
     }
-  }
-
-  /// Defineix quin és l'alumne que es carrega per defecte
-  ///
-  /// Normalment es farà que sigui l'últim que s'ha visualitzat
-  Future setDefaultAlumne(String username) async {
-    await _prefs.setLastLogin(username);
   }
 
   /// Carrega l'alumne per defecte si n'hi ha algun

@@ -24,11 +24,14 @@ class Routes {
     ProfilePage.routeName: (context) => const ProfilePage(),
   };
 
-  Routes({this.initialRoute}) {
+  Routes({this.initialRoute, String? defaultUser}) {
     runApp(MultiProvider(
       providers: [
         // ChangeNotifierProvider(create: (_)=> CurrentLanguage("ca"))),
-        ChangeNotifierProvider(create: (_) => DjauModel()),
+        ChangeNotifierProvider(
+            create: (_) => defaultUser == null
+                ? DjauModel()
+                : DjauModel.withUser(defaultUser)),
         Provider<BuildContext>(create: (c) => c),
       ],
       child: MaterialApp(

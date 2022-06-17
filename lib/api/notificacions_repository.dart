@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:cendrassos/api/login_response.dart';
+import 'package:cendrassos/api/news_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/perfil.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../models/login.dart';
 import 'api_base_helper.dart';
 import '../models/notificacio.dart';
+import 'news_query.dart';
 
 /// Defineix les crides a l'API de notifcacions
 class NotificacionsRepository {
@@ -35,12 +38,6 @@ class NotificacionsRepository {
     return LoginResponse.fromJson(response);
   }
 
-  // Future<bool> isAuthenticated(String token) async {
-  //   var url = "/authenticated";
-  //   final response = await _helper.get(url, getHeaders(token));
-  //   return response['value'];
-  // }
-
   /// Obtenir la llista de notificacions d'un determinat mes [mes]
   ///
   /// Necessita el [token] per demostrar que s'ha identificat
@@ -57,14 +54,19 @@ class NotificacionsRepository {
   ///
   /// Retorna un booleà que indica si n'hi ha.
   /// Necessita el [token] per demostrar que s'ha identificat
-  Future<bool> haveNewNotifications(String token) async {
+  Future<bool> haveNewNotifications(String dades, String token) async {
+    const String expected = "Sí";
     var url = pathNews;
     try {
-      await _helper.get(url, getHeaders(token));
+      var json =
+          await _helper.post(url, NewsQuery(dades).toJson(), getHeaders(token));
+      var news = NewsResponse.fromJson(json);
+      debugPrint(
+          "Resultat '${news.resultat}' o sigui ${news.resultat == expected}");
+      return news.resultat == expected;
     } catch (e) {
       return false;
     }
-    return true;
   }
 
   /// Obté el perfil de l'alumne connectat
