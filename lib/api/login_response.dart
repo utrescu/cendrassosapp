@@ -9,14 +9,14 @@ class LoginResponse {
   LoginResponse({required this.nom, this.accessToken = ""});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    accessToken = json['accessToken'];
+    accessToken = json['access'];
     nom = json['nom'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['nom'] = nom;
-    data['accessToken'] = accessToken;
+    data['access'] = accessToken;
     return data;
   }
 }
