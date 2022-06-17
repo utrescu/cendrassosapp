@@ -1,12 +1,17 @@
 import 'dart:async';
 import 'package:cendrassos/api/login_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
-import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/perfil.dart';
 
 import '../models/login.dart';
 import 'api_base_helper.dart';
 import '../models/notificacio.dart';
+
+// Punts d'accés a l'API. Normalment no s'hauran de tocar
+const String pathLogin = "/login";
+const String pathNotificacions = "/notificacions/mes";
+const String pathNews = "/notificacions/news";
+const String pathProfile = "/alumnes/dades";
 
 /// Defineix les crides a l'API de notifcacions
 class NotificacionsRepository {
