@@ -1,7 +1,7 @@
 import 'package:cendrassos/api/notificacions_repository.dart';
 import 'package:cendrassos/services/notifications_manager.dart';
 import 'package:cendrassos/services/storage.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class BackgroundTask {
   NotificationManager manager = NotificationManager();
