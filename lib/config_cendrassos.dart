@@ -12,8 +12,8 @@ const String endBaseUrl = "/";
 
 // Mesos d'inici i final del curs
 // -------------------------------------------------------------------
-const int startMonth = 9;
-const int endMonth = 6;
+const int mesInici = 9;
+const int mesFinal = 6;
 
 // Interval de comprovació de notificacions (en minuts)
 // -------------------------------------------------------------------
