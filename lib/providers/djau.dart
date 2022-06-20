@@ -81,7 +81,7 @@ class DjauModel with ChangeNotifier {
   /// previament identificats
   Future loadAlumne(String username) async {
     try {
-      var dades = await _storage.getAlumne(username);
+      var dades = await _storage.loadAlumne(username);
       alumne = dades;
       await login(alumne.username, alumne.password);
     } catch (e) {
@@ -118,7 +118,7 @@ class DjauModel with ChangeNotifier {
     var usernames = await _prefs.getAlumnesList();
     for (var username in usernames) {
       try {
-        var alumne = await _storage.getAlumne(username);
+        var alumne = await _storage.loadAlumne(username);
         resultat[username] = alumne.nom;
       } catch (e) {
         debugPrint("No hi ha alumnes registrats");

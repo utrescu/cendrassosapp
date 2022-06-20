@@ -32,7 +32,7 @@ class DjauSecureStorage {
     _storage.writeSecureStorage(alumne.username, json);
   }
 
-  Future<Alumne> getAlumne(String username) async {
+  Future<Alumne> loadAlumne(String username) async {
     var data = await _storage.readSecureData(username);
     var responseJson = json.decode(data);
     return Alumne.fromJson(responseJson);

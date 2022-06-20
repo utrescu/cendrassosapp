@@ -18,9 +18,9 @@ class BackgroundTask {
     await manager.initNotificationManager(goto);
     var lastSync = await prefs.getLastOperationTime();
     var alumnes = await prefs.getAlumnesList();
-    log("Comprovant notificacions dels alumnes");
+    log("[Djau] Comprovant notificacions dels alumnes");
     for (var i = 0; i < alumnes.length; i++) {
-      var data = await storage.getAlumne(alumnes[i]);
+      var data = await storage.loadAlumne(alumnes[i]);
 
       try {
         debugPrint("[checkNewNotifications] login: ${alumnes[i]}");
@@ -36,7 +36,7 @@ class BackgroundTask {
           manager.showNotification(i, data.username, data.nom);
         }
       } catch (e) {
-        log("Ha falat la comunició amb el servidor recuperant notificacions");
+        log("[Djau] Ha falat la comunició amb el servidor recuperant notificacions");
         return;
       }
     }
