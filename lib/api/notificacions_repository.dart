@@ -67,21 +67,20 @@ class NotificacionsRepository {
 
   /// Comprova si hi ha noves notificacions o no
   ///
-  /// Retorna un booleà que indica si n'hi ha.
-  /// Necessita el [token] per demostrar que s'ha identificat
+  /// - Retorna un booleà que indica si hi ha notificacions o no.
+  /// - Necessita el [token] per demostrar que s'ha identificat
+  /// - Pot generar una excepció si no pot comunicar amb el servidor
   Future<bool> haveNewNotifications(String dades, String token) async {
     const String expected = "Sí";
+
     var url = createUrl(pathNews);
-    try {
-      var json =
-          await _helper.post(url, NewsQuery(dades).toJson(), getHeaders(token));
-      var news = NewsResponse.fromJson(json);
-      debugPrint(
-          "Resultat '${news.resultat}' o sigui ${news.resultat == expected}");
-      return news.resultat == expected;
-    } catch (e) {
-      return false;
-    }
+
+    var json =
+        await _helper.post(url, NewsQuery(dades).toJson(), getHeaders(token));
+    var news = NewsResponse.fromJson(json);
+    debugPrint(
+        "Resultat '${news.resultat}' o sigui ${news.resultat == expected}");
+    return news.resultat == expected;
   }
 
   /// Obté el perfil de l'alumne connectat
