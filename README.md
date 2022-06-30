@@ -2,6 +2,10 @@
 
 Frontend de l'aplicació Djau de l'institut Cendrassos
 
+- Notificacions
+- Informació de l'alumne
+- Suport per diversos alumnes
+
 https://user-images.githubusercontent.com/2011002/176604764-72dfa0c7-5f42-4571-afe8-f35addfbd680.mp4
 
 
