@@ -47,3 +47,10 @@ https://docs.flutter.dev/deployment/android
 
 ## TODO
 
+- [ ] Millorar el README
+- [ ] L'API és diferent de la prevista. 
+    - [x] Login
+    - [x] Les notificacions envien secció de dades innecessaries. Eliminar
+    - [x] Pantalla de dades de l'alumne
+    - [ ] Adaptar notificacions a l'API
+- [ ] Pantalla de sortides
