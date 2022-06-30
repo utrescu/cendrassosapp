@@ -2,6 +2,9 @@
 
 Frontend de l'aplicació Djau de l'institut Cendrassos
 
+https://user-images.githubusercontent.com/2011002/176604764-72dfa0c7-5f42-4571-afe8-f35addfbd680.mp4
+
+
 ## Getting Started
 
 Per executar l'aplicació:
@@ -34,6 +37,9 @@ flutter run -d linux
 ## Generar un bundle d'Android
 
 https://docs.flutter.dev/deployment/android
+
+
+
 
 ## TODO
 
