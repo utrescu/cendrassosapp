@@ -32,15 +32,15 @@ class CalendariNotificacions extends StatelessWidget {
   DateTime getFirstCourseDay() {
     int mes = DateTime.now().month;
     var year = DateTime.now().year;
-    if (mes < startMonth) {
+    if (mes < mesInici) {
       year = year - 1;
     }
-    return DateTime(year, startMonth, 1);
+    return DateTime(year, mesInici, 1);
   }
 
   DateTime getLastCourseDay() {
     var dia = getFirstCourseDay();
-    return DateTime(dia.year + 1, endMonth + 1, 0);
+    return DateTime(dia.year + 1, mesFinal + 1, 0);
   }
 
   List<Notificacio> _getEventsForDay(DateTime day) {

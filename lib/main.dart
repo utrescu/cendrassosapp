@@ -36,9 +36,7 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
 }
 
 void onNotification(String? payload) async {
-  // TODO: Posar el payload a defaultuser
-
-  Routes(initialRoute: LoadingPage.routeName);
+  Routes(initialRoute: LoadingPage.routeName, defaultUser: payload);
 }
 
 Future<void> main() async {

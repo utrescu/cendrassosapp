@@ -42,6 +42,13 @@ class DjauModel with ChangeNotifier {
   DjauStatus _isLogged = DjauStatus.withoutUser;
   String errorMessage = "";
   Alumne alumne = Alumne("", "", "", "");
+
+  DjauModel();
+
+  DjauModel.withUser(String defaultUser) {
+    _prefs.setLastLogin(defaultUser);
+  }
+
   bool isLogged() => _isLogged == DjauStatus.loaded;
   bool isError() => _isLogged == DjauStatus.error;
 
@@ -74,7 +81,7 @@ class DjauModel with ChangeNotifier {
   /// previament identificats
   Future loadAlumne(String username) async {
     try {
-      var dades = await _storage.getAlumne(username);
+      var dades = await _storage.loadAlumne(username);
       alumne = dades;
       await login(alumne.username, alumne.password);
     } catch (e) {
@@ -82,13 +89,6 @@ class DjauModel with ChangeNotifier {
       errorMessage = "No hi ha dades de l'alumne $username";
       notifyListeners();
     }
-  }
-
-  /// Defineix quin és l'alumne que es carrega per defecte
-  ///
-  /// Normalment es farà que sigui l'últim que s'ha visualitzat
-  Future setDefaultAlumne(String username) async {
-    await _prefs.setLastLogin(username);
   }
 
   /// Carrega l'alumne per defecte si n'hi ha algun
@@ -118,7 +118,7 @@ class DjauModel with ChangeNotifier {
     var usernames = await _prefs.getAlumnesList();
     for (var username in usernames) {
       try {
-        var alumne = await _storage.getAlumne(username);
+        var alumne = await _storage.loadAlumne(username);
         resultat[username] = alumne.nom;
       } catch (e) {
         debugPrint("No hi ha alumnes registrats");

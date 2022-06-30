@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:cendrassos/api/login_response.dart';
+import 'package:cendrassos/api/news_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
 import 'package:cendrassos/models/perfil.dart';
+import 'package:flutter/material.dart';
 
 import '../config_cendrassos.dart';
 import '../models/login.dart';
 import 'api_base_helper.dart';
 import '../models/notificacio.dart';
+import 'news_query.dart';
 
 // URL d'accés a l'API
 const String baseUrl = "$djauUrl/api/token";
@@ -50,12 +53,6 @@ class NotificacionsRepository {
     return LoginResponse.fromJson(response);
   }
 
-  // Future<bool> isAuthenticated(String token) async {
-  //   var url = "/authenticated";
-  //   final response = await _helper.get(url, getHeaders(token));
-  //   return response['value'];
-  // }
-
   /// Obtenir la llista de notificacions d'un determinat mes [mes]
   ///
   /// Necessita el [token] per demostrar que s'ha identificat
@@ -70,16 +67,20 @@ class NotificacionsRepository {
 
   /// Comprova si hi ha noves notificacions o no
   ///
-  /// Retorna un booleà que indica si n'hi ha.
-  /// Necessita el [token] per demostrar que s'ha identificat
-  Future<bool> haveNewNotifications(String token) async {
+  /// - Retorna un booleà que indica si hi ha notificacions o no.
+  /// - Necessita el [token] per demostrar que s'ha identificat
+  /// - Pot generar una excepció si no pot comunicar amb el servidor
+  Future<bool> haveNewNotifications(String dades, String token) async {
+    const String expected = "Sí";
+
     var url = createUrl(pathNews);
-    try {
-      await _helper.get(url, getHeaders(token));
-    } catch (e) {
-      return false;
-    }
-    return true;
+
+    var json =
+        await _helper.post(url, NewsQuery(dades).toJson(), getHeaders(token));
+    var news = NewsResponse.fromJson(json);
+    debugPrint(
+        "Resultat '${news.resultat}' o sigui ${news.resultat == expected}");
+    return news.resultat == expected;
   }
 
   /// Obté el perfil de l'alumne connectat
