@@ -11,10 +11,13 @@ import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'config_cendrassos.dart';
 import 'main.dart';
+import 'navitator_key.dart';
 
 class Routes {
   final String? initialRoute;
+
 
   var routes = {
     LoginPage.routeName: (context) => const LoginPage(),
@@ -32,9 +35,10 @@ class Routes {
         Provider<BuildContext>(create: (c) => c),
       ],
       child: MaterialApp(
-          title: "Institut Cendrassos",
+          title: nomInstitut,
           theme: cendrassosTheme,
           debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
           initialRoute: initialRoute,
           routes: routes),
     ));

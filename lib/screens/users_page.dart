@@ -1,11 +1,11 @@
-import 'package:cendrassos/config_cendrassos.dart';
-import 'package:cendrassos/screens/components/helpers.dart';
-import 'package:cendrassos/screens/dashboard_page.dart';
-import 'package:cendrassos/screens/login_page.dart';
+import '../config_cendrassos.dart';
+import 'components/helpers.dart';
+import 'dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/djau.dart';
+import '../utils/global_navigator.dart';
 import 'components/app_menu_bar.dart';
 
 const spaceAroundCells = 10.0;
@@ -28,14 +28,13 @@ class UsersPage extends StatelessWidget {
     var usuaris = await djau.getAlumnes();
     if (usuaris.isEmpty) {
       // No hi ha cap alumne, torna a fer login
-      gotoLogin(context);
+      gotoLogin();
     }
     _users.value = usuaris;
   }
 
-  void gotoLogin(BuildContext context) {
-    Navigator.of(context).popUntil((route) => route.isFirst);
-    Navigator.of(context).pushNamed(LoginPage.routeName);
+  void gotoLogin() {
+    GlobalNavigator.gotoLogin();
   }
 
   @override
@@ -53,8 +52,8 @@ class UsersPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Anar a pàgina de login per afegir un alumne nou
-          // He de fer pop?
-          Navigator.pushNamed(context, LoginPage.routeName);
+          // Fa pop. Ok?
+          gotoLogin();
         },
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(
@@ -176,6 +175,6 @@ class UserItem extends StatelessWidget {
   void gotoAlumne(context, String username) async {
     final djau = Provider.of<DjauModel>(context, listen: false);
     await djau.loadAlumne(username);
-    Navigator.pushNamed(context, Dashboard.routeName);
+    GlobalNavigator.go(Dashboard.routeName);
   }
 }

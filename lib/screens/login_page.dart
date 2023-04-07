@@ -1,6 +1,6 @@
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
-import 'package:cendrassos/utils/popup.dart';
+import 'package:cendrassos/utils/global_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -115,15 +115,16 @@ class _LoginPageState extends State<LoginPage> {
                       'recuperar l\'accés',
                     ),
                     onPressed: () async {
-                      var url = recuperarUrl;
-                      if (await canLaunch(url)) {
-                        await launch(url);
+                      var url = Uri.parse(recuperarUrl);
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(url);
                       } else {
-                        showAlertPopup(
-                          context,
-                          "No s'obre el navegador",
-                          "Intenteu anar manualment a $djauUrl per recuperar la contrasenya",
-                        );
+                        () async {
+                          GlobalNavigator.showAlertPopup(
+                            "No s'obre el navegador",
+                            "Intenteu anar manualment a $djauUrl per recuperar la contrasenya",
+                          );
+                        };
                       }
                     }),
               ],
@@ -136,10 +137,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void gotoDashboard(LoginResult x, BuildContext context) {
     if (x.isLogged == DjauStatus.loaded) {
-      Navigator.popAndPushNamed(context, '/dashboard');
+      GlobalNavigator.forgetAndGo('/dashboard');
     } else {
-      showAlertPopup(
-        context,
+      GlobalNavigator.showAlertPopup(
         "ERROR",
         x.errorMessage,
       );

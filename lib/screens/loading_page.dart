@@ -3,6 +3,7 @@ import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
+import 'package:cendrassos/utils/global_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,14 +49,12 @@ class _LoadingPageState extends State<LoadingPage> {
     if (djau.isLogged()) {
       initialRoute = Dashboard.routeName;
     }
-    gotoPath(initialRoute);
+    GlobalNavigator.forgetAndGo(initialRoute);
   }
 
-  void gotoPath(String initialRoute) =>
-      Navigator.popAndPushNamed(context, initialRoute);
 
   void _gotoLogin() {
-    gotoPath(LoginPage.routeName);
+    GlobalNavigator.gotoLogin();
   }
 
   @override
