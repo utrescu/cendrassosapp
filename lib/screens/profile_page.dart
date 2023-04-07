@@ -34,14 +34,14 @@ class ProfilePage extends StatelessWidget {
             Icons.email,
             color: Theme.of(context).primaryColor,
           ),
-          title: redText(email, Theme.of(context).textTheme.bodyText1),
+          title: redText(email, Theme.of(context).textTheme.bodyLarge),
         ),
         ListTile(
           leading: Icon(
             Icons.phone,
             color: Theme.of(context).colorScheme.primary,
           ),
-          title: redText(telefon, Theme.of(context).textTheme.bodyText1),
+          title: redText(telefon, Theme.of(context).textTheme.bodyLarge),
         ),
       ],
     );
@@ -78,7 +78,7 @@ class ProfilePage extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
               ),
               title: redText(
-                  dades.datanaixement, Theme.of(context).textTheme.bodyText1),
+                  dades.datanaixement, Theme.of(context).textTheme.bodyLarge),
             ),
             ListTile(
               leading: Icon(
@@ -86,7 +86,7 @@ class ProfilePage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
               title:
-                  redText(dades.adreca, Theme.of(context).textTheme.bodyText1),
+                  redText(dades.adreca, Theme.of(context).textTheme.bodyLarge),
             ),
             ListTile(
               leading: Icon(
@@ -94,7 +94,7 @@ class ProfilePage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
               title:
-                  redText(dades.telefon, Theme.of(context).textTheme.bodyText1),
+                  redText(dades.telefon, Theme.of(context).textTheme.bodyLarge),
             ),
           ]),
         ),

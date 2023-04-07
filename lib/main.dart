@@ -1,12 +1,19 @@
+import 'dart:io';
+
 import 'package:background_fetch/background_fetch.dart';
 import 'package:cendrassos/routes.dart';
 import 'package:cendrassos/screens/loading_page.dart';
 import 'package:cendrassos/services/background_tasks.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_timezone/flutter_timezone.dart';
 // import 'package:shared_preferences_android/shared_preferences_android.dart';
 // import 'package:shared_preferences_ios/shared_preferences_ios.dart';
 
+@pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
   // if (Platform.isAndroid) {
   //       SharedPreferencesAndroid.registerWith();}
@@ -41,8 +48,21 @@ void onNotification(String? payload) async {
   Routes(initialRoute: LoadingPage.routeName);
 }
 
+Future<void> _configureLocalTimeZone() async {
+  if (kIsWeb || Platform.isLinux) {
+    return;
+  }
+  tz.initializeTimeZones();
+  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
+}
+
 Future<void> main() async {
   String initialRoute = LoadingPage.routeName;
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await _configureLocalTimeZone();
 
   initializeDateFormatting().then((_) => {Routes(initialRoute: initialRoute)});
 }
