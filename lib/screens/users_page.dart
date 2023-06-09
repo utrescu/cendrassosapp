@@ -27,7 +27,7 @@ class UsersPage extends StatelessWidget {
     await djau.deleteAlumne(username);
     var usuaris = await djau.getAlumnes();
     if (usuaris.isEmpty) {
-      // No hi ha cap alumne, torna a fer login
+      // No hi ha cap alumne, torna al registre
       gotoLogin();
     }
     _users.value = usuaris;

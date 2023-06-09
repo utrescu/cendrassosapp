@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 
 var primaryColor = const Color.fromRGBO(217, 48, 29, 1);
 var primaryColorDark = const Color.fromARGB(255, 105, 18, 8);
+var primaryColorDark2 = const Color.fromARGB(255, 155, 28, 18);
 var primaryColorLight = const Color.fromARGB(255, 238, 144, 134);
+var primaryColorLight2 = const Color.fromARGB(255, 240, 133, 127);
 var secondaryColor = const Color(0xFFFFFFFF);
 var secondaryColorDark = const Color(0xffc0ae75);
+var cardColor = Colors.grey.shade100;
+var backgroundColor = Colors.grey.shade50;
 
 var defaultColor = const Color(0x000000FF);
 
@@ -41,32 +45,32 @@ ColorScheme colorScheme = ColorScheme.fromSwatch(
   primaryColorDark: primaryColorDark,
   brightness: Brightness.light,
   accentColor: secondaryColorDark,
-  cardColor: Colors.grey.shade100,
-  backgroundColor: Colors.grey.shade50,
+  cardColor: cardColor,
+  backgroundColor: backgroundColor,
 );
 
-TextTheme textScheme = const TextTheme(
+TextTheme textTheme = TextTheme(
   bodyLarge: TextStyle(
     fontSize: 14,
-    color: Color.fromRGBO(217, 48, 29, 1),
+    color: primaryColor,
   ),
-  bodyMedium: TextStyle(fontSize: 14),
-  displayLarge: TextStyle(
+  bodyMedium: const TextStyle(fontSize: 14),
+  displayLarge: const TextStyle(
     fontSize: 36.0,
     fontWeight: FontWeight.bold,
   ),
   headlineSmall: TextStyle(
     fontSize: 20.0,
     fontWeight: FontWeight.bold,
-    color: Color.fromRGBO(217, 48, 29, 1),
+    color: primaryColor,
   ),
   titleLarge: TextStyle(
-    color: Color.fromRGBO(217, 48, 29, 1),
+    color: primaryColor,
   ),
   titleMedium: TextStyle(
     fontSize: 15.0,
     fontWeight: FontWeight.bold,
-    color: Color.fromRGBO(217, 48, 29, 1),
+    color: primaryColor,
   ),
 );
 
@@ -75,7 +79,7 @@ var cendrassosTheme = ThemeData(
   primaryColorLight: primaryColorLight,
   primaryColorDark: primaryColorDark,
   colorScheme: colorScheme,
-  textTheme: textScheme,
+  textTheme: textTheme,
 );
 
 // Mida dels textos

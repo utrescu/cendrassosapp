@@ -13,11 +13,19 @@ const int intervalNotificacions =
     15; // Cada quants minuts comprova notificacions
 
 // URLs d'accés a l'API
-const String baseUrl = "https://djauproves.cendrassos.net/api/token";
+// const String baseUrl = "https://djauproves.cendrassos.net/api/token";
+const String baseUrl = "http://192.168.1.141:8080/api";
 // La URL ha d'acabar amb una barra
 const String endBaseUrl = "/";
 
-const String pathLogin = "/login";
+const bool loginWithQR = true;
+
+// QR Login
+const String qrToken = "/token/capture_token_api";
+// Normal Login
+const String pathLogin = "/api-token-auth";
+const String tokenRefresh = "/api-token-refresh";
+
 const String pathNotificacions = "/notificacions/mes";
 const String pathNews = "/notificacions/news";
 const String pathProfile = "/alumnes/dades";
@@ -26,9 +34,6 @@ const String djauUrl = "https://djau.cendrassos.net/api/";
 const String recuperarUrl =
     "https://djau.cendrassos.net/usuaris/sendPasswdByEmail/";
 
-// Personalitzar els camps de login
-const String usernameField = 'username';
-const String passwordField = 'password';
 
 // Llista dels tipus de notificacions i els colors amb el que es veuran
 // Comprovar que el text és el que arriba en la notificació. Si en calen

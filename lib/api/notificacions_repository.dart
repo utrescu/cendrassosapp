@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cendrassos/api/credentials_query.dart';
 import 'package:cendrassos/api/login_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
 import 'package:cendrassos/config_cendrassos.dart';
@@ -7,14 +8,17 @@ import 'package:cendrassos/models/perfil.dart';
 import '../models/login.dart';
 import 'api_base_helper.dart';
 import '../models/notificacio.dart';
+import 'credentials_response.dart';
 
 class NotificacionsRepository {
   final ApiBaseHelper _helper = ApiBaseHelper();
 
+  static String bearerText = "Bearer"; // "JWT"
+
   Map<String, String> getHeaders(String token) => {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "Authorization": "Bearer $token",
+        "Authorization": "$bearerText $token",
       };
 
   Future<LoginResponse> login(Login dades) async {
@@ -26,6 +30,17 @@ class NotificacionsRepository {
 
     final response = await _helper.post(url, dades.toJson(), requestHeaders);
     return LoginResponse.fromJson(response);
+  }
+
+  Future<CredentialsResponse> sendQr(CredentialsQuery dades) async {
+    var url = qrToken;
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final response = await _helper.post(url, dades.toJson(), requestHeaders);
+    return CredentialsResponse.fromJson(response);
   }
 
   // Future<bool> isAuthenticated(String token) async {

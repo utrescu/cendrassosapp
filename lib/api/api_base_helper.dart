@@ -8,7 +8,7 @@ import 'dart:async';
 
 class ApiBaseHelper {
   static Uri createUrl(urlpath) {
-    return Uri.parse("$baseUrl$urlpath$endBaseUrl");
+    return Uri.parse("$baseUrl$urlpath");
   }
 
   static const String noInternet =

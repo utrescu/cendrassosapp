@@ -1,4 +1,4 @@
-import '../config_cendrassos.dart';
+import 'package:cendrassos/api/credentials_response.dart';
 
 class Alumne {
   final String username;
@@ -6,12 +6,24 @@ class Alumne {
   final String token;
   final String nom;
 
+  // Personalitzar els camps de login
+  static String usernameField = 'username';
+  static String passwordField = 'password';
+  static String nomField = 'nom';
+  static String tokenField = 'token';
+
   Alumne(
     this.username,
     this.password,
     this.nom,
     this.token,
   );
+
+  Alumne.fromCredentials(CredentialsResponse c)
+      : username = c.username,
+        password = c.password,
+        nom =  "",
+        token = "";
 
   @override
   int get hashCode => token.hashCode;
@@ -24,8 +36,8 @@ class Alumne {
     return Alumne(
       json[usernameField] as String,
       json[passwordField] as String,
-      json['nom'] as String,
-      json['token'] as String,
+      json[nomField] as String,
+      json[tokenField] as String,
     );
   }
 
@@ -33,7 +45,7 @@ class Alumne {
     return Alumne(
       json[usernameField] as String,
       password,
-      json['nom'] as String,
+      json[nomField] as String,
       token,
     );
   }
@@ -42,8 +54,8 @@ class Alumne {
     final Map<String, dynamic> data = <String, dynamic>{};
     data[usernameField] = username;
     data[passwordField] = password;
-    data['token'] = token;
-    data['nom'] = nom;
+    data[tokenField] = token;
+    data[nomField] = nom;
     return data;
   }
 }

@@ -43,8 +43,9 @@ class DjauSecureStorage {
 }
 
 class DjauLocalStorage {
-  static const String lastLoginKey = 'lastlogin';
-  static const String usersKey = 'alumnes';
+  static const String lastLoginKey = 'lastlogin'; // Ultim usuari loginat
+  static const String alumnesKey = 'alumnes'; // llista d'alumnes confirmats
+  static const String pendentsKey = 'pendents'; // llista d'alumnes pendents
 
   Future<String?> getLastLogin() async {
     var prefs = await SharedPreferences.getInstance();
@@ -59,39 +60,70 @@ class DjauLocalStorage {
   Future<void> setLastLogin(String username) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(lastLoginKey, username);
-    addAlumneToList(username);
+    addAlumneToList(prefs, username, alumnesKey);
+    confirmAlumne(prefs, username);
   }
 
-  Future<List<String>> getAlumnesList() async {
+  // Gestió de pendents
+
+  Future<void> addAlumneToPendents(String username) async {
     var prefs = await SharedPreferences.getInstance();
-    var alumnes = prefs.getStringList(usersKey);
+    addAlumneToList(prefs, username, pendentsKey);
+  }
+
+  Future<void> confirmAlumne(SharedPreferences pref, String username) async {
+    var prefs = await SharedPreferences.getInstance();
+    addAlumneToList(prefs, username, alumnesKey);
+    deleteAlumneFrom(prefs, username, pendentsKey);
+  }
+
+  // obtenir els alumnes d'una de les llistes
+  Future<List<String>> getAlumnesList(String key) async {
+    var prefs = await SharedPreferences.getInstance();
+    var alumnes = prefs.getStringList(key);
     return alumnes ?? [];
   }
 
-  void addAlumneToList(String username) async {
+  Future<List<String>> getAllAlumnes() async {
     var prefs = await SharedPreferences.getInstance();
-    var alumnes = prefs.getStringList(usersKey) ?? [];
+    var alumnes = prefs.getStringList(alumnesKey) ?? [];
+    var pendents = prefs.getStringList(pendentsKey) ?? [];
+
+    return alumnes + pendents;
+  }
+
+  void addAlumneToList(
+      SharedPreferences prefs, String username, String key) async {
+    var alumnes = prefs.getStringList(key) ?? [];
     if (!alumnes.contains(username)) {
       alumnes.add(username);
-      prefs.setStringList(usersKey, alumnes);
+      prefs.setStringList(alumnesKey, alumnes);
     }
   }
 
-  void deleteAlumneFromList(String username) async {
-    var prefs = await SharedPreferences.getInstance();
-    var alumnes = prefs.getStringList(usersKey) ?? [];
+  // Eliminar un alumne d'una de les llistes
+  Future<List<String>> deleteAlumneFrom(
+      SharedPreferences prefs, String username, String key) async {
+    var alumnes = prefs.getStringList(key) ?? [];
     if (alumnes.contains(username)) {
       alumnes.remove(username);
-      prefs.setStringList(usersKey, alumnes);
+      prefs.setStringList(key, alumnes);
+    }
+    return alumnes;
+  }
 
-      if (alumnes.isEmpty) {
-        prefs.remove(lastLoginKey);
-      } else {
-        // Si és l'actiu el canviem pel primer que quedi
-        var defaultUser = prefs.getString(lastLoginKey);
-        if (defaultUser == username) {
-          prefs.setString(lastLoginKey, alumnes.first);
-        }
+  // Eliminar un alumne del sistema
+  void deleteAlumneFromList(String username) async {
+    var prefs = await SharedPreferences.getInstance();
+    var alumnes = await deleteAlumneFrom(prefs, username, alumnesKey);
+
+    if (alumnes.isEmpty) {
+      prefs.remove(lastLoginKey);
+    } else {
+      // Si és l'actiu el canviem pel primer que quedi
+      var defaultUser = prefs.getString(lastLoginKey);
+      if (defaultUser == username) {
+        prefs.setString(lastLoginKey, alumnes.first);
       }
     }
   }

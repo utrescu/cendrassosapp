@@ -2,7 +2,8 @@ import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';
-import 'package:cendrassos/screens/login_page.dart';
+import 'package:cendrassos/screens/register_page.dart';
+import 'package:cendrassos/screens/users_page.dart';
 import 'package:cendrassos/utils/global_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,15 +29,18 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   Future _load() async {
-    String initialRoute = LoginPage.routeName;
+    String initialRoute = UsersPage.routeName;
     setState(() {
       _message = carregant;
       _errorMessage = "";
     });
 
     var djau = Provider.of<DjauModel>(context, listen: false);
-    // Carregar el darrer alumne i mirar si pot fer login
-    await djau.loadDefaultAlumne();
+    // Comprovar si tots els alumnes poden fer login:
+    // - Si: Carregar el darrer alumne i mirar si pot fer login
+    // - No hi ha dades: scanqr_page
+    // - Alguns: users_page
+    var desti = await djau.loadInitialPage();
 
     if (djau.isError()) {
       setState(() {
@@ -46,12 +50,22 @@ class _LoadingPageState extends State<LoadingPage> {
       return;
     }
 
-    if (djau.isLogged()) {
-      initialRoute = Dashboard.routeName;
+    switch (desti) {
+      case 0: // No hi ha alumnes, demanar registre
+        GlobalNavigator.forgetAndGo(RegisterPage.routeName);
+        break;
+      case 1: // Hi ha alumnes sense confirmar
+        GlobalNavigator.forgetAndGo(UsersPage.routeName);
+        break;
+      case 2: // Tots els alumnes estan confirmats
+        await djau.loadDefaultAlumne();
+        if (djau.isLogged()) {
+          initialRoute = Dashboard.routeName;
+        }
+        GlobalNavigator.forgetAndGo(initialRoute);
+        break;
     }
-    GlobalNavigator.forgetAndGo(initialRoute);
   }
-
 
   void _gotoLogin() {
     GlobalNavigator.gotoLogin();

@@ -1,6 +1,7 @@
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/utils/global_navigator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';

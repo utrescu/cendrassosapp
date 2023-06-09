@@ -2,17 +2,20 @@ class LoginResponse {
   String nom = "";
   String accessToken = "";
 
+  static String nomField = 'nom';
+  static String tokenField = 'accessToken';
+
   LoginResponse({required this.nom, this.accessToken = ""});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    accessToken = json['accessToken'];
-    nom = json['nom'];
+    accessToken = json[tokenField];
+    nom = json[nomField];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['nom'] = nom;
-    data['accessToken'] = accessToken;
+    data[nomField] = nom;
+    data[tokenField] = accessToken;
     return data;
   }
 }

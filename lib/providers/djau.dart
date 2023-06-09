@@ -1,3 +1,4 @@
+import 'package:cendrassos/api/credentials_query.dart';
 import 'package:cendrassos/api/notificacions_repository.dart';
 import 'package:cendrassos/models/alumne.dart';
 import 'package:cendrassos/models/perfil.dart';
@@ -12,7 +13,7 @@ class LoginResult {
   LoginResult(this.isLogged, this.errorMessage);
 }
 
-enum DjauStatus { loaded, error, withoutUser }
+enum DjauStatus { loaded, error, withoutUser, disabled }
 
 class DjauModel with ChangeNotifier {
   final NotificacionsRepository _repository = NotificacionsRepository();
@@ -24,6 +25,26 @@ class DjauModel with ChangeNotifier {
   Alumne alumne = Alumne("", "", "", "");
   bool isLogged() => _isLogged == DjauStatus.loaded;
   bool isError() => _isLogged == DjauStatus.error;
+
+  // Donar d'alta
+  Future<LoginResult> register(String key, String born) async {
+    try {
+      final resultat = await _repository.sendQr(CredentialsQuery(key, born));
+      _isLogged = DjauStatus.disabled;
+      errorMessage = "";
+      alumne = Alumne.fromCredentials(resultat);
+
+      await _storage.saveAlumne(alumne);
+      await _prefs.addAlumneToPendents(alumne.username);
+      await _storage.saveAlumne(alumne);
+
+    } catch (e) {
+      _isLogged = DjauStatus.error;
+      errorMessage = e.toString();
+    }
+    notifyListeners();
+    return LoginResult(_isLogged, errorMessage);
+  }
 
   // Entrar en el sistema
   Future<LoginResult> login(String username, String password) async {
@@ -59,6 +80,17 @@ class DjauModel with ChangeNotifier {
     await _prefs.setLastLogin(username);
   }
 
+  Future<int> loadInitialPage() async {
+    var alumnes = await _prefs.getAlumnesList(DjauLocalStorage.alumnesKey);
+    var pendents = await _prefs.getAlumnesList(DjauLocalStorage.pendentsKey);
+    if (alumnes.isEmpty && pendents.isEmpty) return 0;
+
+    if (pendents.isNotEmpty) {
+      return 1;
+    }
+    return 2;
+  }
+
   Future loadDefaultAlumne() async {
     var alumne = await _prefs.getLastLogin();
     if (alumne != null) {
@@ -79,7 +111,7 @@ class DjauModel with ChangeNotifier {
   Future<Map<String, String>> getAlumnes() async {
     var resultat = <String, String>{};
 
-    var usernames = await _prefs.getAlumnesList();
+    var usernames = await _prefs.getAlumnesList(DjauLocalStorage.alumnesKey);
     for (var username in usernames) {
       try {
         var alumne = await _storage.getAlumne(username);

@@ -7,6 +7,8 @@ import 'package:cendrassos/screens/dashboard_page.dart';
 import 'package:cendrassos/screens/loading_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
 import 'package:cendrassos/screens/profile_page.dart';
+import 'package:cendrassos/screens/scanqr_page.dart';
+import 'screens/register_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +20,9 @@ import 'navitator_key.dart';
 class Routes {
   final String? initialRoute;
 
-
   var routes = {
+    RegisterPage.routeName: (context) => const RegisterPage(),
+    ScanqrPage.routeName: (context) => const ScanqrPage(),
     LoginPage.routeName: (context) => const LoginPage(),
     Dashboard.routeName: (context) => const Dashboard(),
     LoadingPage.routeName: (context) => const LoadingPage(),

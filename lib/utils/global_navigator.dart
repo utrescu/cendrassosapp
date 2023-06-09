@@ -1,3 +1,4 @@
+import 'package:cendrassos/screens/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../navitator_key.dart';
@@ -6,11 +7,16 @@ import '../screens/dashboard_page.dart';
 import '../screens/login_page.dart';
 
 class GlobalNavigator {
-
   static gotoLogin() {
     var context = navigatorKey.currentContext!;
     Navigator.of(context).popUntil((route) => route.isFirst);
     Navigator.of(context).pushNamed(LoginPage.routeName);
+  }
+
+  static gotoRegister() {
+    var context = navigatorKey.currentContext!;
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.of(context).pushNamed(RegisterPage.routeName);
   }
 
   static gotoAlumne(context, String username) async {
@@ -21,6 +27,19 @@ class GlobalNavigator {
 
   static forgetAndGo(String initialRoute) =>
       Navigator.popAndPushNamed(navigatorKey.currentContext!, initialRoute);
+
+  static void goBack() {
+    Navigator.pop(navigatorKey.currentContext!);
+  }
+
+  static void goBackAndReturn(String key) {
+    Navigator.pop(navigatorKey.currentContext!, key);
+  }
+
+  static void forgetAndGoAndReturn(String route, String value) {
+    Navigator.popAndPushNamed(navigatorKey.currentContext!, route,
+        result: value);
+  }
 
   static go(String route) =>
       Navigator.pushNamed(navigatorKey.currentContext!, route);
