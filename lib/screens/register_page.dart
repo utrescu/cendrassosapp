@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cendrassos/models/qr.dart';
 import 'package:cendrassos/providers/djau.dart';
+import 'package:cendrassos/screens/components/ScannerControl.dart';
 import 'package:cendrassos/screens/scanqr_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:cendrassos/utils/global_navigator.dart';
@@ -20,10 +23,8 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   Qr _qrKey =  Qr.empty();
   final _formkey = GlobalKey<FormState>();
-  final _qrkeyController = TextEditingController();
   final _dateinputController = TextEditingController();
 
-  bool _isScanButtonDisabled = false;
   bool _isSendButtonDisabled = true;
 
   @override
@@ -78,34 +79,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     horizontal: height * 0.05,
                     vertical: 0.025,
                   ),
-                  child: TextFormField(
-                    controller: _qrkeyController,
-                    readOnly: true,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        icon: const Icon(Icons.qr_code_2),
-                        labelText: 'Codi QR',
-                        labelStyle:
-                            TextStyle(color: Theme.of(context).primaryColor),
-                        hintText: 'Captura el codi QR'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: height * 0.05,
-                    vertical: 0.02,
-                  ),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Theme.of(context).primaryColor),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: height * 0.02,
-                          vertical: width * 0.02,
-                        ),
-                    ),
-                    onPressed: _isScanButtonDisabled ? null : () => _scanQr(),
-                    child: Text(
-                        _qrKey.isValid() ? 'Codi rebut' : 'Escanneja QR'),
+                  child: ScannerControl(
+                    qrkey: _qrKey,
+                    height: height*0.02,
+                    width: width*0.02,
+                    scan: _scanQr,
                   ),
                 ),
                 SizedBox(height: height * 0.05),
@@ -119,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     readOnly: true,
                     decoration: InputDecoration(
                       icon: const Icon(Icons.calendar_today),
-                      labelText: "Data de naixement de l'alumne",
+                      labelText: "Data de naixement",
                       labelStyle:
                           TextStyle(color: Theme.of(context).primaryColor),
                       hintText: 'Entreu el nom d\'usuari',
@@ -137,7 +115,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         setState(() {
                           _dateinputController.text =
                               formattedDate; //set output date to TextField value.
-                          _isSendButtonDisabled = !_isScanButtonDisabled;
+                          _isSendButtonDisabled = !_qrKey.isValid();
                         });
                       } else {
                         // log("Date is not selected");
@@ -178,16 +156,22 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _scanQr() async {
-    final result = await GlobalNavigator.go(ScanqrPage.routeName);
+    final data = await GlobalNavigator.go(ScanqrPage.routeName);
     // if (!mounted) return;
+    var newqr = Qr.empty();
 
-    setState(() {
-      _qrkeyController.text = result;
-      _qrKey = Qr.fromJson(result);
-      _isScanButtonDisabled = _qrKey.isValid();
-      _isSendButtonDisabled =
-          !_isScanButtonDisabled || _dateinputController.text.isEmpty;
-    });
+    try {
+      var result = json.decode(data);
+        newqr = Qr.fromJson(result);
+        setState(() {
+          _qrKey = newqr;
+          _isSendButtonDisabled =
+              !_qrKey.isValid() || _dateinputController.text.isEmpty;
+        });
+    } catch(e) {
+      GlobalNavigator.showAlertPopup("ERROR", "El codi QR és incorrecte!");
+    }
+
   }
 
   void gotoUsers(LoginResult x, BuildContext context) {

@@ -28,13 +28,27 @@ class UsersPage extends StatelessWidget {
     var usuaris = await djau.getAlumnes();
     if (usuaris.isEmpty) {
       // No hi ha cap alumne, torna al registre
-      gotoLogin();
+      gotoRegister();
     }
     _users.value = usuaris;
   }
 
-  void gotoLogin() {
-    GlobalNavigator.gotoLogin();
+  void gotoRegister() {
+    GlobalNavigator.gotoRegister();
+  }
+
+  void _gotoDashboard(BuildContext context, String username) async {
+
+      final djau = Provider.of<DjauModel>(context, listen: false);
+      var result = await djau.loadAlumne(username);
+      if (result.isLogged == DjauStatus.loaded) {
+        // No sé si fer popuntil
+        GlobalNavigator.go(Dashboard.routeName);
+      } else {
+        // No volen distingir els tipus d'errors
+        GlobalNavigator.showAlertPopup("ERROR", result.errorMessage);
+      }
+
   }
 
   @override
@@ -53,7 +67,7 @@ class UsersPage extends StatelessWidget {
         onPressed: () {
           // Anar a pàgina de login per afegir un alumne nou
           // Fa pop. Ok?
-          gotoLogin();
+          gotoRegister();
         },
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(
@@ -76,6 +90,7 @@ class UsersPage extends StatelessWidget {
                         nom: item.value,
                         enabled: item.key == username,
                         deleteItem: _deleteAlumne,
+                        tryToGotoDashboard: _gotoDashboard,
                       ),
                     )
                     .toList(),
@@ -91,19 +106,24 @@ class UsersPage extends StatelessWidget {
 typedef DeleteAlumneCallBack = void Function(
     BuildContext context, String username);
 
+typedef TryLoginCallBack = void Function(
+    BuildContext context, String username);
+
 class UserItem extends StatelessWidget {
   const UserItem(
       {Key? key,
       required this.username,
       required this.nom,
       required this.enabled,
-      required this.deleteItem})
+      required this.deleteItem,
+      required this.tryToGotoDashboard})
       : super(key: key);
 
   final String username;
   final String nom;
   final bool enabled;
   final DeleteAlumneCallBack deleteItem;
+  final TryLoginCallBack tryToGotoDashboard;
 
   @override
   Widget build(BuildContext context) {
@@ -122,14 +142,7 @@ class UserItem extends StatelessWidget {
           ),
         ),
         child: GestureDetector(
-          onTap: () {
-            if (enabled) {
-              Navigator.popUntil(
-                  context, ModalRoute.withName(Dashboard.routeName));
-            } else {
-              gotoAlumne(context, username);
-            }
-          },
+          onTap: () => tryToGotoDashboard(context,username),
           child: gridContent(context),
         ),
       ),
@@ -170,11 +183,5 @@ class UserItem extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void gotoAlumne(context, String username) async {
-    final djau = Provider.of<DjauModel>(context, listen: false);
-    await djau.loadAlumne(username);
-    GlobalNavigator.go(Dashboard.routeName);
   }
 }

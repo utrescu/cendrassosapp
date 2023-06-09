@@ -18,8 +18,8 @@ class Qr {
 
   static String keyField = 'key';
   static String idField = 'id';
-  static String nameField = 'nom';
-  static String apiField = 'api';
+  static String nameField = 'name';
+  static String apiField = 'api_end_point';
   static String organizationField = 'organization';
 
   Qr(this.key, this.id, this.nom, this.api, this.organization);

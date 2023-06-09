@@ -39,7 +39,6 @@ class DjauModel with ChangeNotifier {
       await _storage.saveAlumne(alumne);
       await _prefs.addAlumneToPendents(alumne.username);
       await _storage.saveAlumne(alumne);
-
     } catch (e) {
       _isLogged = DjauStatus.error;
       errorMessage = e.toString();
@@ -66,15 +65,18 @@ class DjauModel with ChangeNotifier {
   }
 
   // Canviar d'alumne
-  Future loadAlumne(String username) async {
+  Future<LoginResult> loadAlumne(String username) async {
     try {
       var dades = await _storage.getAlumne(username);
       alumne = dades;
-      await login(alumne.username, alumne.password);
+      var resultat = await login(alumne.username, alumne.password);
+      notifyListeners();
+      return resultat;
     } catch (e) {
       _isLogged = DjauStatus.withoutUser;
       errorMessage = "No hi ha dades de l'alumne $username";
       notifyListeners();
+      return LoginResult(_isLogged, errorMessage);
     }
   }
 
