@@ -1,3 +1,4 @@
+import 'package:cendrassos/models/qr.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/scanqr_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
@@ -17,7 +18,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String _qrKey = "";
+  Qr _qrKey =  Qr.empty();
   final _formkey = GlobalKey<FormState>();
   final _qrkeyController = TextEditingController();
   final _dateinputController = TextEditingController();
@@ -104,7 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     onPressed: _isScanButtonDisabled ? null : () => _scanQr(),
                     child: Text(
-                        _qrKey.isEmpty ? 'Escannejar el QR' : 'Codi rebut'),
+                        _qrKey.isValid() ? 'Codi rebut' : 'Escanneja QR'),
                   ),
                 ),
                 SizedBox(height: height * 0.05),
@@ -182,8 +183,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
     setState(() {
       _qrkeyController.text = result;
-      _qrKey = result;
-      _isScanButtonDisabled = _qrKey.isNotEmpty;
+      _qrKey = Qr.fromJson(result);
+      _isScanButtonDisabled = _qrKey.isValid();
       _isSendButtonDisabled =
           !_isScanButtonDisabled || _dateinputController.text.isEmpty;
     });

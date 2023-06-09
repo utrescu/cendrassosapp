@@ -34,9 +34,11 @@ class _ScanqrPageState extends State<ScanqrPage> {
     setState(() {
       captured += 1;
     });
-    //GlobalNavigator.forgetAndGoAndReturn(
-    //    RegisterPage.routeName, qr.displayValue ?? "");
-    if (captured == 1) GlobalNavigator.goBackAndReturn(qr.displayValue ?? "");
+
+    if (captured == 1) {
+      
+      GlobalNavigator.goBackAndReturn(qr.displayValue ?? "");
+    }
   }
 
   MobileScannerArguments? arguments;

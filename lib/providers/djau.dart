@@ -6,6 +6,8 @@ import 'package:cendrassos/models/login.dart';
 import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/material.dart';
 
+import '../models/qr.dart';
+
 class LoginResult {
   DjauStatus isLogged;
   String errorMessage;
@@ -27,12 +29,12 @@ class DjauModel with ChangeNotifier {
   bool isError() => _isLogged == DjauStatus.error;
 
   // Donar d'alta
-  Future<LoginResult> register(String key, String born) async {
+  Future<LoginResult> register(Qr qr, String born) async {
     try {
-      final resultat = await _repository.sendQr(CredentialsQuery(key, born));
+      final resultat = await _repository.sendQr(CredentialsQuery(qr.key, born));
       _isLogged = DjauStatus.disabled;
       errorMessage = "";
-      alumne = Alumne.fromCredentials(resultat);
+      alumne = Alumne.fromCredentials(qr.nom, resultat);
 
       await _storage.saveAlumne(alumne);
       await _prefs.addAlumneToPendents(alumne.username);

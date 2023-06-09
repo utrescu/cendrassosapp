@@ -19,10 +19,10 @@ class Alumne {
     this.token,
   );
 
-  Alumne.fromCredentials(CredentialsResponse c)
+  Alumne.fromCredentials(String nomAlumne, CredentialsResponse c)
       : username = c.username,
         password = c.password,
-        nom =  "",
+        nom =  nomAlumne,
         token = "";
 
   @override
