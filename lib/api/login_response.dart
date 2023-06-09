@@ -3,7 +3,7 @@ class LoginResponse {
   String accessToken = "";
 
   static String nomField = 'nom';
-  static String tokenField = 'accessToken';
+  static String tokenField = 'token';
 
   LoginResponse({required this.nom, this.accessToken = ""});
 
