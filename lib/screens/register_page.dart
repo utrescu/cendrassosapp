@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cendrassos/models/qr.dart';
 import 'package:cendrassos/providers/djau.dart';
-import 'package:cendrassos/screens/components/ScannerControl.dart';
+import 'package:cendrassos/screens/components/scanner_control.dart';
 import 'package:cendrassos/screens/scanqr_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:cendrassos/utils/global_navigator.dart';

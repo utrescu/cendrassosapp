@@ -38,17 +38,15 @@ class UsersPage extends StatelessWidget {
   }
 
   void _gotoDashboard(BuildContext context, String username) async {
-
-      final djau = Provider.of<DjauModel>(context, listen: false);
-      var result = await djau.loadAlumne(username);
-      if (result.isLogged == DjauStatus.loaded) {
-        // No sé si fer popuntil
-        GlobalNavigator.go(Dashboard.routeName);
-      } else {
-        // No volen distingir els tipus d'errors
-        GlobalNavigator.showAlertPopup("ERROR", result.errorMessage);
-      }
-
+    final djau = Provider.of<DjauModel>(context, listen: false);
+    var result = await djau.loadAlumne(username);
+    if (result.isLogged == DjauStatus.loaded) {
+      // No sé si fer popuntil
+      GlobalNavigator.go(Dashboard.routeName);
+    } else {
+      // No volen distingir els tipus d'errors
+      GlobalNavigator.showAlertPopup("ERROR", result.errorMessage);
+    }
   }
 
   @override
@@ -78,17 +76,13 @@ class UsersPage extends StatelessWidget {
       body: ValueListenableBuilder<Map<String, String>>(
         valueListenable: _users,
         builder: (context, value, _) => value.isNotEmpty
-            ? GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: spaceAroundCells,
-                mainAxisSpacing: spaceAroundCells,
-                padding: const EdgeInsets.all(10),
-                children: value.entries
+            ? ListView(
+                children: value.keys
                     .map(
                       (item) => UserItem(
-                        username: item.key,
-                        nom: item.value,
-                        enabled: item.key == username,
+                        nom: value[item] ?? "",
+                        username: item,
+                        enabled: item == username,
                         deleteItem: _deleteAlumne,
                         tryToGotoDashboard: _gotoDashboard,
                       ),
@@ -106,8 +100,7 @@ class UsersPage extends StatelessWidget {
 typedef DeleteAlumneCallBack = void Function(
     BuildContext context, String username);
 
-typedef TryLoginCallBack = void Function(
-    BuildContext context, String username);
+typedef TryLoginCallBack = void Function(BuildContext context, String username);
 
 class UserItem extends StatelessWidget {
   const UserItem(
@@ -127,61 +120,44 @@ class UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: GridTile(
-        footer: GridTileBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: const Text(""),
-          trailing: IconButton(
-            icon: const Icon(
-              Icons.delete,
-              // color: Theme.of(context).colorScheme.primary,
-            ),
-            onPressed: () => deleteItem(context, username),
-          ),
-        ),
-        child: GestureDetector(
-          onTap: () => tryToGotoDashboard(context,username),
-          child: gridContent(context),
-        ),
-      ),
-    );
-  }
-
-  Widget gridContent(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Theme.of(context).primaryColor,
-          width: 2.0,
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColorLight.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(width: 1),
         ),
-        color: enabled
-            ? Theme.of(context).primaryColorLight.withOpacity(0.5)
-            : Theme.of(context).colorScheme.onPrimary,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height:
-                MediaQuery.of(context).size.width * 0.25 - 2 * spaceAroundCells,
-            child: Image.asset('assets/images/student2.png', fit: BoxFit.cover),
-          ),
-          Container(
-            width:
-                MediaQuery.of(context).size.width * 0.5 - 2 * spaceAroundCells,
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(nom,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleMedium),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.15 -
+                      2 * spaceAroundCells,
+                  width: MediaQuery.of(context).size.width * 0.25 -
+                      2 * spaceAroundCells,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/student2.png'),
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(nom,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(height: 2),
+                  ],
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ));
   }
 }
