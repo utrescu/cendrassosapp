@@ -22,23 +22,27 @@ class DjauModel with ChangeNotifier {
   final DjauSecureStorage _storage = DjauSecureStorage();
   final DjauLocalStorage _prefs = DjauLocalStorage();
 
+  // Estat de l'alumne actual
   DjauStatus _isLogged = DjauStatus.withoutUser;
+  // Missatge d'error si no hem entrat
   String errorMessage = "";
+  // Alumne actual
   Alumne alumne = Alumne("", "", "", "");
+
   bool isLogged() => _isLogged == DjauStatus.loaded;
   bool isError() => _isLogged == DjauStatus.error;
 
-  // Donar d'alta
+  /// Registra un nou alumne amb el "sistema Cendrassos".
+  /// Hi ha el contingut d'un codi Qr [qr] i la data de
+  /// naixement [born]. Retorna el resultat de l'intent
   Future<LoginResult> register(Qr qr, String born) async {
     try {
       final resultat = await _repository.sendQr(CredentialsQuery(qr.key, born));
       _isLogged = DjauStatus.disabled;
       errorMessage = "";
       alumne = Alumne.fromCredentials(qr.nom, resultat);
-
       await _storage.saveAlumne(alumne);
-      await _prefs.addAlumneToPendents(alumne.username);
-      await _storage.saveAlumne(alumne);
+      await _prefs.addAlumneToList(resultat.username);
     } catch (e) {
       _isLogged = DjauStatus.error;
       errorMessage = e.toString();
@@ -47,7 +51,11 @@ class DjauModel with ChangeNotifier {
     return LoginResult(_isLogged, errorMessage);
   }
 
-  // Entrar en el sistema
+  /// Entrar en el sistema a través d'usuari [username] i
+  /// contrasenya [password]. Es fa servir quan s'intenta fer login contra
+  /// el servidor
+  ///
+  /// Si tot va bé carrega la variable `alumne` i si no, posa l'estat en error
   Future<LoginResult> login(String username, String password) async {
     try {
       final response = await _repository.login(Login(username, password));
@@ -64,7 +72,12 @@ class DjauModel with ChangeNotifier {
     return LoginResult(_isLogged, errorMessage);
   }
 
-  // Canviar d'alumne
+  /// Carrega les dades de l'alumne de memòria i les posa a la variable
+  /// d'estat `alumne`.
+  /// Hi fem referència a través del seu [username]. Comprova si pot
+  /// fer login per obtenir un nou token.
+  ///
+  /// Retorna l'estat de consultar el servidor
   Future<LoginResult> loadAlumne(String username) async {
     try {
       var dades = await _storage.getAlumne(username);
@@ -80,21 +93,35 @@ class DjauModel with ChangeNotifier {
     }
   }
 
+  /// Defineix qui és el darrer alumne amb el que s'ha fet login
+  /// [username] per poder entrar directament el proper cop i de
+  /// pas saber si hem entrat alguna vegada o no.
   Future setDefaultAlumne(String username) async {
     await _prefs.setLastLogin(username);
   }
 
+  /// Defineix quina és la pantalla inicial en iniciar el programa
+  /// - No hi ha alumnes -> Login/QR (0)
+  /// - Hi ha alumnes però No ha entrat mai -> Pantalla d'alumnes (1)
+  /// - Hi ha alumnes i han entrat -> Directe al Dashboard (2)
   Future<int> loadInitialPage() async {
-    var alumnes = await _prefs.getAlumnesList(DjauLocalStorage.alumnesKey);
-    var pendents = await _prefs.getAlumnesList(DjauLocalStorage.pendentsKey);
-    if (alumnes.isEmpty && pendents.isEmpty) return 0;
+    var alumnes = await _prefs.getAlumnesList();
+    if (alumnes.isEmpty) return 0;
 
-    if (pendents.isNotEmpty) {
+    // S1 l'alumne ja havia entrat algun cop
+    var lastlogin = await _prefs.getLastLogin();
+    if (lastlogin == null || lastlogin.isEmpty) {
       return 1;
     }
     return 2;
   }
 
+  /// Carrega l'alumne que havia entrat per darrera vegada.
+  /// La variable `alumne` s'inicialitza amb les seves dades o bé es posa
+  /// el sistema en estat d'error.
+  ///
+  /// L'alumne que va entrar per darrera vegada es defineix
+  /// a `SetDefaultAlumne`
   Future loadDefaultAlumne() async {
     var alumne = await _prefs.getLastLogin();
     if (alumne != null) {
@@ -105,17 +132,20 @@ class DjauModel with ChangeNotifier {
     }
   }
 
+  /// Esborra l'alumne definit per [username] del sistema
   Future deleteAlumne(String username) async {
     await _storage.deleteAlumne(username);
     _prefs.deleteAlumneFromList(username);
     await loadDefaultAlumne();
   }
 
-  // Obtenir els noms dels alumnes i el seu username
+  /// Obtenir um mapa amb els noms dels alumnes i el seu username.
+  /// Cal per poder llistar els noms dels alumnes a més del seu
+  /// username
   Future<Map<String, String>> getAlumnes() async {
     var resultat = <String, String>{};
 
-    var usernames = await _prefs.getAlumnesList(DjauLocalStorage.alumnesKey);
+    var usernames = await _prefs.getAlumnesList();
     for (var username in usernames) {
       try {
         var alumne = await _storage.getAlumne(username);
@@ -131,21 +161,9 @@ class DjauModel with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Carrega el perfil de l'usuari que està actiu en aquest moment
   Future<Perfil> loadPerfil() async {
     final response = await _repository.getProfile(alumne.token);
     return response;
-    // return Perfil("ESO1A", "20/02/1927", "666666666",
-    //     "CM de Siurana 8 - El Far d'Empordà", {
-    //   Responsable(
-    //     "Manel Garcia Pimiento",
-    //     "manel@gmail.com",
-    //     "606000666",
-    //   ),
-    //   Responsable(
-    //     "Filomena Pi Boronat",
-    //     "filo@hotmail.com",
-    //     "972500550",
-    //   ),
-    // });
   }
 }

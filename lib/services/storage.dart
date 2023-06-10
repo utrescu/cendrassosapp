@@ -26,17 +26,23 @@ class SecureStorage {
 class DjauSecureStorage {
   final SecureStorage _storage = SecureStorage();
 
+  /// Emmagatzema l'alumne [alumne] en el Secure Storage del sistema
+  /// en el que estigui corrent l'aplicació.
   Future<void> saveAlumne(Alumne alumne) async {
     var json = jsonEncode(alumne.toJson());
     _storage.writeSecureStorage(alumne.username, json);
   }
 
+  /// Obtenir les dades de l'alumne que estigui associat a un
+  /// determinat [username]
   Future<Alumne> getAlumne(String username) async {
     var data = await _storage.readSecureData(username);
     var responseJson = json.decode(data);
     return Alumne.fromJson(responseJson);
   }
 
+  /// Esborra del secure storage l'alumne que estigui lligat a
+  /// un determinat [username]
   Future<void> deleteAlumne(String username) async {
     await _storage.deleteSecureData(username);
   }
@@ -45,54 +51,43 @@ class DjauSecureStorage {
 class DjauLocalStorage {
   static const String lastLoginKey = 'lastlogin'; // Ultim usuari loginat
   static const String alumnesKey = 'alumnes'; // llista d'alumnes confirmats
-  static const String pendentsKey = 'pendents'; // llista d'alumnes pendents
 
+  /// Obtenir el darrer username que ha entrat en l'aplicació o null
+  /// si no ha entrat mai ningú
   Future<String?> getLastLogin() async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getString(lastLoginKey);
   }
 
+  /// Elimina el darrer username que ha entrat en l'aplicació. Només
+  /// es fa servir quan s'esborren tots els alumnes de l'aplicació
   Future deleteLastLogin() async {
     var prefs = await SharedPreferences.getInstance();
     prefs.remove(lastLoginKey);
   }
 
+  /// Emmagatzema quin ha estat l'username que ha entrat en l'aplicació
+  /// que està definit a [username]
   Future<void> setLastLogin(String username) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(lastLoginKey, username);
-    addAlumneToList(prefs, username, alumnesKey);
-    confirmAlumne(prefs, username);
+    _addAlumneAtList(prefs, username, alumnesKey);
   }
-
-  // Gestió de pendents
-
-  Future<void> addAlumneToPendents(String username) async {
+  
+  /// Retorna la llista d'usernames que hi ha en l'aplicació
+  Future<List<String>> getAlumnesList() async {
     var prefs = await SharedPreferences.getInstance();
-    addAlumneToList(prefs, username, pendentsKey);
-  }
-
-  Future<void> confirmAlumne(SharedPreferences pref, String username) async {
-    var prefs = await SharedPreferences.getInstance();
-    addAlumneToList(prefs, username, alumnesKey);
-    deleteAlumneFrom(prefs, username, pendentsKey);
-  }
-
-  // obtenir els alumnes d'una de les llistes
-  Future<List<String>> getAlumnesList(String key) async {
-    var prefs = await SharedPreferences.getInstance();
-    var alumnes = prefs.getStringList(key);
+    var alumnes = prefs.getStringList(alumnesKey);
     return alumnes ?? [];
   }
-
-  Future<List<String>> getAllAlumnes() async {
+  
+  /// Afegeix l'usernane [username] a la llista d'usuaris de l'aplicació
+  Future addAlumneToList(String username) async {
     var prefs = await SharedPreferences.getInstance();
-    var alumnes = prefs.getStringList(alumnesKey) ?? [];
-    var pendents = prefs.getStringList(pendentsKey) ?? [];
-
-    return alumnes + pendents;
+    _addAlumneAtList(prefs, username, alumnesKey);
   }
-
-  void addAlumneToList(
+  
+  void _addAlumneAtList(
       SharedPreferences prefs, String username, String key) async {
     var alumnes = prefs.getStringList(key) ?? [];
     if (!alumnes.contains(username)) {
@@ -101,8 +96,7 @@ class DjauLocalStorage {
     }
   }
 
-  // Eliminar un alumne d'una de les llistes
-  Future<List<String>> deleteAlumneFrom(
+  Future<List<String>> _deleteAlumneFrom(
       SharedPreferences prefs, String username, String key) async {
     var alumnes = prefs.getStringList(key) ?? [];
     if (alumnes.contains(username)) {
@@ -112,15 +106,16 @@ class DjauLocalStorage {
     return alumnes;
   }
 
-  // Eliminar un alumne del sistema
+  /// Eliminar un alumne definit pel seu [username] del sistema.
+  /// També fa neteja de la clau del darrer alumne que ha entrat i
+  /// la neteja o bé en posa un altre
   void deleteAlumneFromList(String username) async {
     var prefs = await SharedPreferences.getInstance();
-    var alumnes = await deleteAlumneFrom(prefs, username, alumnesKey);
+    var alumnes = await _deleteAlumneFrom(prefs, username, alumnesKey);
 
     if (alumnes.isEmpty) {
       prefs.remove(lastLoginKey);
     } else {
-      // Si és l'actiu el canviem pel primer que quedi
       var defaultUser = prefs.getString(lastLoginKey);
       if (defaultUser == username) {
         prefs.setString(lastLoginKey, alumnes.first);
