@@ -29,14 +29,13 @@ class _ScanqrPageState extends State<ScanqrPage> {
     // capture = barcode;
     var qr = barcode.barcodes.first;
     log("[qrCode] valor=${qr.displayValue}");
-    // TODO: EMMAGATZEMAR I SORTIR!
     // setState(() => this.barcode = barcode.barcodes.first);
     setState(() {
       captured += 1;
     });
 
     if (captured == 1) {
-      
+
       GlobalNavigator.goBackAndReturn(qr.displayValue ?? "");
     }
   }
