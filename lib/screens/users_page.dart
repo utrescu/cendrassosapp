@@ -1,5 +1,6 @@
 import '../config_cendrassos.dart';
 import 'components/helpers.dart';
+import 'components/alumne_item.dart';
 import 'dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,24 +39,22 @@ class UsersPage extends StatelessWidget {
   }
 
   void _gotoDashboard(BuildContext context, String username) async {
-
-      final djau = Provider.of<DjauModel>(context, listen: false);
-      var result = await djau.loadAlumne(username);
-      if (result.isLogged == DjauStatus.loaded) {
-        // No sé si fer popuntil
-        GlobalNavigator.go(Dashboard.routeName);
-      } else {
-        // No volen distingir els tipus d'errors
-        GlobalNavigator.showAlertPopup("ERROR", result.errorMessage);
-      }
-
+    final djau = Provider.of<DjauModel>(context, listen: false);
+    var result = await djau.loadAlumne(username);
+    if (result.isLogged == DjauStatus.loaded) {
+      // No sé si fer popuntil
+      GlobalNavigator.go(Dashboard.routeName);
+    } else {
+      // No volen distingir els tipus d'errors
+      GlobalNavigator.showAlertPopup("ERROR", result.errorMessage);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final currentLogin = context.watch<DjauModel>();
     var nom = currentLogin.alumne.nom;
-    var username = currentLogin.alumne.username;
+    var currentusername = currentLogin.alumne.username;
 
     if (_users.value.isEmpty) {
       loadData(context);
@@ -78,109 +77,24 @@ class UsersPage extends StatelessWidget {
       body: ValueListenableBuilder<Map<String, String>>(
         valueListenable: _users,
         builder: (context, value, _) => value.isNotEmpty
-            ? GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: spaceAroundCells,
-                mainAxisSpacing: spaceAroundCells,
-                padding: const EdgeInsets.all(10),
-                children: value.entries
-                    .map(
-                      (item) => UserItem(
-                        username: item.key,
-                        nom: item.value,
-                        enabled: item.key == username,
-                        deleteItem: _deleteAlumne,
-                        tryToGotoDashboard: _gotoDashboard,
-                      ),
-                    )
-                    .toList(),
+            ? ListView.builder(
+                itemCount: _users.value.length,
+                itemBuilder: (context, index) {
+                  String username = _users.value.keys.elementAt(index);
+                  var nom = _users.value[username];
+
+                  return AlumneItem(
+                    username: username,
+                    nom: nom ?? "...",
+                    enabled: username == currentusername,
+                    deleteItem: _deleteAlumne,
+                    tryToGotoDashboard: _gotoDashboard,
+                  );
+                },
               )
             : const Loading(
                 loadingMessage: missatgeCarregantDades,
               ),
-      ),
-    );
-  }
-}
-
-typedef DeleteAlumneCallBack = void Function(
-    BuildContext context, String username);
-
-typedef TryLoginCallBack = void Function(
-    BuildContext context, String username);
-
-class UserItem extends StatelessWidget {
-  const UserItem(
-      {Key? key,
-      required this.username,
-      required this.nom,
-      required this.enabled,
-      required this.deleteItem,
-      required this.tryToGotoDashboard})
-      : super(key: key);
-
-  final String username;
-  final String nom;
-  final bool enabled;
-  final DeleteAlumneCallBack deleteItem;
-  final TryLoginCallBack tryToGotoDashboard;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: GridTile(
-        footer: GridTileBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: const Text(""),
-          trailing: IconButton(
-            icon: const Icon(
-              Icons.delete,
-              // color: Theme.of(context).colorScheme.primary,
-            ),
-            onPressed: () => deleteItem(context, username),
-          ),
-        ),
-        child: GestureDetector(
-          onTap: () => tryToGotoDashboard(context,username),
-          child: gridContent(context),
-        ),
-      ),
-    );
-  }
-
-  Widget gridContent(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Theme.of(context).primaryColor,
-          width: 2.0,
-        ),
-        color: enabled
-            ? Theme.of(context).primaryColorLight.withOpacity(0.5)
-            : Theme.of(context).colorScheme.onPrimary,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height:
-                MediaQuery.of(context).size.width * 0.25 - 2 * spaceAroundCells,
-            child: Image.asset('assets/images/student2.png', fit: BoxFit.cover),
-          ),
-          Container(
-            width:
-                MediaQuery.of(context).size.width * 0.5 - 2 * spaceAroundCells,
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(nom,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleMedium),
-            ),
-          ),
-        ],
       ),
     );
   }

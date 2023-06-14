@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 // Colors
 
 var primaryColor = const Color.fromRGBO(217, 48, 29, 1);
-var primaryColorDark = const Color.fromARGB(255, 105, 18, 8);
-var primaryColorDark2 = const Color.fromARGB(255, 155, 28, 18);
-var primaryColorLight = const Color.fromARGB(255, 238, 144, 134);
-var primaryColorLight2 = const Color.fromARGB(255, 240, 133, 127);
+var primaryColorDark = const Color.fromARGB(255, 155, 28, 18);
+var primaryColorLight = const Color.fromARGB(255, 240, 133, 127);
 var secondaryColor = const Color(0xFFFFFFFF);
 var secondaryColorDark = const Color(0xffc0ae75);
 var cardColor = Colors.grey.shade100;
