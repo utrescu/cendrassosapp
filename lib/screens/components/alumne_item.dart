@@ -1,3 +1,4 @@
+import 'package:cendrassos/config_cendrassos.dart';
 import 'package:flutter/material.dart';
 
 typedef DeleteAlumneCallBack = void Function(
@@ -23,66 +24,50 @@ class AlumneItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Card(
-        color: Theme.of(context).cardColor,
-        elevation: 3.0,
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () => tryToGotoDashboard(context, username),
-              child: alumneItemContent(context),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-              ),
-              child: ButtonBar(
-                alignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                    onPressed: () => deleteItem(context, username),
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      key: Key(username),
+      background: Container(
+        alignment: AlignmentDirectional.centerEnd,
+        color: Theme.of(context).primaryColorDark,
+        child: const Padding(
+          padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(Icons.delete, color: Colors.white),
         ),
+      ),
+      onDismissed: (direction) {
+        deleteItem(context, username);
+      },
+      child: GestureDetector(
+        onTap: () => tryToGotoDashboard(context, username),
+        child: alumneItemContent(context),
       ),
     );
   }
 
   Widget alumneItemContent(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.20,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child:
-                  Image.asset('assets/images/student2.png', fit: BoxFit.cover),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3.0),
-              child: Text(nom,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleLarge),
-            ),
-          ),
-        ],
+    return ListTile(
+      tileColor: Theme.of(context).cardColor,
+      leading: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Image.asset('assets/images/student2.png', fit: BoxFit.cover),
       ),
+      title: Text(
+        nom,
+        textAlign: TextAlign.left,
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      subtitle: const Text(nomInstitut),
+      trailing: enabled
+          ? Icon(
+              Icons.check_circle,
+              color: Theme.of(context).primaryColor,
+            )
+          : Icon(
+              Icons.circle_outlined,
+              color: Theme.of(context).disabledColor,
+            ),
     );
+
   }
 }

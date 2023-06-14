@@ -4,9 +4,11 @@ import 'package:background_fetch/background_fetch.dart';
 import 'package:cendrassos/routes.dart';
 import 'package:cendrassos/screens/loading_page.dart';
 import 'package:cendrassos/services/background_tasks.dart';
+import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -43,8 +45,10 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
 }
 
 void onNotification(String? payload) async {
-  // TODO: Posar el payload a defaultuser
-
+  if (payload != null && payload.isNotEmpty) {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString(DjauLocalStorage.lastLoginKey, payload);
+  }
   Routes(initialRoute: LoadingPage.routeName);
 }
 

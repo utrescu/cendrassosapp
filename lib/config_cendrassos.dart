@@ -13,7 +13,7 @@ const int intervalNotificacions =
     15; // Cada quants minuts comprova notificacions
 
 // URLs d'accés a l'API
-// const String baseUrl = "https://djauproves.cendrassos.net/api/token";
+// const String baseUrl = "https://djauproves.cendrassos.net/api";
 const String baseUrl = "http://192.168.1.141:8080/api";
 // La URL ha d'acabar amb una barra
 const String endBaseUrl = "/";
@@ -34,17 +34,16 @@ const String djauUrl = "https://djau.cendrassos.net/api/";
 const String recuperarUrl =
     "https://djau.cendrassos.net/usuaris/sendPasswdByEmail/";
 
-
 // Llista dels tipus de notificacions i els colors amb el que es veuran
 // Comprovar que el text és el que arriba en la notificació. Si en calen
 // més, s'afegeixen.
 
 Map<String, Color> notificacionsColor = {
-  "Falta": const Color(0xFF00BCD4),
-  "Justificada": const Color(0xFF4CAF50),
-  "Incidència": const Color(0xFFFF9800),
-  "Expulsió": const Color(0xFFF44336),
-  "Observació": const Color.fromARGB(255, 197, 116, 190),
+  "falta": const Color(0xFF00BCD4),
+  "justificada": const Color(0xFF4CAF50),
+  "incidència": const Color(0xFFFF9800),
+  "expulsió": const Color(0xFFF44336),
+  "observació": const Color.fromARGB(255, 197, 116, 190),
 };
 
 // Textos dels missatges d'error

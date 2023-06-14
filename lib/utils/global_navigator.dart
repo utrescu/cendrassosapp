@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cendrassos/screens/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +9,16 @@ import '../screens/dashboard_page.dart';
 import '../screens/login_page.dart';
 
 class GlobalNavigator {
+  static gotoNewAlumne() {
+    if (Platform.isAndroid || Platform.isIOS) {
+      // Sistemes mòbils
+      gotoRegister();
+    } else {
+      // Escriptori
+      gotoLogin();
+    }
+  }
+
   static gotoLogin() {
     var context = navigatorKey.currentContext!;
     Navigator.of(context).popUntil((route) => route.isFirst);

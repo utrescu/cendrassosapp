@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';
-import 'package:cendrassos/screens/register_page.dart';
+import 'package:cendrassos/screens/login_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:cendrassos/utils/global_navigator.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +54,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
     switch (desti) {
       case 0: // No hi ha alumnes, demanar registre
-        GlobalNavigator.forgetAndGo(RegisterPage.routeName);
+        GlobalNavigator.gotoNewAlumne();
         break;
       case 1: // Hi ha alumnes sense confirmar
         GlobalNavigator.forgetAndGo(UsersPage.routeName);
@@ -68,7 +70,11 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   void _gotoLogin() {
-    GlobalNavigator.gotoLogin();
+    var route = UsersPage.routeName;
+    if (!Platform.isAndroid && !Platform.isIOS) {
+      route = LoginPage.routeName;
+    }
+    GlobalNavigator.forgetAndGo(route);
   }
 
   @override

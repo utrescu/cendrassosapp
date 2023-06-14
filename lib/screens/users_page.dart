@@ -29,13 +29,13 @@ class UsersPage extends StatelessWidget {
     var usuaris = await djau.getAlumnes();
     if (usuaris.isEmpty) {
       // No hi ha cap alumne, torna al registre
-      gotoRegister();
+      gotoNewAlumne();
     }
     _users.value = usuaris;
   }
 
-  void gotoRegister() {
-    GlobalNavigator.gotoRegister();
+  void gotoNewAlumne() {
+    GlobalNavigator.gotoNewAlumne();
   }
 
   void _gotoDashboard(BuildContext context, String username) async {
@@ -66,7 +66,7 @@ class UsersPage extends StatelessWidget {
         onPressed: () {
           // Anar a pàgina de login per afegir un alumne nou
           // Fa pop. Ok?
-          gotoRegister();
+          gotoNewAlumne();
         },
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(
@@ -77,7 +77,7 @@ class UsersPage extends StatelessWidget {
       body: ValueListenableBuilder<Map<String, String>>(
         valueListenable: _users,
         builder: (context, value, _) => value.isNotEmpty
-            ? ListView.builder(
+            ? ListView.separated(
                 itemCount: _users.value.length,
                 itemBuilder: (context, index) {
                   String username = _users.value.keys.elementAt(index);
@@ -90,6 +90,9 @@ class UsersPage extends StatelessWidget {
                     deleteItem: _deleteAlumne,
                     tryToGotoDashboard: _gotoDashboard,
                   );
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider();
                 },
               )
             : const Loading(
