@@ -55,7 +55,7 @@ class AlumneItem extends StatelessWidget {
       title: Text(
         nom,
         textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.titleLarge,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
       subtitle: const Text(nomInstitut),
       trailing: enabled
@@ -64,10 +64,9 @@ class AlumneItem extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             )
           : Icon(
-              Icons.circle_outlined,
+              Icons.more_horiz,
               color: Theme.of(context).disabledColor,
             ),
     );
-
   }
 }
