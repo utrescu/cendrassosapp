@@ -100,7 +100,6 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                       child: const Text(
                         'Inicia la sessió',
-                        //style: TextStyle(fontSize: buttonFontSize),
                       ),
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
