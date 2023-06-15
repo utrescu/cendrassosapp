@@ -51,4 +51,9 @@ class Notificacio {
         dateA?.month == dateB?.month &&
         dateA?.day == dateB?.day;
   }
+
+  String getData() {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(dia);
+  }
 }

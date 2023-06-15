@@ -1,9 +1,11 @@
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/notificacio.dart';
+import 'package:cendrassos/utils/global_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import "package:collection/collection.dart";
 import 'package:intl/intl.dart';
+
 
 class CalendariNotificacions extends StatelessWidget {
   final List<Notificacio> notificacions;
@@ -195,21 +197,28 @@ class CalendarListItem extends StatelessWidget {
 
   final Notificacio notificacio;
 
+  void showNotificacio(BuildContext context) {
+    GlobalNavigator.showNotificacio(notificacio);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       shadowColor: Theme.of(context).primaryColorLight,
       child: ListTile(
         // leading: _buildCircleAvatar(value[index].getColor()),
-        leading: Column(children: [
-          Text(notificacio.tipus,
+        leading: Column(
+          children: [
+            Text(
+              notificacio.tipus,
               style: TextStyle(
                 color: notificacio.getColor(),
-              )),
-          Text("${notificacio.hora} hora"),
-        ]),
-
-        onTap: () => debugPrint('Veure $notificacio?'),
+              ),
+            ),
+            Text("${notificacio.hora} hora"),
+          ],
+        ),
+        onTap: () => showNotificacio(context),
         title: Text(
           'Professor: ${notificacio.professor}',
           style: Theme.of(context).textTheme.titleSmall,

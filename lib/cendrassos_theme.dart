@@ -48,29 +48,39 @@ ColorScheme colorScheme = ColorScheme.fromSwatch(
 );
 
 TextTheme textTheme = TextTheme(
-  bodyLarge: TextStyle(
-    fontSize: 14,
-    color: primaryColor,
-  ),
-  bodyMedium: const TextStyle(fontSize: 14),
-  displayLarge: const TextStyle(
-    fontSize: 36.0,
-    fontWeight: FontWeight.bold,
-  ),
-  headlineSmall: TextStyle(
-    fontSize: 20.0,
-    fontWeight: FontWeight.bold,
-    color: primaryColor,
-  ),
-  titleLarge: TextStyle(
-    color: primaryColor,
-  ),
-  titleMedium: TextStyle(
-    fontSize: 15.0,
-    fontWeight: FontWeight.bold,
-    color: primaryColor,
-  ),
-);
+    bodyLarge: TextStyle(
+      fontSize: 14,
+      color: primaryColor,
+    ),
+    bodyMedium: const TextStyle(fontSize: 14),
+    displayLarge: const TextStyle(
+      fontSize: 36.0,
+      fontWeight: FontWeight.bold,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: primaryColor,
+    ),
+    titleLarge: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: primaryColor,
+    ),
+    titleMedium: TextStyle(
+      fontSize: 15.0,
+      fontWeight: FontWeight.bold,
+      color: primaryColor,
+    ),
+    titleSmall: TextStyle(
+      fontSize: 12.0,
+      fontWeight: FontWeight.bold,
+      color: primaryColor,
+    ),
+    labelMedium: TextStyle(
+      fontSize: 15.0,
+      color: secondaryColor,
+    ));
 
 var cendrassosTheme = ThemeData(
   primaryColor: primaryColor,
@@ -79,11 +89,3 @@ var cendrassosTheme = ThemeData(
   colorScheme: colorScheme,
   textTheme: textTheme,
 );
-
-// Mida dels textos
-
-var buttonFontSize = 15.0;
-var defaultFontSize = 14.0;
-var littleTextSize = 10.0;
-var notificationsNumberTextSize = 10.0;
-var titleFontSize = 20.0;

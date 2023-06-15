@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:cendrassos/screens/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/notificacio.dart';
 import '../navitator_key.dart';
 import '../providers/djau.dart';
+import '../screens/components/notificacio_dialog.dart';
 import '../screens/dashboard_page.dart';
 import '../screens/login_page.dart';
 
@@ -72,6 +74,16 @@ class GlobalNavigator {
             ),
           ],
         );
+      },
+    );
+  }
+
+  static showNotificacio(Notificacio notificacio) {
+    showDialog(
+      barrierDismissible: false,
+      context: navigatorKey.currentContext!,
+      builder: (BuildContext context) {
+        return NotificacioDialog(notificacio: notificacio);
       },
     );
   }
