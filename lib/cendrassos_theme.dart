@@ -40,52 +40,40 @@ MaterialColor primarySwatch =
 
 ColorScheme colorScheme = ColorScheme.fromSwatch(
   primarySwatch: primarySwatch,
-  primaryColorDark: primaryColorDark,
-  brightness: Brightness.light,
-  accentColor: secondaryColorDark,
-  cardColor: cardColor,
-  backgroundColor: backgroundColor,
 );
 
 TextTheme textTheme = TextTheme(
-    bodyLarge: TextStyle(
-      fontSize: 14,
-      color: primaryColor,
-    ),
-    bodyMedium: const TextStyle(fontSize: 14),
-    displayLarge: const TextStyle(
-      fontSize: 36.0,
-      fontWeight: FontWeight.bold,
-    ),
-    headlineSmall: TextStyle(
-      fontSize: 20.0,
-      fontWeight: FontWeight.bold,
-      color: primaryColor,
-    ),
-    titleLarge: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-      color: primaryColor,
-    ),
-    titleMedium: TextStyle(
-      fontSize: 15.0,
-      fontWeight: FontWeight.bold,
-      color: primaryColor,
-    ),
-    titleSmall: TextStyle(
-      fontSize: 12.0,
-      fontWeight: FontWeight.bold,
-      color: primaryColor,
-    ),
-    labelMedium: TextStyle(
-      fontSize: 15.0,
-      color: secondaryColor,
-    ));
+  bodyMedium: TextStyle(
+    color: primaryColor,
+  ),
+  titleLarge: const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  ),
+  titleMedium: const TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+  ),
+  titleSmall: const TextStyle(
+    fontSize: 12.0,
+    fontWeight: FontWeight.bold,
+  ),
+  labelMedium: TextStyle(
+    fontSize: 15.0,
+    color: secondaryColor,
+  ),
+  headlineMedium: const TextStyle(
+    fontSize: 15,
+  ),
+);
 
 var cendrassosTheme = ThemeData(
   primaryColor: primaryColor,
   primaryColorLight: primaryColorLight,
   primaryColorDark: primaryColorDark,
   colorScheme: colorScheme,
-  textTheme: textTheme,
+  textTheme: textTheme.apply(
+    bodyColor: primaryColor,
+    displayColor: Colors.white,
+  ),
 );

@@ -48,9 +48,11 @@ class NotificacioDialog extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "${notificacio.getData()} : ${notificacio.hora} hora",
-                    style: Theme.of(context).textTheme.titleLarge,
+                  Flexible(
+                    child: Text(
+                      "${notificacio.getData()} : ${notificacio.hora} hora",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ),
                 ],
               ),
@@ -72,14 +74,16 @@ class NotificacioDialog extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    notificacio.tipus,
-                    style: Theme.of(context).textTheme.titleLarge,
+                  Flexible(
+                    child: Text(
+                      notificacio.tipus,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ),
                 ],
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Divider(
                 color: Theme.of(context).primaryColor,
@@ -128,9 +132,8 @@ class NotificacioDialog extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(
+                child: const Text(
                   "OK",
-                  style: Theme.of(context).textTheme.labelMedium,
                 )),
           ),
         ],

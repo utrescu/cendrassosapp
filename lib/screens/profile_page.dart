@@ -12,18 +12,12 @@ class ProfilePage extends StatelessWidget {
 
   const ProfilePage({Key? key}) : super(key: key);
 
-  Widget redText(String text, TextStyle? estil) {
-    return Text(
-      text,
-      style: estil,
-    );
-  }
-
   Widget responsableColumn(context, String nom, String email, String telefon) {
     return Column(
       children: [
-        Container(
-          child: redText(nom, Theme.of(context).textTheme.headlineSmall),
+        Text(
+          nom,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         const Divider(
           indent: 20,
@@ -34,14 +28,18 @@ class ProfilePage extends StatelessWidget {
             Icons.email,
             color: Theme.of(context).primaryColor,
           ),
-          title: redText(email, Theme.of(context).textTheme.bodyLarge),
+          title: Text(
+            email,
+          ),
         ),
         ListTile(
           leading: Icon(
             Icons.phone,
             color: Theme.of(context).colorScheme.primary,
           ),
-          title: redText(telefon, Theme.of(context).textTheme.bodyLarge),
+          title: Text(
+            telefon,
+          ),
         ),
       ],
     );
@@ -67,7 +65,10 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
         Center(
-          child: redText(dades.grup, Theme.of(context).textTheme.headlineSmall),
+          child: Text(
+            dades.grup,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -77,30 +78,32 @@ class ProfilePage extends StatelessWidget {
                 Icons.cake,
                 color: Theme.of(context).primaryColor,
               ),
-              title: redText(
-                  dades.datanaixement, Theme.of(context).textTheme.bodyLarge),
+              title: Text(
+                dades.datanaixement,
+              ),
             ),
             ListTile(
               leading: Icon(
                 Icons.home,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              title:
-                  redText(dades.adreca, Theme.of(context).textTheme.bodyLarge),
+              title: Text(
+                dades.adreca,
+              ),
             ),
             ListTile(
               leading: Icon(
                 Icons.phone,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              title:
-                  redText(dades.telefon, Theme.of(context).textTheme.bodyLarge),
+              title: Text(
+                dades.telefon,
+              ),
             ),
           ]),
         ),
         Card(
           elevation: 4.0,
-          color: Theme.of(context).colorScheme.background,
           shadowColor: Theme.of(context).primaryColorLight,
           child: Column(
               children: dades.responsables

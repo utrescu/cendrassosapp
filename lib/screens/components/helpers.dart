@@ -39,7 +39,7 @@ class ErrorRetry extends StatelessWidget {
             child: Text(
               textBoto,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.secondary,
                 fontSize: 20,
               ),
             ),
@@ -75,7 +75,7 @@ class ErrorRetryLogin extends StatelessWidget {
         text,
         style: TextStyle(
           fontSize: 20,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
     );

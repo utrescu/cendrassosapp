@@ -46,6 +46,10 @@ Map<String, Color> notificacionsColor = {
   "Observació": const Color.fromARGB(255, 197, 116, 190),
 };
 
+// Constants del calendari
+const String collapsa = "Col·lapsa";
+const String mostrames = "Veure el mes";
+
 // Textos dels missatges d'error
 
 const String missatgeCarregantDades = "Carregant dades";

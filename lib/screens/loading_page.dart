@@ -82,15 +82,12 @@ class _LoadingPageState extends State<LoadingPage> {
     var margew = MediaQuery.of(context).size.width / 4;
     var margeh = MediaQuery.of(context).size.height / 4;
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           // Background
           Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-            ),
+            decoration: const BoxDecoration(),
           ),
 
           /// Render the Title widget, loader and messages below each other

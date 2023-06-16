@@ -55,7 +55,6 @@ class AlumneItem extends StatelessWidget {
       title: Text(
         nom,
         textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.bodyLarge,
       ),
       subtitle: const Text(nomInstitut),
       trailing: enabled

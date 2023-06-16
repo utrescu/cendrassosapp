@@ -6,7 +6,6 @@ import 'package:table_calendar/table_calendar.dart';
 import "package:collection/collection.dart";
 import 'package:intl/intl.dart';
 
-
 class CalendariNotificacions extends StatelessWidget {
   final List<Notificacio> notificacions;
   final DateTime? selectedDay;
@@ -102,8 +101,8 @@ class CalendariNotificacions extends StatelessWidget {
           ),
           calendarFormat: format,
           availableCalendarFormats: const {
-            CalendarFormat.month: "Veure el Mes",
-            CalendarFormat.week: "Col·lapsa",
+            CalendarFormat.month: mostrames,
+            CalendarFormat.week: collapsa,
           },
           eventLoader: _getEventsForDay,
           selectedDayPredicate: (day) {
@@ -221,7 +220,6 @@ class CalendarListItem extends StatelessWidget {
         onTap: () => showNotificacio(context),
         title: Text(
           'Professor: ${notificacio.professor}',
-          style: Theme.of(context).textTheme.titleSmall,
         ),
         subtitle: Text(notificacio.text),
       ),
