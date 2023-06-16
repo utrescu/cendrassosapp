@@ -73,20 +73,20 @@ class DjauLocalStorage {
     prefs.setString(lastLoginKey, username);
     _addAlumneAtList(prefs, username, alumnesKey);
   }
-  
+
   /// Retorna la llista d'usernames que hi ha en l'aplicació
   Future<List<String>> getAlumnesList() async {
     var prefs = await SharedPreferences.getInstance();
     var alumnes = prefs.getStringList(alumnesKey);
     return alumnes ?? [];
   }
-  
+
   /// Afegeix l'usernane [username] a la llista d'usuaris de l'aplicació
   Future addAlumneToList(String username) async {
     var prefs = await SharedPreferences.getInstance();
     _addAlumneAtList(prefs, username, alumnesKey);
   }
-  
+
   void _addAlumneAtList(
       SharedPreferences prefs, String username, String key) async {
     var alumnes = prefs.getStringList(key) ?? [];
@@ -109,7 +109,7 @@ class DjauLocalStorage {
   /// Eliminar un alumne definit pel seu [username] del sistema.
   /// També fa neteja de la clau del darrer alumne que ha entrat i
   /// la neteja o bé en posa un altre
-  void deleteAlumneFromList(String username) async {
+  Future deleteAlumneFromList(String username) async {
     var prefs = await SharedPreferences.getInstance();
     var alumnes = await _deleteAlumneFrom(prefs, username, alumnesKey);
 

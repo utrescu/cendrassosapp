@@ -24,6 +24,7 @@ class UsersPage extends StatelessWidget {
   }
 
   void _deleteAlumne(BuildContext context, String username) async {
+    _users.value.remove(username);
     final djau = Provider.of<DjauModel>(context, listen: false);
     await djau.deleteAlumne(username);
     var usuaris = await djau.getAlumnes();
@@ -31,7 +32,7 @@ class UsersPage extends StatelessWidget {
       // No hi ha cap alumne, torna al registre
       gotoNewAlumne();
     }
-    _users.value = usuaris;
+
   }
 
   void gotoNewAlumne() {
@@ -83,12 +84,28 @@ class UsersPage extends StatelessWidget {
                   String username = _users.value.keys.elementAt(index);
                   var nom = _users.value[username];
 
-                  return AlumneItem(
-                    username: username,
-                    nom: nom ?? "...",
-                    enabled: username == currentusername,
-                    deleteItem: _deleteAlumne,
-                    tryToGotoDashboard: _gotoDashboard,
+                  return Dismissible(
+                    direction: DismissDirection.endToStart,
+                    background: Container(
+                      alignment: AlignmentDirectional.centerEnd,
+                      color: Theme.of(context).primaryColorDark,
+                      child: const Padding(
+                        padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                        child: Icon(Icons.delete, color: Colors.white),
+                      ),
+                    ),
+                    key: Key(username),
+                    onDismissed: (direction) {
+                      _deleteAlumne(context, username);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Eliminant $nom")));
+                    },
+                    child: AlumneItem(
+                      username: username,
+                      nom: nom ?? "...",
+                      enabled: username == currentusername,
+                      tryToGotoDashboard: _gotoDashboard,
+                    ),
                   );
                 },
                 separatorBuilder: (context, index) {

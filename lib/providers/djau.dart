@@ -135,7 +135,7 @@ class DjauModel with ChangeNotifier {
   /// Esborra l'alumne definit per [username] del sistema
   Future deleteAlumne(String username) async {
     await _storage.deleteAlumne(username);
-    _prefs.deleteAlumneFromList(username);
+    await _prefs.deleteAlumneFromList(username);
     await loadDefaultAlumne();
   }
 

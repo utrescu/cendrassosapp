@@ -12,36 +12,19 @@ class AlumneItem extends StatelessWidget {
       required this.username,
       required this.nom,
       required this.enabled,
-      required this.deleteItem,
       required this.tryToGotoDashboard})
       : super(key: key);
 
   final String username;
   final String nom;
   final bool enabled;
-  final DeleteAlumneCallBack deleteItem;
   final TryLoginCallBack tryToGotoDashboard;
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      direction: DismissDirection.endToStart,
-      key: Key(username),
-      background: Container(
-        alignment: AlignmentDirectional.centerEnd,
-        color: Theme.of(context).primaryColorDark,
-        child: const Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-          child: Icon(Icons.delete, color: Colors.white),
-        ),
-      ),
-      onDismissed: (direction) {
-        deleteItem(context, username);
-      },
-      child: GestureDetector(
+    return GestureDetector(
         onTap: () => tryToGotoDashboard(context, username),
         child: alumneItemContent(context),
-      ),
     );
   }
 
