@@ -1,6 +1,8 @@
 import 'package:cendrassos/models/notificacio.dart';
 import 'package:flutter/material.dart';
 
+import '../../config_cendrassos.dart';
+
 class NotificacioDialog extends StatelessWidget {
   final Notificacio notificacio;
 
@@ -50,7 +52,7 @@ class NotificacioDialog extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      "${notificacio.getData()} : ${notificacio.hora} hora",
+                      "${notificacio.getData()} : ${notificacio.hora} $etiquetaHora",
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
@@ -96,7 +98,7 @@ class NotificacioDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Professor: ",
+                    "$etiquetaProfessor: ",
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Flexible(
@@ -133,7 +135,7 @@ class NotificacioDialog extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
                 child: const Text(
-                  "OK",
+                  botoOk,
                 )),
           ),
         ],

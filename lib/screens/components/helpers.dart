@@ -1,3 +1,4 @@
+import 'package:cendrassos/config_cendrassos.dart';
 import 'package:flutter/material.dart';
 
 class ErrorRetry extends StatelessWidget {
@@ -99,8 +100,8 @@ class ErrorRetryLogin extends StatelessWidget {
           const SizedBox(height: 12),
           Column(
             children: [
-              _boto(context, 'Torna-ho a provar', onRetryPressed),
-              _boto(context, 'Entrar credencials de nou', onLogin),
+              _boto(context, missatgeTornaAProvar, onRetryPressed),
+              _boto(context, missatgeTornaALogin, onLogin),
             ],
           ),
         ],

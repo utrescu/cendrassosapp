@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/qr.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/scanner_control.dart';
@@ -97,10 +98,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     readOnly: true,
                     decoration: InputDecoration(
                       icon: const Icon(Icons.calendar_today),
-                      labelText: "Data de naixement",
+                      labelText: etiquetaDataNaixement,
                       labelStyle:
                           TextStyle(color: Theme.of(context).primaryColor),
-                      hintText: 'Entreu el nom d\'usuari',
+                      hintText: etiquetaDataNaixement,
                     ),
                     onTap: () async {
                       DateTime? pickedDate = await showDatePicker(
@@ -144,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               gotoUsers(x, context);
                             }
                           },
-                    child: const Text("Enviar petició"),
+                    child: const Text(etiquetaEnviarQR),
                   ),
                 ),
               ],
@@ -169,7 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
               !_qrKey.isValid() || _dateinputController.text.isEmpty;
         });
     } catch(e) {
-      GlobalNavigator.showAlertPopup("ERROR", "El codi QR és incorrecte!");
+      GlobalNavigator.showAlertPopup("ERROR", errorQR);
     }
 
   }

@@ -46,15 +46,27 @@ Map<String, Color> notificacionsColor = {
   "Observació": const Color.fromARGB(255, 197, 116, 190),
 };
 
+// Botons
+const String botoOk = "OK";
+
 // Constants del calendari
-const String collapsa = "Col·lapsa";
-const String mostrames = "Veure el mes";
+const String calendariCollapsa = "Col·lapsa";
+const String calendarMostrames = "Veure el mes";
 
 // Textos dels missatges d'error
 
+const String etiquetaProfessor = "Professor";
+const String etiquetaHora = "hora";
+const String etiquetaDia = "Dia:";
+const String etiquetaDataNaixement = 'Entreu la data de naixement';
+const String etiquetaEnviarQR = 'Enviar petició';
+
 const String missatgeCarregantDades = "Carregant dades";
 const String missatgeTornaAProvar = "Torna-ho a provar";
+const String missatgeTornaALogin = 'Entrar credencials de nou';
 const String missatgeOk = "D'acord";
 
 const String errorCarregant =
     "ERROR carregant les dades. Torna-ho a provar més tard";
+const String errorQR =
+    "El codi QR és incorrecte";

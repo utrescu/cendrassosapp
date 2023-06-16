@@ -54,7 +54,7 @@ class CalendariNotificacions extends StatelessWidget {
 
   String _getSelectedDay() {
     if (selectedDay != null) {
-      return "Dia: ${DateFormat('dd/MM/yyyy').format(selectedDay!)}";
+      return "$etiquetaDia: ${DateFormat('dd/MM/yyyy').format(selectedDay!)}";
     }
     return "";
   }
@@ -101,8 +101,8 @@ class CalendariNotificacions extends StatelessWidget {
           ),
           calendarFormat: format,
           availableCalendarFormats: const {
-            CalendarFormat.month: mostrames,
-            CalendarFormat.week: collapsa,
+            CalendarFormat.month: calendarMostrames,
+            CalendarFormat.week: calendariCollapsa,
           },
           eventLoader: _getEventsForDay,
           selectedDayPredicate: (day) {
@@ -214,12 +214,12 @@ class CalendarListItem extends StatelessWidget {
                 color: notificacio.getColor(),
               ),
             ),
-            Text("${notificacio.hora} hora"),
+            Text("${notificacio.hora} $etiquetaHora"),
           ],
         ),
         onTap: () => showNotificacio(context),
         title: Text(
-          'Professor: ${notificacio.professor}',
+          '$etiquetaProfessor: ${notificacio.professor}',
         ),
         subtitle: Text(notificacio.text),
       ),
