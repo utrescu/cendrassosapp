@@ -39,11 +39,11 @@ const String recuperarUrl =
 // més, s'afegeixen.
 
 Map<String, Color> notificacionsColor = {
-  "falta": const Color(0xFF00BCD4),
-  "justificada": const Color(0xFF4CAF50),
-  "incidència": const Color(0xFFFF9800),
-  "expulsió": const Color(0xFFF44336),
-  "observació": const Color.fromARGB(255, 197, 116, 190),
+  "Falta": const Color(0xFF00BCD4),
+  "Justificada": const Color(0xFF4CAF50),
+  "Incidència": const Color(0xFFFF9800),
+  "Expulsió": const Color(0xFFF44336),
+  "Observació": const Color.fromARGB(255, 197, 116, 190),
 };
 
 // Textos dels missatges d'error
