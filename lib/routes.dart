@@ -39,6 +39,10 @@ class Routes {
       ],
       child: MaterialApp(
           title: nomInstitut,
+          locale: const Locale("ca", "ES"),
+          supportedLocales: [
+            const Locale("ca", "ES"),
+          ],
           theme: cendrassosTheme,
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,

@@ -51,7 +51,8 @@ class _RegisterPageState extends State<RegisterPage> {
     var inputDate = inputFormat.parse(_dateinputController.text);
 
     var ouputFormat = DateFormat('yyyy-MM-dd');
-    var result = await registerCall.register(_qrKey, ouputFormat.format(inputDate));
+    var result =
+        await registerCall.register(_qrKey, ouputFormat.format(inputDate));
     return result;
   }
 
@@ -110,6 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     onTap: () async {
                       DateTime? pickedDate = await showDatePicker(
+                          locale: const Locale("ca", "ES"),
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(
