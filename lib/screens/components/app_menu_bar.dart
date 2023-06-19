@@ -1,7 +1,7 @@
 import 'package:cendrassos/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 
-class AppMenuBar extends StatelessWidget with PreferredSizeWidget {
+class AppMenuBar extends StatelessWidget implements PreferredSizeWidget {
   final String nom;
   final bool haveleading;
   final VoidCallback? gotoUserPage;

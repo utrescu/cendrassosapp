@@ -8,6 +8,7 @@ import 'package:cendrassos/screens/loading_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
 import 'package:cendrassos/screens/profile_page.dart';
 import 'package:cendrassos/screens/scanqr_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/register_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +40,14 @@ class Routes {
       ],
       child: MaterialApp(
           title: nomInstitut,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           locale: const Locale("ca", "ES"),
-          supportedLocales: [
-            const Locale("ca", "ES"),
+          supportedLocales: const [
+            Locale("ca", "ES"),
           ],
           theme: cendrassosTheme,
           debugShowCheckedModeBanner: false,

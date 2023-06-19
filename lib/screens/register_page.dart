@@ -25,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Qr _qrKey = Qr.empty();
   final _formkey = GlobalKey<FormState>();
   final _dateinputController = TextEditingController();
+  var _currentSelectedDate = DateTime.now();
 
   bool _isSendButtonDisabled = true;
 
@@ -113,7 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       DateTime? pickedDate = await showDatePicker(
                           locale: const Locale("ca", "ES"),
                           context: context,
-                          initialDate: DateTime.now(),
+                          initialDate: _currentSelectedDate,
                           firstDate: DateTime(
                               1980), //DateTime.now() - not to allow to choose before today.
                           lastDate: DateTime(2101));
@@ -121,6 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         String formattedDate =
                             DateFormat('dd/MM/yyyy').format(pickedDate);
                         setState(() {
+                          _currentSelectedDate = pickedDate;
                           _dateinputController.text =
                               formattedDate; //set output date to TextField value.
                           _isSendButtonDisabled = !_qrKey.isValid();
