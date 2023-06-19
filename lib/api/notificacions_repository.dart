@@ -13,7 +13,7 @@ import 'credentials_response.dart';
 class NotificacionsRepository {
   final ApiBaseHelper _helper = ApiBaseHelper();
 
-  static String bearerText = "Bearer"; // "JWT"
+  static String bearerText = "JWT"; // "JWT"
 
   Map<String, String> getHeaders(String token) => {
         "Content-Type": "application/json",

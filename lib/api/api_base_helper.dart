@@ -8,7 +8,7 @@ import 'dart:async';
 
 class ApiBaseHelper {
   static Uri createUrl(urlpath) {
-    return Uri.parse("$baseUrl$urlpath");
+    return Uri.parse("$baseUrl$urlpath$endBaseUrl");
   }
 
   static const String noInternet =
@@ -98,6 +98,9 @@ dynamic _returnResponse(http.Response response) {
       case 403:
       case 405:
         throw UnauthorisedException(result.toString());
+      case 404:
+        throw FetchDataException(
+            'Error. Es demana un lloc inexistent. ${response.statusCode}:${response.reasonPhrase}');
       case 500:
       default:
         throw FetchDataException(

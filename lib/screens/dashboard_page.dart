@@ -9,6 +9,7 @@ import 'package:cendrassos/screens/components/calendari_notificacions.dart';
 import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:cendrassos/services/background_tasks.dart';
+import 'package:cendrassos/utils/global_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cendrassos/api/notifications_bloc.dart';
@@ -56,27 +57,28 @@ class _DashBoardState extends State<Dashboard> {
   Future<void> initPlatformState() async {
     // Configure BackgroundFetch.
 
-    int status = await BackgroundFetch.configure(BackgroundFetchConfig(
-        minimumFetchInterval: intervalNotificacions,
-        stopOnTerminate: false,
-        enableHeadless: true,
-        requiresBatteryNotLow: false,
-        requiresCharging: false,
-        requiresStorageNotLow: false,
-        requiresDeviceIdle: false,
-        requiredNetworkType: NetworkType.ANY,
-        startOnBoot: true,
-        forceAlarmManager: true,
-    ),
-    (String taskId) async {  // <-- Event handler
+    int status = await BackgroundFetch.configure(
+        BackgroundFetchConfig(
+          minimumFetchInterval: intervalNotificacions,
+          stopOnTerminate: false,
+          enableHeadless: true,
+          requiresBatteryNotLow: false,
+          requiresCharging: false,
+          requiresStorageNotLow: false,
+          requiresDeviceIdle: false,
+          requiredNetworkType: NetworkType.ANY,
+          startOnBoot: true,
+          forceAlarmManager: true,
+        ), (String taskId) async {
+      // <-- Event handler
       // Arriba l'event
       log("[BackgroundFetch] Event received $taskId");
       BackgroundTask background = BackgroundTask();
       await background.checkNewNotificacions(onNotification);
       // IMPORTANT:  Informar el SO de que s'ha acabat
       BackgroundFetch.finish(taskId);
-    },
-    (String taskId) async {  // <-- Task timeout handler.
+    }, (String taskId) async {
+      // <-- Task timeout handler.
       // Ha tardat massa
       log("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
       BackgroundFetch.finish(taskId);
@@ -90,7 +92,6 @@ class _DashBoardState extends State<Dashboard> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
   }
 
   @override
@@ -99,11 +100,14 @@ class _DashBoardState extends State<Dashboard> {
     super.dispose();
   }
 
-
   void _retryComunicacion() {
     setState(() {
       _bloc.fetchNotificacions(_month);
     });
+  }
+
+  void _gotoUsuaris() {
+    GlobalNavigator.forgetAndGo(UsersPage.routeName);
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -173,9 +177,9 @@ class _DashBoardState extends State<Dashboard> {
                       onFormatChanged: _onFormatChanged,
                     );
                   case Status.error:
-                    return ErrorRetry(
+                    return ErrorRetryLogin(
                       errorMessage: snapshot.data!.message,
-                      textBoto: missatgeTornaAProvar,
+                      onLogin: _gotoUsuaris,
                       onRetryPressed: _retryComunicacion,
                     );
                 }

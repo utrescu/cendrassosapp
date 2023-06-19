@@ -13,22 +13,22 @@ const int intervalNotificacions =
     15; // Cada quants minuts comprova notificacions
 
 // URLs d'accés a l'API
-// const String baseUrl = "https://djauproves.cendrassos.net/api";
-const String baseUrl = "http://192.168.1.141:8080/api";
+const String baseUrl = "https://djauproves.cendrassos.net";
+// const String baseUrl = "http://192.168.1.141:8080/api";
 // La URL ha d'acabar amb una barra
 const String endBaseUrl = "/";
 
 const bool loginWithQR = true;
 
 // QR Login
-const String qrToken = "/token/capture_token_api";
+const String qrToken = "/api/token/capture_token_api";
 // Normal Login
 const String pathLogin = "/api-token-auth";
 const String tokenRefresh = "/api-token-refresh";
 
-const String pathNotificacions = "/notificacions/mes";
-const String pathNews = "/notificacions/news";
-const String pathProfile = "/alumnes/dades";
+const String pathNotificacions = "/api/token/notificacions/mes";
+const String pathNews = "/api/token/notificacions/news";
+const String pathProfile = "/api/token/alumnes/dades";
 
 const String djauUrl = "https://djau.cendrassos.net/api/";
 const String recuperarUrl =
@@ -68,5 +68,4 @@ const String missatgeOk = "D'acord";
 
 const String errorCarregant =
     "ERROR carregant les dades. Torna-ho a provar més tard";
-const String errorQR =
-    "El codi QR és incorrecte";
+const String errorQR = "El codi QR és incorrecte";

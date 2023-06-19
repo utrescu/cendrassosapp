@@ -9,7 +9,7 @@ class LoginResponse {
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
     accessToken = json[tokenField];
-    nom = json[nomField];
+    nom = json[nomField] ?? "";
   }
 
   Map<String, dynamic> toJson() {

@@ -22,7 +22,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  Qr _qrKey =  Qr.empty();
+  Qr _qrKey = Qr.empty();
   final _formkey = GlobalKey<FormState>();
   final _dateinputController = TextEditingController();
 
@@ -46,7 +46,12 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<LoginResult> _getUsername(BuildContext context) async {
     var registerCall = context.read<DjauModel>();
 
-    var result = await registerCall.register(_qrKey, _dateinputController.text);
+    // convertir la data
+    var inputFormat = DateFormat('dd/MM/yyyy');
+    var inputDate = inputFormat.parse(_dateinputController.text);
+
+    var ouputFormat = DateFormat('yyyy-MM-dd');
+    var result = await registerCall.register(_qrKey, ouputFormat.format(inputDate));
     return result;
   }
 
@@ -82,8 +87,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child: ScannerControl(
                     qrkey: _qrKey,
-                    height: height*0.02,
-                    width: width*0.02,
+                    height: height * 0.02,
+                    width: width * 0.02,
                     scan: _scanQr,
                   ),
                 ),
@@ -163,16 +168,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       var result = json.decode(data);
-        newqr = Qr.fromJson(result);
-        setState(() {
-          _qrKey = newqr;
-          _isSendButtonDisabled =
-              !_qrKey.isValid() || _dateinputController.text.isEmpty;
-        });
-    } catch(e) {
+      newqr = Qr.fromJson(result);
+      setState(() {
+        _qrKey = newqr;
+        _isSendButtonDisabled =
+            !_qrKey.isValid() || _dateinputController.text.isEmpty;
+      });
+    } catch (e) {
       GlobalNavigator.showAlertPopup("ERROR", errorQR);
     }
-
   }
 
   void gotoUsers(LoginResult x, BuildContext context) {
