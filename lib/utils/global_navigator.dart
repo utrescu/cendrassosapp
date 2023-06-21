@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cendrassos/screens/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config_cendrassos.dart';
 import '../models/notificacio.dart';
 import '../navitator_key.dart';
 import '../providers/djau.dart';
@@ -21,15 +22,25 @@ class GlobalNavigator {
     }
   }
 
-  static gotoLogin() {
+  static gotoNewAlumneWithPop() {
     var context = navigatorKey.currentContext!;
     Navigator.of(context).popUntil((route) => route.isFirst);
+    if (Platform.isAndroid || Platform.isIOS) {
+      // Sistemes mòbils
+      Navigator.of(context).pushNamed(RegisterPage.routeName);
+    } else {
+      // Escriptori
+      Navigator.of(context).pushNamed(LoginPage.routeName);
+    }
+  }
+
+  static gotoLogin() {
+    var context = navigatorKey.currentContext!;
     Navigator.of(context).pushNamed(LoginPage.routeName);
   }
 
   static gotoRegister() {
     var context = navigatorKey.currentContext!;
-    Navigator.of(context).popUntil((route) => route.isFirst);
     Navigator.of(context).pushNamed(RegisterPage.routeName);
   }
 
@@ -70,7 +81,25 @@ class GlobalNavigator {
               onPressed: () {
                 Navigator.pop(context, true);
               },
-              child: const Text('OK'),
+              child: const Text(missatgeOk),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static showAlertDialogAndGo(String detail, VoidCallback method) {
+    showDialog(
+      barrierDismissible: false,
+      context: navigatorKey.currentContext!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(detail),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => method,
+              child: const Text(missatgeOk),
             ),
           ],
         );
@@ -105,7 +134,7 @@ class GlobalNavigator {
           content: Text(detail),
           actions: [
             ElevatedButton(
-                child: const Text('OK'),
+                child: const Text(missatgeOk),
                 onPressed: () {
                   Navigator.pop(navigatorKey.currentContext!);
                 }),

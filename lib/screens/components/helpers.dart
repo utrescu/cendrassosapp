@@ -2,12 +2,14 @@ import 'package:cendrassos/config_cendrassos.dart';
 import 'package:flutter/material.dart';
 
 class ErrorRetry extends StatelessWidget {
+  final String errorType;
   final String errorMessage;
   final String textBoto;
   final VoidCallback onRetryPressed;
 
   const ErrorRetry(
       {Key? key,
+      required this.errorType,
       required this.errorMessage,
       required this.textBoto,
       required this.onRetryPressed})
@@ -22,18 +24,34 @@ class ErrorRetry extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 10),
-            child: Text(
-              errorMessage,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium,
+            child: Column(
+              children: [
+                Text(
+                  errorType,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(
+                  height: 22,
+                ),
+                Text(
+                  errorMessage,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 12),
-          ElevatedButton(
-            onPressed: onRetryPressed,
-            child: Text(
-              textBoto,
-            ),
+          const SizedBox(
+            height: 22,
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: ElevatedButton(
+                onPressed: onRetryPressed,
+                child: const Text(
+                  missatgeOk,
+                )),
           ),
         ],
       ),
@@ -43,11 +61,13 @@ class ErrorRetry extends StatelessWidget {
 
 class ErrorRetryLogin extends StatelessWidget {
   final String errorMessage;
+  final String errorType;
   final VoidCallback onRetryPressed;
   final VoidCallback onLogin;
 
   const ErrorRetryLogin(
       {Key? key,
+      required this.errorType,
       required this.errorMessage,
       required this.onRetryPressed,
       required this.onLogin})
@@ -71,10 +91,20 @@ class ErrorRetryLogin extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 10),
-            child: Text(
-              errorMessage,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium,
+            child: Column(
+              children: [
+                Text(
+                  errorType,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  errorMessage,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 12),

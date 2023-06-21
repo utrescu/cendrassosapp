@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
       GlobalNavigator.forgetAndGo('/dashboard');
     } else {
       GlobalNavigator.showAlertPopup(
-        "ERROR",
+        x.errorType,
         x.errorMessage,
       );
     }

@@ -6,13 +6,15 @@ import 'package:cendrassos/models/login.dart';
 import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/material.dart';
 
+import '../api/exceptions.dart';
 import '../models/qr.dart';
 
 class LoginResult {
   DjauStatus isLogged;
+  String errorType;
   String errorMessage;
 
-  LoginResult(this.isLogged, this.errorMessage);
+  LoginResult(this.isLogged, this.errorType, this.errorMessage);
 }
 
 enum DjauStatus { loaded, error, withoutUser, disabled }
@@ -26,6 +28,7 @@ class DjauModel with ChangeNotifier {
   DjauStatus _isLogged = DjauStatus.withoutUser;
   // Missatge d'error si no hem entrat
   String errorMessage = "";
+  String errorType = "";
   // Alumne actual
   Alumne alumne = Alumne("", "", "", "");
 
@@ -40,15 +43,21 @@ class DjauModel with ChangeNotifier {
       final resultat = await _repository.sendQr(CredentialsQuery(qr.key, born));
       _isLogged = DjauStatus.disabled;
       errorMessage = "";
+      errorType = "";
       alumne = Alumne.fromCredentials(qr.nom, resultat);
       await _storage.saveAlumne(alumne);
       await _prefs.addAlumneToList(resultat.username);
+    } on AppException catch (f) {
+      _isLogged = DjauStatus.error;
+      errorType = f.prefix();
+      errorMessage = f.message();
     } catch (e) {
       _isLogged = DjauStatus.error;
+      errorType = "ERROR";
       errorMessage = e.toString();
     }
     notifyListeners();
-    return LoginResult(_isLogged, errorMessage);
+    return LoginResult(_isLogged, errorType, errorMessage);
   }
 
   /// Entrar en el sistema a través d'usuari [username] i
@@ -62,14 +71,20 @@ class DjauModel with ChangeNotifier {
       alumne = Alumne(username, password, response.nom, response.accessToken);
       _isLogged = DjauStatus.loaded;
       errorMessage = "";
+      errorType = "";
       _prefs.setLastLogin(username);
       await _storage.saveAlumne(alumne);
+    } on AppException catch (f) {
+      _isLogged = DjauStatus.error;
+      errorType = f.prefix();
+      errorMessage = f.message();
     } catch (e) {
       _isLogged = DjauStatus.error;
+      errorType = "ERROR";
       errorMessage = e.toString();
     }
     notifyListeners();
-    return LoginResult(_isLogged, errorMessage);
+    return LoginResult(_isLogged, errorType, errorMessage);
   }
 
   /// Carrega les dades de l'alumne de memòria i les posa a la variable
@@ -85,12 +100,16 @@ class DjauModel with ChangeNotifier {
       var resultat = await login(alumne.username, alumne.password);
       notifyListeners();
       return resultat;
+    } on AppException catch (f) {
+      _isLogged = DjauStatus.withoutUser;
+      errorType = f.prefix();
+      errorMessage = f.message();
     } catch (e) {
       _isLogged = DjauStatus.withoutUser;
       errorMessage = "No hi ha dades de l'alumne $username";
-      notifyListeners();
-      return LoginResult(_isLogged, errorMessage);
     }
+    notifyListeners();
+    return LoginResult(_isLogged, errorType, errorMessage);
   }
 
   /// Defineix qui és el darrer alumne amb el que s'ha fet login

@@ -1,3 +1,4 @@
+import 'package:cendrassos/api/exceptions.dart';
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/perfil.dart';
 import 'package:cendrassos/providers/djau.dart';
@@ -151,8 +152,10 @@ class ProfilePage extends StatelessWidget {
                     } else if (snapshot.connectionState ==
                             ConnectionState.done &&
                         snapshot.hasError) {
+                      var e = snapshot.error as AppException;
                       return ErrorRetry(
-                        errorMessage: '$errorCarregant: ${snapshot.error}',
+                        errorType: e.prefix(),
+                        errorMessage: e.message(),
                         textBoto: missatgeOk,
                         onRetryPressed: () => Navigator.pop(context),
                       );

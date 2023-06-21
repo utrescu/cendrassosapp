@@ -23,6 +23,7 @@ class _LoadingPageState extends State<LoadingPage> {
   static String carregant = missatgeCarregantDades;
   String _message = carregant;
   String _errorMessage = "";
+  String _errorType = "";
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _LoadingPageState extends State<LoadingPage> {
     setState(() {
       _message = carregant;
       _errorMessage = "";
+      _errorType = "";
     });
 
     var djau = Provider.of<DjauModel>(context, listen: false);
@@ -48,13 +50,14 @@ class _LoadingPageState extends State<LoadingPage> {
       setState(() {
         _message = "";
         _errorMessage = djau.errorMessage;
+        _errorType = djau.errorType;
       });
       return;
     }
 
     switch (desti) {
       case 0: // No hi ha alumnes, demanar registre
-        GlobalNavigator.gotoNewAlumne();
+        GlobalNavigator.gotoNewAlumneWithPop();
         break;
       case 1: // Hi ha alumnes sense confirmar
         GlobalNavigator.forgetAndGo(UsersPage.routeName);
@@ -105,6 +108,7 @@ class _LoadingPageState extends State<LoadingPage> {
               _errorMessage.isEmpty
                   ? Loading(loadingMessage: _message)
                   : ErrorRetryLogin(
+                      errorType: _errorType,
                       errorMessage: _errorMessage,
                       onRetryPressed: _load,
                       onLogin: _gotoLogin,

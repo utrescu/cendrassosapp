@@ -188,7 +188,7 @@ class _RegisterPageState extends State<RegisterPage> {
       GlobalNavigator.forgetAndGo(UsersPage.routeName);
     } else {
       GlobalNavigator.showAlertPopup(
-        "ERROR",
+        x.errorType,
         x.errorMessage,
       );
     }

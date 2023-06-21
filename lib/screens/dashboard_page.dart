@@ -178,6 +178,7 @@ class _DashBoardState extends State<Dashboard> {
                     );
                   case Status.error:
                     return ErrorRetryLogin(
+                      errorType: "ERROR",
                       errorMessage: snapshot.data!.message,
                       onLogin: _gotoUsuaris,
                       onRetryPressed: _retryComunicacion,

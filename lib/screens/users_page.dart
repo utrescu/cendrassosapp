@@ -30,9 +30,8 @@ class UsersPage extends StatelessWidget {
     var usuaris = await djau.getAlumnes();
     if (usuaris.isEmpty) {
       // No hi ha cap alumne, torna al registre
-      gotoNewAlumne();
+      GlobalNavigator.gotoNewAlumneWithPop();
     }
-
   }
 
   void gotoNewAlumne() {
@@ -47,7 +46,7 @@ class UsersPage extends StatelessWidget {
       GlobalNavigator.go(Dashboard.routeName);
     } else {
       // No volen distingir els tipus d'errors
-      GlobalNavigator.showAlertPopup("ERROR", result.errorMessage);
+      GlobalNavigator.showAlertPopup(result.errorType, result.errorMessage);
     }
   }
 
@@ -98,7 +97,7 @@ class UsersPage extends StatelessWidget {
                     onDismissed: (direction) {
                       _deleteAlumne(context, username);
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Eliminant $nom")));
+                          SnackBar(content: Text("$missatgeEliminant $nom")));
                     },
                     child: AlumneItem(
                       username: username,

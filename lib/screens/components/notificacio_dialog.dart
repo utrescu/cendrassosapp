@@ -135,7 +135,7 @@ class NotificacioDialog extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
                 child: const Text(
-                  botoOk,
+                  missatgeOk,
                 )),
           ),
         ],
