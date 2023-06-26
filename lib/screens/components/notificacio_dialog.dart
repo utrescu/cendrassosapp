@@ -50,11 +50,17 @@ class NotificacioDialog extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible(
-                    child: Text(
-                      "${notificacio.getData()} : ${notificacio.hora} $etiquetaHora",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+                  Column(
+                    children: [
+                      Text(
+                        notificacio.getDia(),
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Text(
+                        notificacio.hora,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ],
                   ),
                 ],
               ),

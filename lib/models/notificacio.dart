@@ -56,4 +56,9 @@ class Notificacio {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(dia);
   }
+
+  String getDia() {
+    final DateFormat formatter = DateFormat('dd/MM/yyyy');
+    return formatter.format(dia);
+  }
 }

@@ -53,7 +53,7 @@ const String calendarMostrames = "Veure el mes";
 // Textos dels missatges d'error
 
 const String etiquetaProfessor = "Professor";
-const String etiquetaHora = "hora";
+const String etiquetaHora = "";
 const String etiquetaDia = "Dia:";
 const String etiquetaDataNaixement = 'Entreu la data de naixement';
 const String etiquetaEnviarQR = 'Enviar petició';
