@@ -37,9 +37,14 @@ class DjauSecureStorage {
   /// determinat [username]
   Future<Alumne> getAlumne(String username) async {
     var data = await _storage.readSecureData(username);
-    var responseJson = json.decode(data);
-    return Alumne.fromJson(responseJson);
+    if (data != null) {
+      var responseJson = json.decode(data);
+      return Alumne.fromJson(responseJson);
+    } else {
+      throw Exception("Not found");
+    }
   }
+
 
   /// Esborra del secure storage l'alumne que estigui lligat a
   /// un determinat [username]

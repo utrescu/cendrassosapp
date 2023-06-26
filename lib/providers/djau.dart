@@ -44,7 +44,7 @@ class DjauModel with ChangeNotifier {
       _isLogged = DjauStatus.disabled;
       errorMessage = "";
       errorType = "";
-      alumne = Alumne.fromCredentials(qr.nom, resultat);
+      alumne = Alumne.fromCredentials(qr.getFullName(), resultat);
       await _storage.saveAlumne(alumne);
       await _prefs.addAlumneToList(resultat.username);
     } on AppException catch (f) {
@@ -68,7 +68,8 @@ class DjauModel with ChangeNotifier {
   Future<LoginResult> login(String username, String password) async {
     try {
       final response = await _repository.login(Login(username, password));
-      alumne = Alumne(username, password, response.nom, response.accessToken);
+      alumne = await _storage.getAlumne(username);
+      alumne.token = response.accessToken;
       _isLogged = DjauStatus.loaded;
       errorMessage = "";
       errorType = "";
@@ -123,7 +124,7 @@ class DjauModel with ChangeNotifier {
   /// - No hi ha alumnes -> Login/QR (0)
   /// - Hi ha alumnes però No ha entrat mai -> Pantalla d'alumnes (1)
   /// - Hi ha alumnes i han entrat -> Directe al Dashboard (2)
-  Future<int> loadInitialPage() async {
+  Future<int> determineInitialPage() async {
     var alumnes = await _prefs.getAlumnesList();
     if (alumnes.isEmpty) return 0;
 

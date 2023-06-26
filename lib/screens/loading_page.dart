@@ -44,7 +44,7 @@ class _LoadingPageState extends State<LoadingPage> {
     // - Si: Carregar el darrer alumne i mirar si pot fer login
     // - No hi ha dades: scanqr_page
     // - Alguns: users_page
-    var desti = await djau.loadInitialPage();
+    var desti = await djau.determineInitialPage();
 
     if (djau.isError()) {
       setState(() {

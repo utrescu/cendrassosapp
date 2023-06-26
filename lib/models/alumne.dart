@@ -3,7 +3,7 @@ import 'package:cendrassos/api/credentials_response.dart';
 class Alumne {
   final String username;
   final String password;
-  final String token;
+  String token;
   final String nom;
 
   // Personalitzar els camps de login

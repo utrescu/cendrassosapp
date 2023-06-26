@@ -49,7 +49,7 @@ Widget _showNom(BuildContext context, Qr qr, double heigth, double width) {
           child: Center(
             heightFactor: 1.1,
             child: Text(
-              qr.nom,
+              qr.getFullName(),
               style: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).colorScheme.onPrimary,
