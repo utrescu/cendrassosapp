@@ -34,7 +34,6 @@ class Dashboard extends StatefulWidget {
 class _DashBoardState extends State<Dashboard> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
-  int _status = 0;
   int _month = 0;
   List<Notificacio> _notificacions = [];
 
@@ -85,7 +84,6 @@ class _DashBoardState extends State<Dashboard> {
     });
     log('[BackgroundFetch] configure success: $status');
     setState(() {
-      _status = status;
     });
 
     // If the widget was removed from the tree while the asynchronous platform
