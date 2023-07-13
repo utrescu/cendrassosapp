@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cendrassos/api/exceptions.dart';
 import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/models/error.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -90,7 +91,8 @@ dynamic _returnResponse(http.Response response) {
     var responseJson = json.decode(utf8.decode(response.bodyBytes));
     return responseJson;
   } else {
-    var result = jsonDecode(utf8.decode(response.bodyBytes));
+    var jsonresult = json.decode(utf8.decode(response.bodyBytes));
+    DjauError result = DjauError.fromJson(jsonresult);
     switch (response.statusCode) {
       case 400:
         throw BadRequestException(result.toString());
