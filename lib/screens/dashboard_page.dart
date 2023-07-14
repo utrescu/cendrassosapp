@@ -34,12 +34,28 @@ class Dashboard extends StatefulWidget {
 class _DashBoardState extends State<Dashboard> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
+  late DateTime _lastCourseDay;
+  late DateTime _firstCourseDay;
   int _month = 0;
   List<Notificacio> _notificacions = [];
 
   CalendarFormat _format = CalendarFormat.month;
 
   late NotificacioBloc _bloc;
+
+  DateTime getFirstCourseDay() {
+    int mes = DateTime.now().month;
+    var year = DateTime.now().year;
+    if (mes < startMonth) {
+      year = year - 1;
+    }
+    return DateTime(year, startMonth, 1);
+  }
+
+  DateTime getLastCourseDay() {
+    var dia = getFirstCourseDay();
+    return DateTime(dia.year + 1, endMonth + 1, 0);
+  }
 
   @override
   void initState() {
@@ -48,6 +64,13 @@ class _DashBoardState extends State<Dashboard> {
       initPlatformState();
     }
 
+    _firstCourseDay = getFirstCourseDay();
+    _lastCourseDay = getLastCourseDay();
+
+    if (_focusedDay.isAfter(_lastCourseDay)) {
+      _focusedDay = _lastCourseDay;
+      _selectedDay = _focusedDay;
+    }
     _month = _focusedDay.month;
     final djau = Provider.of<DjauModel>(context, listen: false);
     _bloc = NotificacioBloc(djau.alumne.token);
@@ -83,8 +106,7 @@ class _DashBoardState extends State<Dashboard> {
       BackgroundFetch.finish(taskId);
     });
     log('[BackgroundFetch] configure success: $status');
-    setState(() {
-    });
+    setState(() {});
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -169,6 +191,8 @@ class _DashBoardState extends State<Dashboard> {
                       notificacions: _notificacions,
                       focusedDay: _focusedDay,
                       selectedDay: _selectedDay,
+                      firstCourseDay: _firstCourseDay,
+                      lastCourseDay: _lastCourseDay,
                       format: _format,
                       onMonthChange: _changeMonth,
                       onSelectDay: _onDaySelected,

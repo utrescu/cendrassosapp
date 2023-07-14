@@ -10,6 +10,8 @@ class CalendariNotificacions extends StatelessWidget {
   final List<Notificacio> notificacions;
   final DateTime? selectedDay;
   final DateTime focusedDay;
+  final DateTime lastCourseDay;
+  final DateTime firstCourseDay;
   final CalendarFormat format;
 
   final MonthChangeCallBack onMonthChange;
@@ -24,25 +26,13 @@ class CalendariNotificacions extends StatelessWidget {
     required this.notificacions,
     required this.focusedDay,
     required this.selectedDay,
+    required this.firstCourseDay,
+    required this.lastCourseDay,
     required this.format,
     required this.onMonthChange,
     required this.onSelectDay,
     required this.onFormatChanged,
   }) : super(key: key);
-
-  DateTime getFirstCourseDay() {
-    int mes = DateTime.now().month;
-    var year = DateTime.now().year;
-    if (mes < startMonth) {
-      year = year - 1;
-    }
-    return DateTime(year, startMonth, 1);
-  }
-
-  DateTime getLastCourseDay() {
-    var dia = getFirstCourseDay();
-    return DateTime(dia.year + 1, endMonth + 1, 0);
-  }
 
   List<Notificacio> _getEventsForDay(DateTime day) {
     return notificacions.where((n) => DateUtils.isSameDay(n.dia, day)).toList();
@@ -84,10 +74,11 @@ class CalendariNotificacions extends StatelessWidget {
       _selectedEvents.value = _getEventsForDay(selectedDay!);
     }
 
+
     return Column(children: [
       TableCalendar<Notificacio>(
-          firstDay: getFirstCourseDay(),
-          lastDay: getLastCourseDay(),
+          firstDay: firstCourseDay,
+          lastDay: lastCourseDay,
           focusedDay: focusedDay,
           startingDayOfWeek: StartingDayOfWeek.monday,
           weekendDays: const [DateTime.saturday, DateTime.sunday],
