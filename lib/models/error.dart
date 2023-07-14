@@ -1,26 +1,35 @@
 // @JsonSerializable()
 
 class DjauError {
-  String detail = "";
   String error = "";
 
   static String detailField = 'detail';
   static String errorField = 'error';
+  static String nonErrorField = 'non_field_errors';
 
-  DjauError(this.detail, this.error);
+  DjauError(this.error);
 
   factory DjauError.fromJson(dynamic json) {
-    String errorText = json[errorField].join(',') ?? "";
+    var nonFieldArray = json[nonErrorField] ?? [];
+    String non = nonFieldArray.join(',');
+    if (non.isNotEmpty) {
+      return DjauError(non);
+    }
+
+    var errorArray = json[errorField] ?? [];
+    String errorText = errorArray.join(',');
+    if (errorText.isNotEmpty) {
+      return DjauError(errorText);
+    }
+
     String detail = json[detailField] ?? "";
-    return DjauError(detail, errorText);
+    if (detail.isNotEmpty) return DjauError(detail);
+
+    return DjauError("El servidor retorna error");
   }
 
   @override
   toString() {
-    var errorText = error;
-    if (detail.isNotEmpty) {
-      errorText = detail;
-    }
-    return errorText;
+    return error;
   }
 }
