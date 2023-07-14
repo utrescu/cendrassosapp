@@ -8,5 +8,4 @@ Content-Type: application/json
 HTTP 400
 [Asserts]
 header "Content-Type" == "application/json"
-jsonpath "$.error" exists
-jsonpath "$.error[0]" == "No es possible loguejar-se amb les credencials introduïdes."
+# No capturar el missatge

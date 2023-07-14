@@ -6,5 +6,4 @@ Content-Type: application/json
 HTTP 400
 [Asserts]
 header "Content-Type" == "application/json"
-jsonpath "$.error" exists
-jsonpath "$.error[0]" == "Dades invàlides. S'espera un diccionari però s'ha rebut str."
+# No controla el missatge

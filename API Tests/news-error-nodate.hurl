@@ -23,4 +23,4 @@ Authorization: JWT {{token}}
 HTTP 400
 [Asserts]
 jsonpath "$.detail" exists
-jsonpath "$.detail" == "Algun error"
+jsonpath "$.detail" == "JSON parse error - Expecting value: line 1 column 1 (char 0)"

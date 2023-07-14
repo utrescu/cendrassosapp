@@ -19,11 +19,8 @@ GET https://djauproves.cendrassos.net/api/token/notificacions/mes/25/
 Content-Type: application/json
 Authorization: JWT {{token}}
 
-HTTP 200
+HTTP 400
 [Asserts]
-jsonpath "$" count == 1
-jsonpath "$.[0].id" exists
-jsonpath "$.[0].darrera_sincronitzacio" exists
-
-
+jsonpath "$.error" exists
+jsonpath "$.error[0]" == "Mes inexistent"
 
