@@ -30,7 +30,7 @@ class DjauModel with ChangeNotifier {
   String errorMessage = "";
   String errorType = "";
   // Alumne actual
-  Alumne alumne = Alumne("", "", "", "");
+  Alumne alumne = Alumne("", "", "", "", "");
 
   bool isLogged() => _isLogged == DjauStatus.loaded;
   bool isError() => _isLogged == DjauStatus.error;

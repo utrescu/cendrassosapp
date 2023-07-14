@@ -39,6 +39,9 @@ class ApiBaseHelper {
     } on SocketException {
       debugPrint('No net');
       throw FetchDataException(noInternet);
+    } on NoSuchMethodError catch (e) {
+      debugPrint(e.toString());
+      throw FetchDataException("El servidor rebutja la petició");
     }
     return responseJson;
   }
@@ -56,32 +59,9 @@ class ApiBaseHelper {
     } on SocketException {
       debugPrint('No net');
       throw FetchDataException(noInternet);
-    }
-  }
-
-  Future<dynamic> put(String path, dynamic body) async {
-    debugPrint('Api Put, url $path');
-    try {
-      var url = createUrl(path);
-      final response = await http.put(url, body: body);
-      var responseJson = _returnResponse(response);
-      return responseJson;
-    } on SocketException {
-      debugPrint('No net');
-      throw FetchDataException(noInternet);
-    }
-  }
-
-  Future<dynamic> delete(String path) async {
-    debugPrint('Api delete, url $path');
-    try {
-      var url = createUrl(path);
-      final response = await http.delete(url);
-      var apiResponse = _returnResponse(response);
-      return apiResponse;
-    } on SocketException {
-      debugPrint('No net');
-      throw FetchDataException(noInternet);
+    } on NoSuchMethodError catch (e) {
+      debugPrint(e.toString());
+      throw FetchDataException("El servidor rebutja la petició");
     }
   }
 }

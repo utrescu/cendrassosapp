@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:cendrassos/api/credentials_query.dart';
 import 'package:cendrassos/api/login_response.dart';
+import 'package:cendrassos/api/news_query.dart';
+import 'package:cendrassos/api/news_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
 import 'package:cendrassos/config_cendrassos.dart';
 import 'package:cendrassos/models/perfil.dart';
 
+import '../models/alumne.dart';
 import '../models/login.dart';
 import 'api_base_helper.dart';
 import '../models/notificacio.dart';
@@ -58,14 +61,17 @@ class NotificacionsRepository {
     return results.results;
   }
 
-  Future<bool> areNewNotifications(String token) async {
+  Future<bool> areNewNotifications(Alumne alumne) async {
     var url = pathNews;
     try {
-      await _helper.get(url, getHeaders(token));
+      // TODO: Fer login en comptes de fiar-se del token?
+
+      var query = NewsQuery(lastSyncDate: alumne.lastSyncDate).toJson();
+      final response = await _helper.post(url, query, getHeaders(alumne.token));
+      return NewsResponse.fromJson(response).resultIs("Sí");
     } catch (e) {
       return false;
     }
-    return true;
   }
 
   Future<Perfil> getProfile(String token) async {
