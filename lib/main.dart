@@ -37,7 +37,6 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
   }
   debugPrint('[BackgroundFetch] Headless event received.');
 
-  // Do your work here...
   var tasca = BackgroundTask();
   await tasca.checkNewNotificacions(onNotification);
 
@@ -65,6 +64,12 @@ Future<void> main() async {
   String initialRoute = LoadingPage.routeName;
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  // await Permission.notification.isDenied.then((value) {
+  //       if (value) {
+  //         Permission.notification.request();
+  //       }
+  //     });
 
   await _configureLocalTimeZone();
 

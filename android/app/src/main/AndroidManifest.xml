@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="net.cendrassos.djauapp">
     <uses-permission android:name="android.permission.INTERNET" />
-   <application
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <application
         tools:replace="android:label"
         android:label="cendrassos"
         android:allowBackup="false"
