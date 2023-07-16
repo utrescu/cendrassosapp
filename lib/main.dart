@@ -12,8 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
-// import 'package:shared_preferences_android/shared_preferences_android.dart';
-// import 'package:shared_preferences_ios/shared_preferences_ios.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 @pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
@@ -65,11 +65,11 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Permission.notification.isDenied.then((value) {
-  //       if (value) {
-  //         Permission.notification.request();
-  //       }
-  //     });
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
 
   await _configureLocalTimeZone();
 
