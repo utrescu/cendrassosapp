@@ -65,6 +65,8 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Necessari per Android 13 i posteriors
+  // https://developer.android.com/develop/ui/views/notifications/notification-permission
   await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();

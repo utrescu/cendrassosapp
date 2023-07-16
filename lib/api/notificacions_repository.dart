@@ -16,7 +16,7 @@ import 'credentials_response.dart';
 class NotificacionsRepository {
   final ApiBaseHelper _helper = ApiBaseHelper();
 
-  static String bearerText = "JWT"; // "JWT"
+  static String bearerText = "JWT"; // "Bearer"
 
   Map<String, String> getHeaders(String token) => {
         "Content-Type": "application/json",
@@ -46,11 +46,6 @@ class NotificacionsRepository {
     return CredentialsResponse.fromJson(response);
   }
 
-  // Future<bool> isAuthenticated(String token) async {
-  //   var url = "/authenticated";
-  //   final response = await _helper.get(url, getHeaders(token));
-  //   return response['value'];
-  // }
 
   Future<List<Notificacio>> getNotifications(int mes, String token) async {
     var url = "$pathNotificacions/$mes";
@@ -64,10 +59,12 @@ class NotificacionsRepository {
   Future<bool> areNewNotifications(Alumne alumne) async {
     var url = pathNews;
     try {
-      // TODO: Fer login en comptes de fiar-se del token?
+      // No pot confiar en el token perquè no pot saber quan de temps fa
+      // que no ha entrat
+      var entrar = await login(Login(alumne.username, alumne.password));
 
       var query = NewsQuery(lastSyncDate: alumne.lastSyncDate).toJson();
-      final response = await _helper.post(url, query, getHeaders(alumne.token));
+      final response = await _helper.post(url, query, getHeaders(entrar.accessToken));
       return NewsResponse.fromJson(response).resultIs("Sí");
     } catch (e) {
       return false;
