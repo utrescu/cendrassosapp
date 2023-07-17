@@ -25,6 +25,7 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
 
   // v.2.11
   // DartPluginRegistrant.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   String taskId = task.taskId;
   bool isTimeout = task.timeout;

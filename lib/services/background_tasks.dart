@@ -16,6 +16,8 @@ class BackgroundTask {
       if (data.token.isNotEmpty) {
         if (await api.areNewNotifications(data)) {
           manager.showNotification(i, data.username, data.nom);
+          data.updateLastSyncDate();
+          await storage.saveAlumne(data);
         }
       }
     }

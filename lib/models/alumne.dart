@@ -33,6 +33,10 @@ class Alumne {
     lastSyncDate = formatter.format(DateTime.now());
   }
 
+  void updateLastSyncDate() {
+    lastSyncDate = formatter.format(DateTime.now());
+  }
+
   @override
   int get hashCode => token.hashCode;
 
