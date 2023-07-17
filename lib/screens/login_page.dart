@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                         () async {
                           GlobalNavigator.showAlertPopup(
                             "No s'obre el navegador",
-                            "Intenteu anar manualment a $djauUrl per recuperar la contrasenya",
+                            "Intenteu anar manualment a $baseUrl per recuperar la contrasenya",
                           );
                         };
                       }

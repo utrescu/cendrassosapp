@@ -46,15 +46,15 @@ class _DashBoardState extends State<Dashboard> {
   DateTime getFirstCourseDay() {
     int mes = DateTime.now().month;
     var year = DateTime.now().year;
-    if (mes < startMonth) {
+    if (mes < mesIniciCurs) {
       year = year - 1;
     }
-    return DateTime(year, startMonth, 1);
+    return DateTime(year, mesIniciCurs, 1);
   }
 
   DateTime getLastCourseDay() {
     var dia = getFirstCourseDay();
-    return DateTime(dia.year + 1, endMonth + 1, 0);
+    return DateTime(dia.year + 1, mesFinalCurs + 1, 0);
   }
 
   @override
