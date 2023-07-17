@@ -2,7 +2,7 @@
 
 Frontend de l'aplicació mòbil del Djau.
 
-> Tot i que haria de ser possible executar-lo en Apple IOS només s'ha provat en Android. 
+> Tot i que haria de ser possible executar-lo en Apple IOS només s'ha provat en Android.
 
 ![androidBase](documentacio/imatges/notificacions.png)
 
