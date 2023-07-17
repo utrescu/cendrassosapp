@@ -19,7 +19,7 @@ const int intervalNotificacions =
 // més, s'afegeixen.
 Map<String, Color> notificacionsColor = {
   "Falta": const Color(0xFF00BCD4),
-  "Retard": const Color(0xFF154C79),
+  "Retard": const Color.fromARGB(255, 197, 196, 123),
   "Justificada": const Color(0xFF4CAF50),
   "Incidència": const Color(0xFFFF9800),
   "Expulsió": const Color(0xFFF44336),
