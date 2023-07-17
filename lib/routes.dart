@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:background_fetch/background_fetch.dart';
-import 'package:cendrassos/cendrassos_theme.dart';
+import 'package:cendrassos/djau_theme.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';
 import 'package:cendrassos/screens/loading_page.dart';
@@ -14,7 +14,7 @@ import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'config_cendrassos.dart';
+import 'config_djau.dart';
 import 'main.dart';
 import 'navitator_key.dart';
 

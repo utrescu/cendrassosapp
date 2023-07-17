@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:cendrassos/screens/dashboard_page.dart';

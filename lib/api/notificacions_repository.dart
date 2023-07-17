@@ -4,7 +4,7 @@ import 'package:cendrassos/api/login_response.dart';
 import 'package:cendrassos/api/news_query.dart';
 import 'package:cendrassos/api/news_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
-import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/models/perfil.dart';
 
 import '../models/alumne.dart';

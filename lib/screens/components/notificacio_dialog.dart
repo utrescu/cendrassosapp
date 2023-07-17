@@ -1,7 +1,7 @@
 import 'package:cendrassos/models/notificacio.dart';
 import 'package:flutter/material.dart';
 
-import '../../config_cendrassos.dart';
+import '../../config_djau.dart';
 
 class NotificacioDialog extends StatelessWidget {
   final Notificacio notificacio;

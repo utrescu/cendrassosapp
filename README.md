@@ -1,39 +1,36 @@
 # cendrassos
 
-Frontend de l'aplicació Djau de l'institut Cendrassos
+Frontend de l'aplicació mòbil del Djau.
 
-## Getting Started
+> Tot i que haria de ser possible executar-lo en Apple IOS només s'ha provat en Android.
 
-Per executar l'aplicació:
+![androidBase](documentacio/imatges/notificacions.png)
 
-Clonar el repositori
+Es pot executar en Windows i Linux però el procés d'escannejar QR no està
+preparat. En aquestes plataformes s'han de fer servir usuari i contrasenya
 
-```console
-git clone git@github.com:utrescu/cendrassosapp.git
-cd cendrassosapp
-```
+## Característiques
 
-Descarregar dependències
+El funcionament de l'aplicació es basa en la creació d'usuaris per cada
+dispositiu que es connecta.
 
-```console
-flutter pub get
-```
+Permet:
 
-Determinar a quin dispositiu es vol executar
+- Mostra les notificacions en un calendari
+- Es poden verificar les dades dels tutors
+- Permet configurar diversos alumnes
+- Emet avisos en detectar noves incidències
 
-```console
-flutter devices
-```
+[Més informació](documentacio/tutorial.md)
 
-I executar-lo en el dispositiu a partir del seu Id (segona columna)
+## Configuració
 
-```console
-flutter run -d linux
-```
+Es poden canviar múltiples aspectes de la configuració editant les constants definides a `djau_theme.dart` i `config_djau.dart` (Es diuen Cendrassos però canviant els valors de la configuració es poden adaptar a qualsevol altre centre)
 
-## Generar un bundle d'Android
+[Més infomació](documentacio/configuracio.md)
 
-https://docs.flutter.dev/deployment/android
+## Compilar i executar
 
-## TODO
+Qualsevol canvi requereix recompilar de nou el programa. Per fer-ho cal el Flutter.
 
+[Informació](documentacio/desenvolupament.md)

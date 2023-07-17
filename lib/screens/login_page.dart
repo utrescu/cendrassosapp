@@ -1,4 +1,4 @@
-import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/utils/global_navigator.dart';
 
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: SizedBox(
                     width: width * 0.8,
-                    child: Image.asset('assets/images/logo_cendrassos.png'),
+                    child: Image.asset('assets/images/logo.png'),
                   ),
                 ),
                 SizedBox(height: height * 0.1),

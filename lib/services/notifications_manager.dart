@@ -1,6 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import '../config_cendrassos.dart';
+import '../config_djau.dart';
 
 class NotificationManager {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cendrassos/screens/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../config_cendrassos.dart';
+import '../config_djau.dart';
 import '../models/notificacio.dart';
 import '../navitator_key.dart';
 import '../providers/djau.dart';

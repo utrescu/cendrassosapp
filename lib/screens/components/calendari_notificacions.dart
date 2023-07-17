@@ -1,4 +1,4 @@
-import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/models/notificacio.dart';
 import 'package:cendrassos/utils/global_navigator.dart';
 import 'package:flutter/material.dart';
