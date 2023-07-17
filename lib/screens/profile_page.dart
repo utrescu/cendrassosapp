@@ -1,5 +1,5 @@
 import 'package:cendrassos/api/exceptions.dart';
-import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/models/perfil.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/app_menu_bar.dart';

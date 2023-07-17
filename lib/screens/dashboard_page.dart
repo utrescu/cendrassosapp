@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:cendrassos/api/notifications_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../config_cendrassos.dart';
+import '../config_djau.dart';
 import '../main.dart';
 import '../models/notificacio.dart';
 import 'components/app_menu_bar.dart';

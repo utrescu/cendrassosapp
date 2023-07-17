@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:cendrassos/cendrassos_theme.dart';
-import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/djau_theme.dart';
+import 'package:cendrassos/config_djau.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

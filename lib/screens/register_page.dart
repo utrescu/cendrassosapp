@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/models/qr.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/scanner_control.dart';
@@ -78,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Center(
                   child: SizedBox(
                     width: width * 0.6,
-                    child: Image.asset('assets/images/logo_cendrassos.png'),
+                    child: Image.asset('assets/images/logo.png'),
                   ),
                 ),
                 SizedBox(height: height * 0.1),

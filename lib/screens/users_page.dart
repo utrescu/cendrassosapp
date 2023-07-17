@@ -1,4 +1,4 @@
-import '../config_cendrassos.dart';
+import '../config_djau.dart';
 import 'components/helpers.dart';
 import 'components/alumne_item.dart';
 import 'dashboard_page.dart';

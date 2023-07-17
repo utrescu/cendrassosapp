@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:cendrassos/api/exceptions.dart';
-import 'package:cendrassos/config_cendrassos.dart';
+import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/models/error.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

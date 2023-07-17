@@ -1,6 +1,6 @@
 // @JsonSerializable()
 
-import '../config_cendrassos.dart';
+import '../config_djau.dart';
 
 class Qr {
   // Exemple: {
