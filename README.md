@@ -25,12 +25,18 @@ Permet:
 
 ## Configuració
 
-Es poden canviar múltiples aspectes de la configuració editant les constants definides a `djau_theme.dart` i `config_djau.dart` (Es diuen Cendrassos però canviant els valors de la configuració es poden adaptar a qualsevol altre centre)
+Es poden canviar múltiples aspectes de la configuració editant les constants definides 
+a `djau_theme.dart` i `config_djau.dart` (Es diuen Cendrassos però canviant els valors 
+de la configuració es poden adaptar a qualsevol altre centre)
 
 [Més infomació](documentacio/configuracio.md)
 
 ## Compilar i executar
 
-Qualsevol canvi requereix recompilar de nou el programa. Per fer-ho cal el Flutter.
+Qualsevol canvi en la configuració o en el codi requereix recompilar de nou el programa. 
+Per fer-ho cal el Flutter SDK.
+
+Mentre s'executa el programa Flutter fa "live preview" en els canvis que es vagi fent
+des d'Android Studio o Visual Studio Code.
 
 [Informació](documentacio/desenvolupament.md)
