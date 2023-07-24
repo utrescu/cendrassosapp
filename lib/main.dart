@@ -17,15 +17,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 @pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
-  // if (Platform.isAndroid) {
-  //       SharedPreferencesAndroid.registerWith();}
-  // if (Platform.isIOS) {
-  //   SharedPreferencesIOS.registerWith();
-  // }
-
-  // v.2.11
-  // DartPluginRegistrant.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
 
   String taskId = task.taskId;
   bool isTimeout = task.timeout;
@@ -42,6 +33,7 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
   await tasca.checkNewNotificacions(onNotification);
 
   BackgroundFetch.finish(taskId);
+  debugPrint('[BackgroundFetch] Headless event finished.');
 }
 
 void onNotification(String? payload) async {
@@ -77,4 +69,6 @@ Future<void> main() async {
   await _configureLocalTimeZone();
 
   initializeDateFormatting().then((_) => {Routes(initialRoute: initialRoute)});
+
+  BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 }

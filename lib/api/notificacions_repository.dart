@@ -6,6 +6,7 @@ import 'package:cendrassos/api/news_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
 import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/models/perfil.dart';
+import 'package:flutter/material.dart';
 
 import '../models/alumne.dart';
 import '../models/login.dart';
@@ -46,7 +47,6 @@ class NotificacionsRepository {
     return CredentialsResponse.fromJson(response);
   }
 
-
   Future<List<Notificacio>> getNotifications(int mes, String token) async {
     var url = "$pathNotificacions/$mes";
 
@@ -64,7 +64,9 @@ class NotificacionsRepository {
       var entrar = await login(Login(alumne.username, alumne.password));
 
       var query = NewsQuery(lastSyncDate: alumne.lastSyncDate).toJson();
-      final response = await _helper.post(url, query, getHeaders(entrar.accessToken));
+      final response =
+          await _helper.post(url, query, getHeaders(entrar.accessToken));
+      debugPrint("Result $response");
       return NewsResponse.fromJson(response).resultIs("Sí");
     } catch (e) {
       return false;
