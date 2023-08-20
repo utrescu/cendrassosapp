@@ -1,15 +1,15 @@
 # Comprova que un usuari logejat rep error si envia la data en un format incorrecte
 
-POST https://djauproves.cendrassos.net/api-token-auth/
+POST https://{{host}}/api-token-auth/
 Content-Type: application/json
 {
-	"username": "APILd2K",
-	"password": "TJmHR79PCxjA"
+	"username": "{{username}}",
+	"password": "{{password}}"
 }
 
 HTTP 200
 [Captures]
-token: jsonpath "$.token"
+token: jsonpath "$.access"
 [Asserts]
 header "Content-Type" == "application/json"
 
@@ -17,9 +17,9 @@ header "Content-Type" == "application/json"
 # ------------ CAS 1 ----------------------------
 
 
-POST https://djauproves.cendrassos.net/api/token/notificacions/news/
+POST https://{{host}}/api/token/notificacions/news/
 Content-Type: application/json
-Authorization: JWT {{token}}
+Authorization: Bearer {{token}}
 {
     "last_sync_date": "23/4/2021"
 }
@@ -33,9 +33,9 @@ jsonpath "$.error[0]" == "ups! petició amb errors"
 
 # ------------ CAS 2 ----------------------------
 
-POST https://djauproves.cendrassos.net/api/token/notificacions/news/
+POST https://{{host}}/api/token/notificacions/news/
 Content-Type: application/json
-Authorization: JWT {{token}}
+Authorization: Bearer {{token}}
 {
     "last_sync_date": "patata"
 }

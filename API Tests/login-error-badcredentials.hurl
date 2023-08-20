@@ -1,16 +1,16 @@
 
 # No podem entrar si l'usuari o la contasenya no són correctes
 
-POST https://djauproves.cendrassos.net/api-token-auth/
+POST https://{{host}}/api-token-auth/
 Content-Type: application/json
 {
-	"username": "APILd2K",
+	"username": "{{username}}",
 	"password": "TJmHR79PC"
 }
 
-HTTP 400
+HTTP 401
 [Asserts]
 header "Content-Type" == "application/json"
-jsonpath "$.non_field_errors" exists
-jsonpath "$.non_field_errors[0]" == "No es possible loguejar-se amb les credencials introduïdes."
+jsonpath "$.detail" exists
+jsonpath "$.detail" == "No active account found with the given credentials"
 

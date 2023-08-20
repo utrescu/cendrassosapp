@@ -1,23 +1,23 @@
 
 # Comprova que pot demanar mesos incorrectes i no dóna error
 
-POST https://djauproves.cendrassos.net/api-token-auth/
+POST https://{{host}}/api-token-auth/
 Content-Type: application/json
 {
-	"username": "APILd2K",
-	"password": "TJmHR79PCxjA"
+	"username": "{{username}}",
+	"password": "{{password}}"
 }
 
 HTTP 200
 [Captures]
-token: jsonpath "$.token"
+token: jsonpath "$.access"
 [Asserts]
 header "Content-Type" == "application/json"
 
 
-GET https://djauproves.cendrassos.net/api/token/notificacions/mes/25/
+GET https://{{host}}/api/token/notificacions/mes/25/
 Content-Type: application/json
-Authorization: JWT {{token}}
+Authorization: Bearer {{token}}
 
 HTTP 400
 [Asserts]

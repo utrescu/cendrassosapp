@@ -1,7 +1,7 @@
 # Comprova l'error que es rep en no enviar res
 # Per la forma de funcionar no es pot repetir
 
-POST https://djauproves.cendrassos.net/api/token/capture_token_api/
+POST https://{{host}}/api/token/capture_token_api/
 Content-Type: application/json
 {
 	"key": "113d735b-efe1-4629-97a0-233f30ae20dc",
@@ -19,7 +19,7 @@ jsonpath "$.error[0]" == "ups! Aquest token no serveix"
 # Fer login
 # ------------------------------------------------------------------------
 
-POST https://djauproves.cendrassos.net/api-token-auth/
+POST https://{{host}}/api-token-auth/
 Content-Type: application/json
 {
     "username":"{{my_username}}",

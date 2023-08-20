@@ -1,10 +1,10 @@
 # Comprova l'error si no enviem token
 # ------------------------------------------------------------------------------
-GET https://djauproves.cendrassos.net/api/token/alumnes/dades/
+GET https://{{host}}/api/token/alumnes/dades/
 Content-Type: application/json
 Authorization: JWT
 
 HTTP 401
 [Asserts]
 jsonpath "$.detail" exists
-jsonpath "$.detail" == "Invalid Authorization header. No credentials provided."
+jsonpath "$.detail" == "Credencials d'autenticació no disponibles."

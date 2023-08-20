@@ -1,6 +1,6 @@
 # No podem entrar si no hi ha dades
 # -----------------------------------------------------------------------------
-POST https://djauproves.cendrassos.net/api-token-auth/
+POST https://{{host}}/api-token-auth/
 Content-Type: application/json
 {
 }

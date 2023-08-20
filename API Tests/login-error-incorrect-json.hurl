@@ -1,6 +1,6 @@
 # No podem entrar si no s'envia un JSON correcte
 
-POST https://djauproves.cendrassos.net/api-token-auth/
+POST https://{{host}}/api-token-auth/
 Content-Type: application/json
 "{  patata"
 

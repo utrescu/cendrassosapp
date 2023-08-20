@@ -2,25 +2,25 @@
 # Comprova que l'alumne pot fer login per obtenir el token
 # ------------------------------------------------------------------------------
 
-POST https://djauproves.cendrassos.net/api-token-auth/
+POST https://{{host}}/api-token-auth/
 Content-Type: application/json
 {
-	"username": "APILd2K",
-	"password": "TJmHR79PCxjA"
+	"username": "{{username}}",
+	"password": "{{password}}"
 }
 
 HTTP 200
 [Captures]
-token: jsonpath "$.token"
+token: jsonpath "$.access"
 [Asserts]
 header "Content-Type" == "application/json"
 
 
 # Comprova que l'alumne pot recuperar dades de família
 # ------------------------------------------------------------------------------
-GET https://djauproves.cendrassos.net/api/token/alumnes/dades/
+GET https://{{host}}/api/token/alumnes/dades/
 Content-Type: application/json
-Authorization: JWT {{token}}
+Authorization: Bearer {{token}}
 
 HTTP 200
 ## TODO Comprova?

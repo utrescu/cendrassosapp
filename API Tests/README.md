@@ -8,10 +8,18 @@ La instal·lació no hauria de ser un problema ja que només cal obtenir el bina
 
 > El test d'obtenir credencials està a part perquè només es pot executar una sola vegada.
 
+Abans d'executar els tests cal tenir un usuari i una contrasenya verificats. S'edita el fitxer `vars.env` i s'hi defineix el host, l'usuari i la contrasenya:
+
+```ìni
+host=djauproves.cendrassos.net
+username=APILd2K
+password=TJmHR79PCxjA
+```
+
 Per executar tots els tests:
 
 ```bash
-hurl --test --error-format=long *.hurl
+hurl --test --variables-file vars.env --error-format=long *.hurl
 ```
 
 Va mostrant l'execució de cada un dels tests i en acabar dóna una estadística del resultat:

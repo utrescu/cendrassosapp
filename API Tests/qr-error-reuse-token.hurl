@@ -1,7 +1,7 @@
 # Comprova l'error que es rep en reutilitzar el token
 # ------------------------------------------------------------------------
 
-POST https://djauproves.cendrassos.net/api/token/capture_token_api/
+POST https://{{host}}/api/token/capture_token_api/
 Content-Type: application/json
 {
 	"key": "bc25a93a-9b24-4c1c-9deb-01c8ded47f22",

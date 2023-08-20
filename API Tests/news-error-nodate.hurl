@@ -1,23 +1,23 @@
 # Comprova que dona error si un usuari logejat no envia la last_sync_date
 
-POST https://djauproves.cendrassos.net/api-token-auth/
+POST https://{{host}}/api-token-auth/
 Content-Type: application/json
 {
-	"username": "APILd2K",
-	"password": "TJmHR79PCxjA"
+	"username": "{{username}}",
+	"password": "{{password}}"
 }
 
 HTTP 200
 [Captures]
-token: jsonpath "$.token"
+token: jsonpath "$.access"
 [Asserts]
 header "Content-Type" == "application/json"
 
 
 
-POST https://djauproves.cendrassos.net/api/token/notificacions/news/
+POST https://{{host}}/api/token/notificacions/news/
 Content-Type: application/json
-Authorization: JWT {{token}}
+Authorization: Bearer {{token}}
 
 
 HTTP 400
