@@ -8,7 +8,7 @@ La instal·lació no hauria de ser un problema ja que només cal obtenir el bina
 
 > El test d'obtenir credencials està a part perquè només es pot executar una sola vegada.
 
-Abans d'executar els tests cal tenir un usuari i una contrasenya verificats. S'edita el fitxer `vars.env` i s'hi defineix el host, l'usuari i la contrasenya:
+Abans d'executar els tests cal tenir un usuari i una contrasenya verificats. S'edita el fitxer `vars.env` i s'hi defineix el host on està instal·lat el programa, l'usuari amb el que es faran les proves i la seva contrasenya:
 
 ```ìni
 host=djauproves.cendrassos.net
