@@ -16,12 +16,12 @@ header "Content-Type" == "application/json"
 
 
 
-GET https://{{host}}/api/token/sortides/
+GET https://{{host}}/api/token/sortides/{{sortidaInexistent}}/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-HTTP 200
+HTTP 400
 [Asserts]
-jsonpath "$.[0].id" exists
-jsonpath "$.[0].darrera_sincronitzacio" exists
+jsonpath "$.error" exists
+jsonpath "$.error[0]" == "Sortida inexistent"
 
