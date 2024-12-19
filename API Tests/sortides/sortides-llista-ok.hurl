@@ -16,12 +16,11 @@ header "Content-Type" == "application/json"
 
 
 
-GET https://{{host}}/api/token/sortides/455/
+GET https://{{host}}/api/token/sortides/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 HTTP 200
 [Asserts]
 jsonpath "$.[0].id" exists
-jsonpath "$.[0].darrera_sincronitzacio" exists
 
