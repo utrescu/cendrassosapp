@@ -4,8 +4,11 @@ import 'package:cendrassos/api/login_response.dart';
 import 'package:cendrassos/api/news_query.dart';
 import 'package:cendrassos/api/news_response.dart';
 import 'package:cendrassos/api/notificacions_response.dart';
+import 'package:cendrassos/api/resum_sortides_response.dart';
 import 'package:cendrassos/config_djau.dart';
 import 'package:cendrassos/models/perfil.dart';
+import 'package:cendrassos/models/resum_sortida.dart';
+import 'package:cendrassos/models/sortida.dart';
 import 'package:flutter/material.dart';
 
 import '../models/alumne.dart';
@@ -79,4 +82,27 @@ class NotificacionsRepository {
     final response = await _helper.get(url, getHeaders(token));
     return Perfil.fromJson(response);
   }
+
+
+// Sortides
+
+  Future<List<ResumSortida>> getSortides(String token) async {
+    var url = pathSortides;
+
+    final response = await _helper.get(url, getHeaders(token));
+
+    var results = ResumSortidesResponse.fromApi(response);
+    return results.results;
+  }
+
+  Future<Sortida> getSortida(int id, String token) async {
+    var url = "$pathNotificacions/$id";
+
+    final response = await _helper.get(url, getHeaders(token));
+    return Sortida.fromJson(response);
+  }
+
+  
+
+
 }

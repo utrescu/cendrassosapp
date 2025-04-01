@@ -54,6 +54,9 @@ const String errorCarregant =
     "ERROR carregant les dades. Torna-ho a provar més tard";
 const String errorQR = "El codi QR és incorrecte";
 
+// Sortides
+const String carregantSortides = "Recuperant sortides";
+
 // Tipus d'errors de l'API
 const String communicationExceptionMessage = "Error durant la comunicació: ";
 const String invalidPetitionExceptionMessage = "Petició invàlida: ";
@@ -79,6 +82,9 @@ const String tokenRefresh = "/api-token-refresh";
 const String pathNotificacions = "/api/token/notificacions/mes";
 const String pathNews = "/api/token/notificacions/news";
 const String pathProfile = "/api/token/alumnes/dades";
+const String pathSortides = "/api/token/sortides";
+const String pathPagamentSortides = "/sortides/pagoOnlineApi/";
+
 
 const String recuperarUrl =
     "$baseUrl/usuaris/sendPasswdByEmail/";
