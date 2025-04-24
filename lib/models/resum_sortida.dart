@@ -26,7 +26,12 @@ class ResumSortida {
 
   @override
   bool operator ==(Object other) =>
-      other is ResumSortida && other.id == id;
+      other is ResumSortida && 
+      other.runtimeType == runtimeType &&
+      other.id == id;
+
+  @override
+  int get hashCode => id.hashCode;
 
   factory ResumSortida.fromJson(dynamic json) {
     return ResumSortida(
