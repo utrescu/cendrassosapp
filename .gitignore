@@ -47,3 +47,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 .zhistory
+android/app/local.properties
+android/app/.gradle/config.properties
