@@ -4,6 +4,7 @@ import 'package:cendrassos/models/perfil.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/app_menu_bar.dart';
 import 'package:cendrassos/screens/components/helpers.dart';
+import 'package:cendrassos/screens/sortides_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -133,6 +134,8 @@ class ProfilePage extends StatelessWidget {
         haveleading: true,
         gotoUserPage: () =>
             {Navigator.of(context).pushNamed(UsersPage.routeName)},
+        gotoSortides: () =>
+            {Navigator.of(context).pushNamed(SortidesPage.routeName)},
       ),
       body: SingleChildScrollView(
         child: Padding(

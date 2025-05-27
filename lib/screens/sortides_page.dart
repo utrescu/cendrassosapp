@@ -68,8 +68,11 @@ class _SortidesPageState extends State<SortidesPage> {
     var nom = currentLogin.alumne.nom;
 
     return Scaffold(
-      appBar:
-          AppMenuBar(nom: nom, haveleading: false, gotoUserPage: gotoUserPage),
+      appBar: AppMenuBar(
+          nom: nom,
+          haveleading: false,
+          gotoUserPage: gotoUserPage,
+          gotoSortides: null),
       body: RefreshIndicator(
         onRefresh: () => _bloc.fetchSortides(),
         child: StreamBuilder<ApiResponse<List<ResumSortida>>>(
@@ -99,9 +102,7 @@ class _SortidesPageState extends State<SortidesPage> {
   }
 
   void _showDetails(BuildContext context, int id) async {
-    
     // Mostrar el detall. Dialeg? Pàgina nova?
-    
   }
 
   Widget buildLlistaSortides(List<ResumSortida> sortides) {
@@ -109,7 +110,10 @@ class _SortidesPageState extends State<SortidesPage> {
       itemCount: sortides.length,
       itemBuilder: (context, index) {
         final post = sortides[index];
-        return SortidaListItem(sortida: post, showDetail: _showDetails,);
+        return SortidaListItem(
+          sortida: post,
+          showDetail: _showDetails,
+        );
       },
     );
   }

@@ -7,6 +7,7 @@ import 'package:cendrassos/api/api_response.dart';
 import 'package:cendrassos/providers/djau.dart';
 import 'package:cendrassos/screens/components/calendari_notificacions.dart';
 import 'package:cendrassos/screens/components/helpers.dart';
+import 'package:cendrassos/screens/sortides_page.dart';
 import 'package:cendrassos/screens/users_page.dart';
 import 'package:cendrassos/services/background_tasks.dart';
 import 'package:cendrassos/utils/global_navigator.dart';
@@ -167,6 +168,10 @@ class _DashBoardState extends State<Dashboard> {
     Navigator.of(context).pushNamed(UsersPage.routeName).then(onGoBack);
   }
 
+  void gotoSortides() {
+    Navigator.of(context).pushNamed(SortidesPage.routeName).then(onGoBack);
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentLogin = context.watch<DjauModel>();
@@ -174,8 +179,11 @@ class _DashBoardState extends State<Dashboard> {
     var nom = currentLogin.alumne.nom;
 
     return Scaffold(
-      appBar:
-          AppMenuBar(nom: nom, haveleading: false, gotoUserPage: gotoUserPage),
+      appBar: AppMenuBar(
+          nom: nom,
+          haveleading: false,
+          gotoUserPage: gotoUserPage,
+          gotoSortides: gotoSortides),
       body: RefreshIndicator(
         onRefresh: () => _bloc.fetchNotificacions(_month),
         child: StreamBuilder<ApiResponse<List<Notificacio>>>(

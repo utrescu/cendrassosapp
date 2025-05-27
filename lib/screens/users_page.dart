@@ -1,3 +1,5 @@
+import 'package:cendrassos/screens/sortides_page.dart';
+
 import '../config_djau.dart';
 import 'components/helpers.dart';
 import 'components/alumne_item.dart';
@@ -19,7 +21,6 @@ class UsersPage extends StatelessWidget {
 
   UsersPage({Key? key}) : super(key: key);
 
-
   void loadData(BuildContext context) async {
     final djau = Provider.of<DjauModel>(context, listen: false);
     _users.value = await djau.getAlumnes();
@@ -38,6 +39,10 @@ class UsersPage extends StatelessWidget {
 
   void gotoNewAlumne() {
     GlobalNavigator.gotoNewAlumne();
+  }
+
+  void gotoSortidesPage() {
+    GlobalNavigator.forgetAndGo(SortidesPage.routeName);
   }
 
   void _gotoDashboard(BuildContext context, String username) async {
@@ -63,7 +68,11 @@ class UsersPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppMenuBar(nom: nom, haveleading: true, gotoUserPage: null),
+      appBar: AppMenuBar(
+          nom: nom,
+          haveleading: true,
+          gotoUserPage: null,
+          gotoSortides: gotoSortidesPage),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Anar a pàgina de login per afegir un alumne nou

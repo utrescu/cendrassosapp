@@ -104,9 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
                           var x = await _login(context);
-                          if (mounted) {
-                            gotoDashboard(x, context);
-                          }
+                          if (!context.mounted) return;
+                          gotoDashboard(x, context);
                         }
                       }),
                 ),

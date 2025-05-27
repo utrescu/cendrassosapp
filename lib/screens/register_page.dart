@@ -150,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ? null
                         : () async {
                             var x = await _getUsername(context);
-                            if (mounted) {
+                            if (context.mounted) {
                               gotoUsers(x, context);
                             }
                           },
