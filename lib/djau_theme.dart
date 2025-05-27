@@ -72,6 +72,7 @@ var cendrassosTheme = ThemeData(
   primaryColorLight: primaryColorLight,
   primaryColorDark: primaryColorDark,
   colorScheme: colorScheme,
+  scaffoldBackgroundColor: backgroundColor,
   textTheme: textTheme.apply(
     bodyColor: primaryColor,
     displayColor: Colors.white,
