@@ -8,6 +8,7 @@ import 'package:cendrassos/screens/loading_page.dart';
 import 'package:cendrassos/screens/login_page.dart';
 import 'package:cendrassos/screens/profile_page.dart';
 import 'package:cendrassos/screens/scanqr_page.dart';
+import 'package:cendrassos/screens/sortida_detail_page.dart';
 import 'package:cendrassos/screens/sortides_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/register_page.dart';
@@ -31,6 +32,7 @@ class Routes {
     UsersPage.routeName: (context) => UsersPage(),
     ProfilePage.routeName: (context) => const ProfilePage(),
     SortidesPage.routeName: (context) => const SortidesPage(),
+    SortidaDetailPage.routeName: (context) => const SortidaDetailPage(),
   };
 
   Routes({this.initialRoute}) {

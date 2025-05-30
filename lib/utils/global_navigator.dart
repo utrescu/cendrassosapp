@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cendrassos/djau_theme.dart';
 import 'package:cendrassos/screens/register_page.dart';
+import 'package:cendrassos/screens/sortida_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../config_djau.dart';
@@ -50,6 +52,10 @@ class GlobalNavigator {
     GlobalNavigator.go(Dashboard.routeName);
   }
 
+  static gotoSortidaDetail(context, int id) async {
+      GlobalNavigator.goToId(SortidaDetailPage.routeName, id);
+  }
+
   static forgetAndGo(String initialRoute) =>
       Navigator.popAndPushNamed(navigatorKey.currentContext!, initialRoute);
 
@@ -68,6 +74,13 @@ class GlobalNavigator {
 
   static go(String route) =>
       Navigator.pushNamed(navigatorKey.currentContext!, route);
+
+  static goToId(String route, int id) =>
+      Navigator.pushNamed(
+        navigatorKey.currentContext!, 
+        route,
+        arguments: { 'id': id}, 
+      );
 
   static showAlertDialog(String detail) {
     showDialog(
@@ -130,6 +143,8 @@ class GlobalNavigator {
     return showDemoDialog<void>(
         context: navigatorKey.currentContext!,
         child: AlertDialog(
+          backgroundColor: backgroundColor,
+          surfaceTintColor: Colors.transparent,
           title: Text(title),
           content: Text(detail),
           actions: [
@@ -141,4 +156,6 @@ class GlobalNavigator {
           ],
         ));
   }
+
+
 }

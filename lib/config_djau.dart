@@ -12,7 +12,8 @@ const String baseUrl = "https://djauproves.cendrassos.net";
 // Mesos d'inici i final del curs
 const int mesIniciCurs = 9;
 const int mesFinalCurs = 6;
-const int intervalNotificacions = 15; // Cada quants minuts comprova notificacions
+const int intervalNotificacions =
+    15; // Cada quants minuts comprova notificacions
 
 // Llista dels tipus de notificacions i els colors amb el que es veuran
 // Comprovar que el text és el que arriba en la notificació. Si en calen
@@ -84,6 +85,4 @@ const String pathProfile = "/api/token/alumnes/dades";
 const String pathSortides = "/api/token/sortides";
 const String pathPagamentSortides = "/sortides/pagoOnlineApi/";
 
-
-const String recuperarUrl =
-    "$baseUrl/usuaris/sendPasswdByEmail/";
+const String recuperarUrl = "$baseUrl/usuaris/sendPasswdByEmail/";

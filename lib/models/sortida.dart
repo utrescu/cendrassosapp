@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class Sortida {
-  final int idPagament;
+  final int? idPagament;
   final String titol;
   final String desde;
   final String finsa;
@@ -22,20 +22,11 @@ class Sortida {
   static String dataLimitField = "dataLimitPagament";
   static String realitzatField = "realitzat";
 
-  Sortida(
-    this.titol,
-    this.desde,
-    this.finsa,
-    this.programa,
-    this.preu,
-    this.dataLimit,
-    this.realitzat,
-    this.idPagament
-  );
+  Sortida(this.titol, this.desde, this.finsa, this.programa, this.preu,
+      this.dataLimit, this.realitzat, this.idPagament);
 
   factory Sortida.fromJson(dynamic json) {
     return Sortida(
-      
       json[titolField] as String,
       json[desdeField] as String,
       json[finsaField] as String,
@@ -43,11 +34,10 @@ class Sortida {
       json[preuField] as String,
       json[dataLimitField] as String,
       json[realitzatField] as bool,
-      json[idPagamentField] as int,
+      json[idPagamentField] as int?,
     );
   }
 
-  
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> dades = <String, dynamic>{};
     dades[titolField] = titol;

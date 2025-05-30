@@ -1,5 +1,6 @@
 import 'package:cendrassos/config_djau.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ErrorRetry extends StatelessWidget {
   final String errorType;
@@ -145,4 +146,16 @@ class Loading extends StatelessWidget {
       ),
     );
   }
+}
+
+String convertirDataPeninsular(context, String textData) {
+  var data = DateFormat("dd/mm/yyyy hh:mm").parse(textData);
+
+  return " ${DateFormat('d MMMM H:m', Localizations.localeOf(context).toString()).format(data)}";
+}
+
+String convertirDataAmerica(context, String textData) {
+  var data = DateFormat("yyyy-mm-d hh:mm").parse(textData);
+
+  return " ${DateFormat('d MMMM H:m', Localizations.localeOf(context).toString()).format(data)}";
 }

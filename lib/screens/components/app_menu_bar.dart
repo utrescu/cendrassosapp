@@ -30,15 +30,15 @@ class AppMenuBar extends StatelessWidget implements PreferredSizeWidget {
               context, ModalRoute.of(context)?.settings.name, {'nom': nom}),
         ),
         IconButton(
+          icon: const Icon(Icons.directions_bus),
+          disabledColor: Theme.of(context).disabledColor,
+          onPressed: gotoSortides,
+        ),
+        IconButton(
           icon: const Icon(Icons.switch_account),
           disabledColor: Theme.of(context).disabledColor,
           onPressed: gotoUserPage,
         ),
-        IconButton(
-          icon: const Icon(Icons.directions_bus),
-          disabledColor: Theme.of(context).disabledColor,
-          onPressed: gotoSortides,
-        )
       ],
     );
   }

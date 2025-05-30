@@ -83,7 +83,6 @@ class NotificacionsRepository {
     return Perfil.fromJson(response);
   }
 
-
 // Sortides
 
   Future<List<ResumSortida>> getSortides(String token) async {
@@ -96,13 +95,9 @@ class NotificacionsRepository {
   }
 
   Future<Sortida> getSortida(int id, String token) async {
-    var url = "$pathNotificacions/$id";
+    var url = "$pathSortides/$id/";
 
     final response = await _helper.get(url, getHeaders(token));
     return Sortida.fromJson(response);
   }
-
-  
-
-
 }

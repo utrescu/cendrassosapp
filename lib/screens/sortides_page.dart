@@ -70,7 +70,7 @@ class _SortidesPageState extends State<SortidesPage> {
     return Scaffold(
       appBar: AppMenuBar(
           nom: nom,
-          haveleading: false,
+          haveleading: true,
           gotoUserPage: gotoUserPage,
           gotoSortides: null),
       body: RefreshIndicator(
@@ -102,7 +102,7 @@ class _SortidesPageState extends State<SortidesPage> {
   }
 
   void _showDetails(BuildContext context, int id) async {
-    // Mostrar el detall. Dialeg? Pàgina nova?
+    GlobalNavigator.gotoSortidaDetail(context,id);
   }
 
   Widget buildLlistaSortides(List<ResumSortida> sortides) {

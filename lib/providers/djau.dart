@@ -3,6 +3,7 @@ import 'package:cendrassos/api/notificacions_repository.dart';
 import 'package:cendrassos/models/alumne.dart';
 import 'package:cendrassos/models/perfil.dart';
 import 'package:cendrassos/models/login.dart';
+import 'package:cendrassos/models/sortida.dart';
 import 'package:cendrassos/services/storage.dart';
 import 'package:flutter/material.dart';
 
@@ -186,4 +187,11 @@ class DjauModel with ChangeNotifier {
     final response = await _repository.getProfile(alumne.token);
     return response;
   }
+
+  // Carregar el detalla de la sortida
+  Future<Sortida> loadSortida(int id) async {
+    final response = await _repository.getSortida(id, alumne.token);
+    return response;
+  }
 }
+

@@ -1,4 +1,5 @@
 import 'package:cendrassos/models/resum_sortida.dart';
+import 'package:cendrassos/screens/components/helpers.dart';
 import 'package:flutter/material.dart';
 
 typedef TryShowDetail = void Function(BuildContext context, int id);
@@ -24,16 +25,12 @@ class SortidaListItem extends StatelessWidget {
   Widget sortidaItemContent(BuildContext context) {
     return ListTile(
       tileColor: Theme.of(context).cardColor,
-      leading: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Image.asset('assets/images/sortides.png', fit: BoxFit.cover),
-      ),
       title: Text(
         sortida.titol,
         textAlign: TextAlign.left,
       ),
-      subtitle: Text(sortida.data),
-      trailing: sortida.pagament
+      subtitle: Text(convertirDataAmerica(context, sortida.data)),
+      trailing: !sortida.realitzat
           ? Icon(
               Icons.payment,
               color: Theme.of(context).primaryColor,
