@@ -104,12 +104,14 @@ class SortidaDetailPage extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               foregroundColor: Theme.of(context).secondaryHeaderColor,
               backgroundColor: Theme.of(context).primaryColor),
+          onPressed: (!sortida.realitzat)
+              ? () async {
+                  // TODO
+                }
+              : null,
           child: const Text(
             'Pagar',
-          ),
-          onPressed: () async {
-            // TODO
-          }),
+          )),
     );
   }
 }
@@ -168,7 +170,8 @@ class SortidaDescription extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: (sortida.idPagament == null)
                 ? Container()
-                : Text("Data límit pel Pagament:\n  ${convertirDataAmerica(context, sortida.dataLimit)}",
+                : Text(
+                    "Data límit pel Pagament:\n  ${convertirDataAmerica(context, sortida.dataLimit)}",
                     style: Theme.of(context).textTheme.labelMedium),
           ),
         ],
