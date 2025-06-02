@@ -5,9 +5,9 @@ const String appName = "Cendrassos";
 // Dades del centre
 const String nomInstitut = "Institut Cendrassos";
 // URL del Djau de proves
-const String baseUrl = "https://djauproves.cendrassos.net";
+// const String baseUrl = "https://djauproves.cendrassos.net";
 // URL del Djau en producció
-// const String baseUrl = "https://djau.cendrassos.net";
+const String baseUrl = "https://djau.cendrassos.net";
 
 // Mesos d'inici i final del curs
 const int mesIniciCurs = 9;
