@@ -151,11 +151,11 @@ class Loading extends StatelessWidget {
 String convertirDataPeninsular(context, String textData) {
   var data = DateFormat("dd/mm/yyyy hh:mm").parse(textData);
 
-  return " ${DateFormat('d MMMM H:m', Localizations.localeOf(context).toString()).format(data)}";
+  return " ${DateFormat('d MMMM hh:mm', Localizations.localeOf(context).toString()).format(data)}";
 }
 
 String convertirDataAmerica(context, String textData) {
   var data = DateFormat("yyyy-mm-d hh:mm").parse(textData);
 
-  return " ${DateFormat('d MMMM H:m', Localizations.localeOf(context).toString()).format(data)}";
+  return " ${DateFormat('d MMMM hh:mm', Localizations.localeOf(context).toString()).format(data)}";
 }

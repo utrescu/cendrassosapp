@@ -168,7 +168,7 @@ class SortidaDescription extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: (sortida.idPagament == null)
                 ? Container()
-                : Text("Data límit pel Pagament:\n  ${sortida.dataLimit}",
+                : Text("Data límit pel Pagament:\n  ${convertirDataAmerica(context, sortida.dataLimit)}",
                     style: Theme.of(context).textTheme.labelMedium),
           ),
         ],
