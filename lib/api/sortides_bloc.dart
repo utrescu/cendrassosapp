@@ -18,11 +18,11 @@ class SortidesBlock {
   Stream<ApiResponse<List<ResumSortida>>> get resumSortidaListStream =>
       _resumSortidaListController.stream;
 
-  SortidesBlock(String token) {
+  SortidesBlock() {
     _resumSortidaListController =
         StreamController<ApiResponse<List<ResumSortida>>>();
     _notificacioRepository = NotificacionsRepository();
-    _token = token;
+    
     fetchSortides();
   }
 
@@ -30,7 +30,7 @@ class SortidesBlock {
     resumSortidaListSink
         .add(ApiResponse.loading(carregantSortides, []));
     try {
-      var dades = await _notificacioRepository.getSortides(_token);
+      var dades = await _notificacioRepository.getSortides();
       resumSortidaListSink.add(ApiResponse.completed(dades));
     } catch (e) {
       resumSortidaListSink.add(ApiResponse.error(e.toString(), []));

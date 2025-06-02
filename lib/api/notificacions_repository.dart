@@ -18,7 +18,11 @@ import '../models/notificacio.dart';
 import 'credentials_response.dart';
 
 class NotificacionsRepository {
-  final ApiBaseHelper _helper = ApiBaseHelper();
+  late final ApiBaseHelper _helper;
+
+  NotificacionsRepository() {
+    _helper = ApiBaseHelper(refreshTokenMethod);
+  }
 
   static String bearerText = "Bearer";
 
@@ -28,6 +32,9 @@ class NotificacionsRepository {
         "Authorization": "$bearerText $token",
       };
 
+  static Login? lastLogin;
+  static String currentToken = "";
+
   Future<LoginResponse> login(Login dades) async {
     var url = pathLogin;
     Map<String, String> requestHeaders = {
@@ -36,7 +43,18 @@ class NotificacionsRepository {
     };
 
     final response = await _helper.post(url, dades.toJson(), requestHeaders);
+    lastLogin = dades;
+    currentToken = response["access"];
+
     return LoginResponse.fromJson(response);
+  }
+
+  Future<LoginResponse> refreshTokenMethod() async {
+    debugPrint('Relogin');
+
+    var response = await login(lastLogin!);
+    currentToken = response.accessToken;
+    return response;
   }
 
   Future<CredentialsResponse> sendQr(CredentialsQuery dades) async {
@@ -50,10 +68,10 @@ class NotificacionsRepository {
     return CredentialsResponse.fromJson(response);
   }
 
-  Future<List<Notificacio>> getNotifications(int mes, String token) async {
+  Future<List<Notificacio>> getNotifications(int mes) async {
     var url = "$pathNotificacions/$mes";
 
-    final response = await _helper.get(url, getHeaders(token));
+    final response = await _helper.get(url, getHeaders(currentToken));
 
     var results = NotificacionsResponse.fromApi(response);
     return results.results;
@@ -76,28 +94,28 @@ class NotificacionsRepository {
     }
   }
 
-  Future<Perfil> getProfile(String token) async {
+  Future<Perfil> getProfile() async {
     var url = pathProfile;
 
-    final response = await _helper.get(url, getHeaders(token));
+    final response = await _helper.get(url, getHeaders(currentToken));
     return Perfil.fromJson(response);
   }
 
 // Sortides
 
-  Future<List<ResumSortida>> getSortides(String token) async {
+  Future<List<ResumSortida>> getSortides() async {
     var url = pathSortides;
 
-    final response = await _helper.get(url, getHeaders(token));
+    final response = await _helper.get(url, getHeaders(currentToken));
 
     var results = ResumSortidesResponse.fromApi(response);
     return results.results;
   }
 
-  Future<Sortida> getSortida(int id, String token) async {
+  Future<Sortida> getSortida(int id) async {
     var url = "$pathSortides/$id/";
 
-    final response = await _helper.get(url, getHeaders(token));
+    final response = await _helper.get(url, getHeaders(currentToken));
     return Sortida.fromJson(response);
   }
 }

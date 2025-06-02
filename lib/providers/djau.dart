@@ -184,13 +184,13 @@ class DjauModel with ChangeNotifier {
 
   /// Carrega el perfil de l'usuari que està actiu en aquest moment
   Future<Perfil> loadPerfil() async {
-    final response = await _repository.getProfile(alumne.token);
+    final response = await _repository.getProfile();
     return response;
   }
 
   // Carregar el detalla de la sortida
   Future<Sortida> loadSortida(int id) async {
-    final response = await _repository.getSortida(id, alumne.token);
+    final response = await _repository.getSortida(id);
     return response;
   }
 }

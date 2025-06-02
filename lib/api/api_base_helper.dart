@@ -7,10 +7,36 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
+import 'package:http/retry.dart';
+
 class ApiBaseHelper {
   static Uri createUrl(urlpath) {
     return Uri.parse("$baseUrl$urlpath$endBaseUrl");
   }
+
+  late RetryClient client;
+  late String newToken;
+
+  ApiBaseHelper(Function relogin) {
+    client = RetryClient(http.Client(),
+        when: (response) => response.statusCode == 401,
+        onRetry: (request, response, retryCount) async {
+          if (retryCount == 0 && response?.statusCode == 401) {
+            var result = await relogin();
+            newToken = result["access"];
+          }
+        });
+  }
+
+  static String bearerText = "Bearer";
+
+  Map<String, String> getHeaders(String token) => {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "$bearerText $token",
+      };
+
+
 
   static const String noInternet =
       "Hi ha problemes per accedir a la xarxa. Proveu-ho més tard";
@@ -34,7 +60,7 @@ class ApiBaseHelper {
     dynamic responseJson;
     try {
       var url = createUrl(path);
-      final response = await http.get(url, headers: headers);
+      final response = await client.get(url, headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
       debugPrint('No net');
@@ -53,7 +79,7 @@ class ApiBaseHelper {
     try {
       var url = createUrl(path);
       final response =
-          await http.post(url, body: jsonEncode(body), headers: headers);
+          await client.post(url, body: jsonEncode(body), headers: headers);
       var responseJson = _returnResponse(response);
       return responseJson;
     } on SocketException {

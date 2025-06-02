@@ -29,7 +29,7 @@ class NotificacioBloc {
     notificationsListSink
         .add(ApiResponse.loading('Recuperant notificacions', []));
     try {
-      var dades = await _notificacioRepository.getNotifications(mes, _token);
+      var dades = await _notificacioRepository.getNotifications(mes);
       notificationsListSink.add(ApiResponse.completed(dades));
     } catch (e) {
       notificationsListSink.add(ApiResponse.error(e.toString(), []));

@@ -29,8 +29,8 @@ class _SortidesPageState extends State<SortidesPage> {
   @override
   void initState() {
     super.initState();
-    final djau = Provider.of<DjauModel>(context, listen: false);
-    _bloc = SortidesBlock(djau.alumne.token);
+//    final djau = Provider.of<DjauModel>(context, listen: false);
+    _bloc = SortidesBlock();
   }
 
   @override
@@ -102,7 +102,7 @@ class _SortidesPageState extends State<SortidesPage> {
   }
 
   void _showDetails(BuildContext context, int id) async {
-    GlobalNavigator.gotoSortidaDetail(context,id);
+    GlobalNavigator.gotoSortidaDetail(context, id);
   }
 
   Widget buildLlistaSortides(List<ResumSortida> sortides) {
