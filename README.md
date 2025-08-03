@@ -1,5 +1,10 @@
 # cendrassos
 
+> AQUEST REPOSITORI QUEDA ABANDONAT
+> 
+> A partir d'ara tot el desenvolupament de l'aplicació es farà a https://github.com/informatica-cendrassos/DjauApp
+
+
 Frontend de l'aplicació mòbil del Djau.
 
 > Tot i que haria de ser possible executar-lo en Apple IOS només s'ha provat en Android.
